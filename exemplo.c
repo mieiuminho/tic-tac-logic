@@ -57,19 +57,26 @@ COMECAR_HTML;
       for(j=0;j<e.num_cols;j++){
         switch(e.grelha[i][j]){
           case VAZIA : e.grelha[i][j]=SOL_X;
-                       FECHAR_LINK;
                        ABRIR_LINK(estado2str(e));
-                        IMAGEM(i,j,40, "vazio.png"); break;
+                       e.grelha[i][j]=VAZIA;
+                       IMAGEM(i,j,40, "vazio.png"); break;
           case BLOQUEADA: IMAGEM(i,j,40, "bloq.png"); break;
           case FIXO_X: IMAGEM(i,j,40, "X.png"); break;
-          case SOL_X: IMAGEM(i,j,40, "X.png"); break;
+          case SOL_X:  e.grelha[i][j]=SOL_O;
+                       ABRIR_LINK(estado2str(e));
+                       e.grelha[i][j]=SOL_X;
+          						 IMAGEM(i,j,40, "X.png"); break;
           case FIXO_O: IMAGEM(i,j,40, "O.png"); break;
-          case SOL_O: IMAGEM(i,j,40, "O.png"); break;
+          case SOL_O:  e.grelha[i][j]=VAZIA;
+                       ABRIR_LINK(estado2str(e));
+                       e.grelha[i][j]=SOL_O;
+          						 IMAGEM(i,j,40, "O.png"); break;
         }
+        FECHAR_LINK;
       }
     }
 
-    ABRIR_LINK("http://localhost/cgi-bin/GandaGalo");
+    ABRIR_LINK("http://localhost/cgi-bin/GandaGalo?");
     IMAGEM(0, i/2, 80, "novo.png");
     FECHAR_LINK;
 
