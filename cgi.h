@@ -23,7 +23,7 @@ Macros úteis para gerar CGIs
 @param tamx O comprimento do svg
 @param tamy A altura do svg
 */
-#define ABRIR_SVG(tamx, tamy)				printf("<svg width=%d height=%d>\n", tamx, tamy)
+#define ABRIR_SVG(tamx, tamy, color)				printf("<svg width=%d height=%d style='background: %s'>\n", tamx, tamy, color)
 /**
 \brief Macro para fechar um svg
 */

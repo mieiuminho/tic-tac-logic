@@ -39,7 +39,7 @@ Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado
 */
 ESTADO ler_estado(char *args) {
   if(strlen(args) == 0)
-  return inicializar(5,5);
+  return inicializar(3,3);
   return str2estado(args);
 }
 
@@ -52,7 +52,7 @@ ESTADO e= ler_estado(getenv("QUERY_STRING"));
 int j, i;
 
 COMECAR_HTML;
-  ABRIR_SVG(600, 600);
+  ABRIR_SVG(600, 600, "#000");
     for(i=0;i<e.num_lins;i++){
       for(j=0;j<e.num_cols;j++){
         switch(e.grelha[i][j]){
