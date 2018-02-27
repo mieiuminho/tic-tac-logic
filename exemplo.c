@@ -9,9 +9,11 @@ Esqueleto do programa
 #include "cgi.h"
 #include "estado.h"
 
-#define MAX_BUFFER		10240
-#define GRELHA			4
-#define TAM			40
+#define MAX_BUFFER  10240
+#define GRELHA  4
+#define TAM 40
+#define ECRA_X 1904
+#define ECRA_Y 938
 
 /**
 Função que inicializa o estado
@@ -52,7 +54,7 @@ ESTADO e= ler_estado(getenv("QUERY_STRING"));
 int j, i;
 
 COMECAR_HTML;
-  ABRIR_SVG(600, 600, "#000");
+  ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     for(i=0;i<e.num_lins;i++){
       for(j=0;j<e.num_cols;j++){
         switch(e.grelha[i][j]){
@@ -65,12 +67,12 @@ COMECAR_HTML;
           case SOL_X:  e.grelha[i][j]=SOL_O;
                        ABRIR_LINK(estado2str(e));
                        e.grelha[i][j]=SOL_X;
-          						 IMAGEM(i,j,40, "X.png"); break;
+                       IMAGEM(i,j,40, "X.png"); break;
           case FIXO_O: IMAGEM(i,j,40, "O.png"); break;
           case SOL_O:  e.grelha[i][j]=VAZIA;
                        ABRIR_LINK(estado2str(e));
                        e.grelha[i][j]=SOL_O;
-          						 IMAGEM(i,j,40, "O.png"); break;
+                       IMAGEM(i,j,40, "O.png"); break;
         }
         FECHAR_LINK;
       }
