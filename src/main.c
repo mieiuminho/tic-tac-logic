@@ -29,7 +29,26 @@ ESTADO inicializar(int nl, int nc) {
     for(j=0;j<nc;j++)
       e.grelha[i][j]=VAZIA;
   }
+  e.grelha [1][2] = BLOQUEADA;
+  e.grelha [3][4] = FIXO_O;
+  e.grelha [2][3] = FIXO_X;
   return e;
+}
+
+void adicionaHistorico(ESTADO * e,int i,int j)
+{
+  if ((*e).grelha[i][j]==VAZIA)
+  {
+    (*e).hist[(*e).cpos].x = i;
+    (*e).hist[(*e).cpos].y = j;
+    (*e).cpos++;
+  }
+}
+
+void retiraHistorico(ESTADO * e,int i,int j)
+{
+  if ((*e).grelha[i][j]==VAZIA)
+  (*e).cpos--;
 }
 
 /**
@@ -42,34 +61,34 @@ ESTADO ler_estado(char *args) {
   return inicializar(5,5);
   return str2estado(args);
 }
-
+void fazTab (ESTADO * e)
+{
+  int i,j,sf;
+  getScaleFactor(&sf,(*e));
+  for(i=0;i<(*e).num_lins;i++){
+      for(j=0;j<(*e).num_cols;j++){
+        if ((*e).grelha[i][j]>FIXO_O)
+        {
+          adicionaHistorico(e,i,j);
+          drawPeca(i,j,(*e),sf);
+          retiraHistorico(e,i,j);
+        }
+        else drawPeca(i,j,(*e),sf);
+      }
+    }
+}
 /**
 Função principal do programa
 @returns 0 se tudo correr bem
 */
 int main() {
 ESTADO e = ler_estado(getenv("QUERY_STRING"));
-int j, i, sf;
 char holder_undo;
-getScaleFactor(&sf,e);
 COMECAR_HTML;
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
-    for(i=0;i<e.num_lins;i++){
-      for(j=0;j<e.num_cols;j++){
-        if (e.grelha[i][j]>FIXO_O)
-        {
-          e.hist[e.cpos].x=i;
-          e.hist[e.cpos].y=j;
-          e.cpos++;
-          drawPeca(i,j,e,sf);
-          e.cpos--;
-        }
-        else drawPeca(i,j,e,sf);
-      }
-    }
-
+    fazTab(&e);
     abrirLink(e);
-    IMAGEM(0, i/2, 80, "novo.png");
+    IMAGEM(0, 4, 80, "novo.png");
     FECHAR_LINK;
     holder_undo = e.grelha[e.hist[e.cpos].x][e.hist[e.cpos].y];
     if (e.cpos)
@@ -77,12 +96,12 @@ COMECAR_HTML;
       e.grelha[e.hist[(e.cpos)-1].x][e.hist[(e.cpos)-1].y] = VAZIA;
       e.cpos--;
       abrirLink(e);
-      IMAGEM(0, i/4, 80, "novo.png");
+      IMAGEM(0, 0, 80, "novo.png");
       e.grelha[e.hist[e.cpos].x][e.hist[e.cpos].y] = holder_undo;
       e.cpos++;
       FECHAR_LINK;
     }
-    else IMAGEM(0, i/4, 80, "novo.png");
+    else IMAGEM(0, 0, 80, "novo.png");
 
    FECHAR_SVG;
 FECHAR_HTML;
