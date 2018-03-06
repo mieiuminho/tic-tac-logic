@@ -8,7 +8,6 @@ char *estado2str(ESTADO e) {
 	unsigned char *p = (unsigned char *) &e;
 	int i;
 	buffer[0] = 0;
-		sprintf(buffer, "GandaGalo?");
 	for(i = 0; i < (int) sizeof(ESTADO); i++)
 		sprintf(buffer, "%s%02x", buffer, p[i]);
 

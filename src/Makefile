@@ -1,13 +1,13 @@
 CFLAGS=-std=c11 -Wall -Wextra -pedantic -g
-FICHEIROS=cgi.h estado.c estado.h exemplo.c Makefile
+FICHEIROS=cgi.h estado.c estado.h graphics.c graphics.h main.c Makefile
 EXECUTAVEL=GandaGalo
 
 install: $(EXECUTAVEL)
 	sudo cp $(EXECUTAVEL) /usr/lib/cgi-bin
 	touch install
 
-$(EXECUTAVEL): exemplo.o estado.o
-	cc -o $(EXECUTAVEL) exemplo.o estado.o
+$(EXECUTAVEL): main.o estado.o graphics.o
+	cc -o $(EXECUTAVEL) main.o estado.o graphics.o
 
 imagens:
 	sudo mkdir -p /var/www/html/images
@@ -23,5 +23,7 @@ doc:
 clean:
 	rm -rf *.o $(EXECUTAVEL) Doxyfile latex html install
 
+
 estado.o: estado.c estado.h
-exemplo.o: exemplo.c cgi.h estado.h
+graphics.o: graphics.c graphics.h estado.h cgi.h
+main.o: main.c cgi.h estado.h
