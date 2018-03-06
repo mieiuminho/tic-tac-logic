@@ -11,9 +11,7 @@ $(EXECUTAVEL): exemplo.o estado.o
 
 imagens:
 	sudo mkdir -p /var/www/html/images
-	sudo cp *.png /var/www/html/images
-	sudo cp *.jpg /var/www/html/images
-	sudo cp *.svg /var/www/html/images
+	sudo cp img/*.png /var/www/html/images
 
 GandaGalo.zip: $(FICHEIROS)
 	zip -9 GandaGalo.zip $(FICHEIROS)
