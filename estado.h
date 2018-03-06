@@ -11,13 +11,20 @@ Definição do estado e das funções que convertem estados em strings e vice-ve
 
 typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O} VALOR;
 
+typedef struct jogada {
+  int x;
+  int y;
+} JOGADA;
+
 /**
 \brief Estrutura que armazena o estado do jogo
 */
 typedef struct estado {
-	char num_lins;
-	char num_cols;
-	char grelha[MAX_GRID][MAX_GRID];
+  char num_lins;
+  char num_cols;
+  char grelha[MAX_GRID][MAX_GRID];
+  JOGADA hist[30];
+  int cpos;
 } ESTADO;
 
 /**
@@ -28,7 +35,7 @@ typedef struct estado {
 char *estado2str(ESTADO e);
 
 /**
-\brief Função que converte uma string num estado 
+\brief Função que converte uma string num estado
 @param argumentos Uma string contendo os argumentos passados à CGI
 @returns O estado correspondente à string dos argumentos
 */

@@ -29,6 +29,7 @@ ESTADO inicializar(int nl, int nc) {
   int i,j;
   e.num_lins=nl;
   e.num_cols=nc;
+  e.cpos=0;
   for(i=0;i<nl;i++){
     for(j=0;j<nc;j++)
       e.grelha[i][j]=VAZIA;
@@ -81,7 +82,7 @@ Função principal do programa
 int main() {
 ESTADO e = ler_estado(getenv("QUERY_STRING"));
 int j, i, sf;
-char holder;
+char holder_draw,holder_undo;
 getScaleFactor(&sf,e);
 COMECAR_HTML;
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
@@ -89,11 +90,15 @@ COMECAR_HTML;
       for(j=0;j<e.num_cols;j++){
         if (e.grelha[i][j]>FIXO_X)
         {
-          holder = e.grelha[i][j];
+          holder_draw = e.grelha[i][j];
           MUDA_SEGUINTE(i,j,e);
+          e.hist[e.cpos].x=i;
+          e.hist[e.cpos].y=j;
+          e.cpos++;
           ABRIR_LINK(estado2str(e));
-          drawPeca(i,j,holder,e,sf);
-          e.grelha[i][j] = holder;
+          drawPeca(i,j,holder_draw,e,sf);
+          e.cpos--;
+          e.grelha[i][j] = holder_draw;
           FECHAR_LINK;
         }
         else drawPeca(i,j,e.grelha[i][j],e,sf);
@@ -103,6 +108,18 @@ COMECAR_HTML;
     ABRIR_LINK("http://localhost/cgi-bin/GandaGalo?");
     IMAGEM(0, i/2, 80, "novo.png");
     FECHAR_LINK;
+    holder_undo = e.grelha[e.hist[e.cpos].x][e.hist[e.cpos].y];
+    if (e.cpos)
+    {
+      e.grelha[e.hist[(e.cpos)-1].x][e.hist[(e.cpos)-1].y] = VAZIA;
+      e.cpos--;
+      ABRIR_LINK(estado2str(e));
+      IMAGEM(0, i/4, 80, "novo.png");
+      e.grelha[e.hist[e.cpos].x][e.hist[e.cpos].y] = holder_undo;
+      e.cpos++;
+      FECHAR_LINK;
+    }
+    else IMAGEM(0, i/4, 80, "novo.png");
 
    FECHAR_SVG;
 FECHAR_HTML;

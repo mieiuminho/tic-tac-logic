@@ -11,7 +11,7 @@ char *estado2str(ESTADO e) {
 		sprintf(buffer, "GandaGalo?");
 	for(i = 0; i < (int) sizeof(ESTADO); i++)
 		sprintf(buffer, "%s%02x", buffer, p[i]);
-	
+
 	return buffer;
 }
 
@@ -25,7 +25,7 @@ ESTADO str2estado(char *argumentos) {
 		sscanf(argumentos, "%2x", &d);
 		p[i] = (unsigned char) d;
 	}
-	
+
 	return e;
 }
 
