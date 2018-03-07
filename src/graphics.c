@@ -4,7 +4,7 @@
 
 void abrirLink (ESTADO e)
 {
-  char link [MAX_BUFFER+36];
+  char link [MAX_BUFFER];
   sprintf(link,"http://localhost/cgi-bin/GandaGalo?%s\n",estado2str(e));
   ABRIR_LINK(link);
 }
