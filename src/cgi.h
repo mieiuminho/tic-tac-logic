@@ -40,6 +40,16 @@ Macros úteis para gerar CGIs
 												ESCALA * X, ESCALA* Y, ESCALA, ESCALA, IMAGE_PATH, FICHEIRO)
 
 /**
+\brief Macro para criar uma imagem usando valores absolutos
+@param X A coordenada X do canto superior esquerdo
+@param Y A coordenada Y do canto superior esquerdo
+@param ESCALA A escala da imagem
+@param FICHEIRO O caminho para o link do ficheiro
+*/
+#define IMAGEM_ABS(X, Y, ESCALA_X, ESCALA_Y, FICHEIRO)		printf("<image x=%d y=%d width=%d height=%d xlink:href=%s%s />\n", \
+												X, Y, ESCALA_X, ESCALA_Y, IMAGE_PATH, FICHEIRO)
+
+/**
 \brief Macro para criar um quadrado
 @param X A coordenada X do canto superior esquerdo
 @param Y A coordenada Y do canto superior esquerdo

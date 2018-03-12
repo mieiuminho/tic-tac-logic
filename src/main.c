@@ -42,7 +42,8 @@ Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado
 @param args O valor da variável (o que é passado depois de ? no URL)
 @returns O estado
 */
-ESTADO ler_estado(char *args) {
+ESTADO ler_estado(char *args)
+{
   if(strlen(args) == 0)
   return inicializar(5,5);
   return str2estado(args);
@@ -54,34 +55,42 @@ void fazTab (ESTADO * e)
   int i,j,sf;
   getScaleFactor(&sf,(*e));
   for(i=0;i<(*e).num_lins;i++){
-      for(j=0;j<(*e).num_cols;j++){
-        if ((*e).grelha[i][j]>FIXO_O)
-        {
-          GET_SEGUINTE(jog,i,j,(*e));
-          adicionaHistorico(e,jog);
-          drawPeca(i,j,(*e),sf);
-          retiraHistorico(e);
-        }
-        else drawPeca(i,j,(*e),sf);
+    for(j=0;j<(*e).num_cols;j++){
+      if ((*e).grelha[i][j]>FIXO_O)
+      {
+        jog.x = i;
+        jog.y = j;
+        jog.peca = (((*e).grelha[i][j]==5) ? 3 : (((*e).grelha[i][j])+1));
+        adicionaHistorico(e,jog);
+        drawPeca(i,j,(*e),sf);
+        retiraHistorico(e);
       }
+      else drawPeca(i,j,(*e),sf);
     }
+  }
 }
+
 /**
 Função principal do programa
 @returns 0 se tudo correr bem
 */
-int main() {
-ESTADO e = ler_estado(getenv("QUERY_STRING"));
-COMECAR_HTML;
-  ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
-    fazTab(&e);
-    abrirLink(inicializar(e.num_lins,e.num_cols));
-      IMAGEM(0, 4, 80, "novo.png");
-    FECHAR_LINK;
-    fazUndo(&e);
-    fazRedo(&e);
-  FECHAR_SVG;
-FECHAR_HTML;
+int main()
+{
+  ESTADO e = ler_estado(getenv("QUERY_STRING"));
+
+  COMECAR_HTML;
+    ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
+      IMAGEM_ABS(752, 0, 400, 200, "title.png");
+      fazTab(&e);
+
+      abrirLink(inicializar(e.num_lins,e.num_cols));
+        IMAGEM_ABS(852, 800, 200, 100, "start.png");
+      FECHAR_LINK;
+
+      fazUndo(&e);
+      fazRedo(&e);
+    FECHAR_SVG;
+  FECHAR_HTML;
 
     return 0;
-  }
+}

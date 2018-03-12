@@ -16,7 +16,7 @@ void getScaleFactor(int * sf, ESTADO e)
 
 void calculaCentroPeca (ESTADO e,int sf,int * fx,int * fy)
 {
-  int cx = ((ECRA_X-DTAB)/2)-1,cy = ((ECRA_Y-DTAB)/2)-1,fnsx,fnsy;//fns = fix non square
+  int cx = ((ECRA_X-DTAB)/2)-1,cy = ((ECRA_Y-DTAB)/2)-1,fnsx,fnsy; //fns = fix non square
   fnsx = (DTAB - (e.num_lins*sf))/2;
   fnsy = (DTAB -(e.num_cols*sf))/2;
   *fx = cx + fnsx;
@@ -34,7 +34,6 @@ void butaoProxEstadoJog (ESTADO e,int i,int j,int sf,char * s)
   IMAGEM(i+cx,j+cy,sf,s);
   FECHAR_LINK;
   e.grelha[i][j] = holder;
-
 }
 
 void drawBloq (ESTADO e,int i,int j,int sf,char * s)

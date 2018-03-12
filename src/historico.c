@@ -11,7 +11,7 @@ void preparaHistorico(ESTADO * e)
 
 void adicionaHistorico(ESTADO * e,JOGADA j)
 {
-  if (j.x != (*e).hist[0].x && j.y != (*e).hist[0].y)
+  if ((j.x) != ((*e).hist[0].x) || (j.y) != ((*e).hist[0].y))
   {
     preparaHistorico(e);
     (*e).hist[0] = j;
@@ -37,11 +37,11 @@ void fazUndo(ESTADO * e)
     (*e).grelha[j.x][j.y] = VAZIA;
     retiraHistorico(e);
     abrirLink(*e);
-    IMAGEM(0,0,50,"undo.png");
+      IMAGEM_ABS(302,400,250,125,"undo.png");
     FECHAR_LINK;
     adicionaHistorico(e,j);
   }
-  else IMAGEM(0,0,50,"undo.png");
+  else IMAGEM_ABS(302,400,250,125,"undo.png");
 }
 
 void fazRedo(ESTADO * e)
@@ -53,9 +53,9 @@ void fazRedo(ESTADO * e)
     (*e).grelha[j.x][j.y] = j.peca;
     retiraHistorico(e);
     abrirLink(*e);
-    IMAGEM(0,3,50,"redo.png");
+      IMAGEM_ABS(1352,400,250,125,"redo.png");
     FECHAR_LINK;
     adicionaHistorico(e,j);
   }
-  else IMAGEM(0,3,50,"redo.png");
+  else IMAGEM_ABS(1352,400,250,125,"redo.png");
 }
