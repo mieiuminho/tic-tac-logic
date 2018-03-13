@@ -17,6 +17,6 @@ void butaoProxEstadoJog (ESTADO e,int i,int j,int sf,char * s);
 
 void drawBloq (ESTADO e,int i,int j,int sf,char * s);
 
-void drawPeca (int i,int j,ESTADO e,int sf);
+void drawPeca (int i,int j,ESTADO e,int sf,int vPeca);
 
 #endif

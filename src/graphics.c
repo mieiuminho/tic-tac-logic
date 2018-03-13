@@ -47,16 +47,16 @@ void drawBloq (ESTADO e,int i,int j,int sf,char * s)
 Coloca a imagem correspondente no local indicado
 @param A posição x e y onde a imagem vai ser colocada assim como um char para identificar qual será essa imagem
 */
-void drawPeca (int i,int j,ESTADO e,int sf)
+void drawPeca (int i,int j,ESTADO e,int sf,int vPeca)
 {
   char s [50];
   switch (e.grelha[i][j])
   {
     case VAZIA : strcpy(s,"vazio.png");break;
-    case SOL_X  : strcpy(s,"X.png");break;
-    case SOL_O : strcpy(s,"O.png");break;
-    case FIXO_O : strcpy(s,"bloqO.png");break;
-    case FIXO_X : strcpy(s,"bloqX.png");break;
+    case SOL_X  : if (vPeca) strcpy(s,"X.png"); else strcpy(s,"wrongX.png");break;
+    case SOL_O :  if (vPeca) strcpy(s,"O.png"); else strcpy(s,"wrongO.png");break;
+    case FIXO_O : if (vPeca) strcpy(s,"bloqO.png"); else strcpy(s,"wrongbloqO.png");break;
+    case FIXO_X : if (vPeca) strcpy(s,"bloqX.png"); else strcpy(s,"wrongbloqX.png");break;
     case BLOQUEADA : strcpy(s,"bloq.png");break;
   }
   if (e.grelha[i][j]>FIXO_O) butaoProxEstadoJog(e,i,j,sf,s);

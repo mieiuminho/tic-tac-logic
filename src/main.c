@@ -9,6 +9,7 @@ Esqueleto do programa
 #include "estado.h"
 #include "graphics.h"
 #include "historico.h"
+#include "valida.h"
 
 #define GRELHA  4
 #define TAM 40
@@ -52,9 +53,10 @@ Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado
 ESTADO ler_estado(char *args)
 {
   if(strlen(args) == 0)
-  return inicializar(5,5);
+  return inicializar(8,8);
   return str2estado(args);
 }
+
 
 void fazTab (ESTADO * e)
 {
@@ -69,10 +71,10 @@ void fazTab (ESTADO * e)
       {
         igualaJog (&jog,i,j,(*e));
         adicionaHistorico(e,jog,0);
-        drawPeca(i,j,(*e),sf);
+        drawPeca(i,j,(*e),sf,validaPeca(e,i,j));
         retiraHistorico(e,0);
       }
-      else drawPeca(i,j,(*e),sf);
+      else drawPeca(i,j,(*e),sf,validaPeca(e,i,j));
     }
   }
 }

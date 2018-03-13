@@ -6,8 +6,8 @@ install: $(EXECUTAVEL)
 	sudo cp $(EXECUTAVEL) /usr/lib/cgi-bin
 	touch install
 
-$(EXECUTAVEL): main.o estado.o graphics.o historico.o
-	cc -o $(EXECUTAVEL) main.o estado.o graphics.o historico.o
+$(EXECUTAVEL): main.o estado.o graphics.o historico.o valida.o
+	cc -o $(EXECUTAVEL) main.o estado.o graphics.o historico.o valida.o
 
 imagens:
 	sudo mkdir -p /var/www/html/images
@@ -27,4 +27,5 @@ clean:
 estado.o: estado.c estado.h
 graphics.o: graphics.c graphics.h estado.h cgi.h
 historico.o: historico.c historico.h estado.h cgi.h graphics.h
+valida.o: estado.h valida.c valida.h
 main.o: main.c cgi.h estado.h historico.h
