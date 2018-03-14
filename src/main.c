@@ -12,7 +12,6 @@ Esqueleto do programa
 
 #define GRELHA  4
 #define TAM 40
-#define GET_SEGUINTE(JOG,I,J,E) JOG.peca = (E.grelha[I][J]==5) ? 3 : ((E.grelha[I][J])+1)
 
 /**
 Função que inicializa o estado
@@ -26,7 +25,8 @@ ESTADO inicializar(int nl, int nc) {
   int i,j;
   e.num_lins=nl;
   e.num_cols=nc;
-  e.compHist=0;
+  e.compHistU=0;
+  e.compHistR=0;
   for(i=0;i<nl;i++){
     for(j=0;j<nc;j++)
       e.grelha[i][j]=VAZIA;
@@ -37,6 +37,13 @@ ESTADO inicializar(int nl, int nc) {
   return e;
 }
 
+void igualaJog (JOGADA * jog,int i,int j,ESTADO e)
+{
+  (*jog).x = i;
+  (*jog).y = j;
+  (*jog).peca = ((e.grelha[i][j]==5) ? 3 : ((e.grelha[i][j])+1));
+}
+//C
 /**
 Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado um valor, chama a função inicializar
 @param args O valor da variável (o que é passado depois de ? no URL)
@@ -54,16 +61,16 @@ void fazTab (ESTADO * e)
   JOGADA jog;
   int i,j,sf;
   getScaleFactor(&sf,(*e));
-  for(i=0;i<(*e).num_lins;i++){
-    for(j=0;j<(*e).num_cols;j++){
+  for(i=0;i<(*e).num_lins;i++)
+  {
+    for(j=0;j<(*e).num_cols;j++)
+    {
       if ((*e).grelha[i][j]>FIXO_O)
       {
-        jog.x = i;
-        jog.y = j;
-        jog.peca = (((*e).grelha[i][j]==5) ? 3 : (((*e).grelha[i][j])+1));
-        adicionaHistorico(e,jog);
+        igualaJog (&jog,i,j,(*e));
+        adicionaHistorico(e,jog,0);
         drawPeca(i,j,(*e),sf);
-        retiraHistorico(e);
+        retiraHistorico(e,0);
       }
       else drawPeca(i,j,(*e),sf);
     }
