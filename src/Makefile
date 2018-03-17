@@ -1,5 +1,5 @@
 CFLAGS=-std=c11 -Wall -Wextra -pedantic -g
-FICHEIROS=cgi.h estado.c estado.h graphics.c graphics.h main.c historico.c Makefile
+FICHEIROS=cgi.h estado.c estado.h graphics.c graphics.h historico.c historico.h main.c valida.c valida.h Makefile
 EXECUTAVEL=GandaGalo
 
 install: $(EXECUTAVEL)
