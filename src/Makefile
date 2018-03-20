@@ -13,6 +13,11 @@ imagens:
 	sudo mkdir -p /var/www/html/images
 	sudo cp img/*.png /var/www/html/images
 
+tabuleiros:
+	sudo mkdir -p /var/www/html/tabuleiros
+	sudo cp tab/*.txt /var/www/html/tabuleiros
+
+
 GandaGalo.zip: $(FICHEIROS)
 	zip -9 GandaGalo.zip $(FICHEIROS)
 

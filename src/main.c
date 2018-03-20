@@ -44,7 +44,7 @@ void igualaJog (JOGADA * jog,int i,int j,ESTADO e)
   (*jog).y = j;
   (*jog).peca = ((e.grelha[i][j]==5) ? 3 : ((e.grelha[i][j])+1));
 }
-//C
+
 /**
 Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado um valor, chama a função inicializar
 @param args O valor da variável (o que é passado depois de ? no URL)
