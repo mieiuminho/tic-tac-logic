@@ -2,7 +2,7 @@
 @file exemplo.c
 Esqueleto do programa
 */
-
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "cgi.h"
@@ -14,6 +14,9 @@ Esqueleto do programa
 #define GRELHA  4
 #define TAM 40
 
+#define TAB_PATH "/var/www/html/tabuleiros/"
+#define MAX_PATH 100
+
 /**
 Função que inicializa o estado
 
@@ -22,7 +25,7 @@ Esta função está vazia
 @returns Um novo estado
 */
 ESTADO inicializar(int nl, int nc) {
-  ESTADO e ;
+  ESTADO e;
   int i,j;
   e.num_lins=nl;
   e.num_cols=nc;
@@ -35,6 +38,38 @@ ESTADO inicializar(int nl, int nc) {
   e.grelha [1][2] = BLOQUEADA;
   e.grelha [3][4] = FIXO_O;
   e.grelha [2][3] = FIXO_X;
+  return e;
+}
+
+ESTADO le_tabuleiro()
+{
+  ESTADO e;
+  int nl, nc;
+  int i,j;
+  char linha[20];
+  char nomef[MAX_PATH];
+
+  sprintf(nomef, "%s%s", TAB_PATH, "tabuleiro1.txt");
+  FILE *fp=fopen(nomef, "r");
+  fscanf(fp, "%d %d", &nl, &nc); // possivel erro
+
+  e.num_lins = nl;
+  e.num_cols = nc;
+  e.compHistU=0;
+  e.compHistR=0;
+
+  for(i=0;i<nl;i++){
+    fscanf(fp, "%s", linha);
+    for(j=0;j<nc;j++)
+      switch (linha[j]) {
+        case 'X':
+        case 'x': e.grelha[j][i] = FIXO_X;break;
+        case 'O':
+        case 'o': e.grelha[j][i] = FIXO_O;break;
+        case '#': e.grelha[j][i] = BLOQUEADA;break;
+        default : e.grelha[j][i] = VAZIA;
+      }
+  }
   return e;
 }
 
@@ -53,10 +88,9 @@ Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado
 ESTADO ler_estado(char *args)
 {
   if(strlen(args) == 0)
-  return inicializar(8,8);
+    return le_tabuleiro();
   return str2estado(args);
 }
-
 
 void fazTab (ESTADO * e)
 {
