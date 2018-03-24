@@ -43,9 +43,13 @@ void push(ESTADO * e,int jog,int iH)
 void pop(ESTADO * e,int iH)
 {
   if (iH)
+  {
     if (e->spR>0) e->spR--;
+  }
   else
+  {
     if (e->spU>0) e->spU--;
+  }
 }
 
 void fazUndo(ESTADO * e)
@@ -57,7 +61,7 @@ void fazUndo(ESTADO * e)
     j = e->undo[(e->spU%MAX_HISTU)-1];
     push(e,j,1);
     toPair(&x,&y,j);
-    holder =e->grelha[x][y];
+    holder = e->grelha[x][y];
     pec = (holder==4) ? 3 : 4;
     e->grelha[x][y] = pec;
     pop(e,0);
@@ -80,7 +84,7 @@ void fazRedo(ESTADO * e)
     j = e->redo[(e->spR%MAX_HISTR)-1];
     toPair(&x,&y,j);
     holder = e->grelha[x][y];
-    e->grelha[x][y] = (holder==VAZIA) ? SOL_O : (holder-1);
+    e->grelha[x][y] = (holder==VAZIA) ? SOL_X : (holder+1);
     pop(e,1);
     push(e,j,0);
     abrirLink(*e);

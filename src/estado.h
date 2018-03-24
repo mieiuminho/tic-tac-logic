@@ -8,7 +8,7 @@ Definição do estado e das funções que convertem estados em strings e vice-ve
 
 /** \brief O tamanho máximo da grelha */
 #define MAX_GRID		20
-#define MAX_HISTU    10
+#define MAX_HISTU    1600
 #define MAX_HISTR    10
 typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O} VALOR;
 

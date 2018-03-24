@@ -29,7 +29,8 @@ ESTADO inicializar(int nl, int nc) {
   int i,j;
   e.num_lins=nl;
   e.num_cols=nc;
-  e.spU=e.spR=0;
+  e.spU=0;
+  e.spR=0;
   for(i=0;i<nl;i++){
     for(j=0;j<nc;j++)
       e.grelha[i][j]=VAZIA;
@@ -54,7 +55,8 @@ ESTADO le_tabuleiro()
 
   e.num_lins = nl;
   e.num_cols = nc;
-  e.spU=e.spR=0;
+  e.spU=0;
+  e.spR=0;
 
   for(i=0;i<nl;i++){
     fscanf(fp, "%s", linha);
@@ -98,6 +100,7 @@ void fazTab (ESTADO * e)
         push(e,jog,0);
         drawPeca(i,j,(*e),sf,validaPeca(e,i,j));
         pop(e,0);
+        printf("%d\n",e->spU);
       }
       else drawPeca(i,j,(*e),sf,validaPeca(e,i,j));
     }
