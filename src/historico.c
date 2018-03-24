@@ -2,70 +2,71 @@
 #include "cgi.h"
 #include "graphics.h"
 
-void preparaHistorico(ESTADO * e,int iH)
+int fromPair (int x,int y)
 {
-  int i,inic;
-  inic = iH ? (*e).compHistR : (*e).compHistU;
-  if (iH)
-    for (i=inic;i>0;i--)
-      (*e).histR[i] = (*e).histR[i-1];
-  else
-    for (i=inic;i>0;i--)
-      (*e).histU[i] = (*e).histU[i-1];
-
+    x*=100;
+    x+=y;
+    return x;
 }
 
-void adicionaHistorico(ESTADO * e,JOGADA j,int iH)
+void toPair (int * x,int * y,int num)
+{
+    if (num>=1000)
+    {
+        (*x)=num/1000;
+        (*x)*=10;
+        (*x)+=(num-((*x)*100))/100;
+        (*y)=num - ((*x)*100);
+    }
+    else
+    {
+        (*x)=num/100;
+        (*y)=num - ((*x)*100);
+    }
+}
+
+
+void push(ESTADO * e,int jog,int iH)
 {
   if (iH)
   {
-    if ((*e).compHistR<10)(*e).compHistR++;
-    preparaHistorico(e,1);
-    (*e).histR[0] = j;
+    e->redo[e->spR % MAX_HISTR]=jog;
+    e->spR++;
   }
   else
   {
-    if ((*e).compHistU<10)(*e).compHistU++;
-    preparaHistorico(e,0);
-    (*e).histU[0] = j;
+    e->undo[e->spU % MAX_HISTU]=jog;
+    e->spU++;
   }
 }
 
-void retiraHistorico(ESTADO * e,int iH)
+void pop(ESTADO * e,int iH)
 {
-  int i;
   if (iH)
-  {
-    for (i=0;i<(*e).compHistR;i++)
-      (*e).histR[i] = (*e).histR[i+1];
-    if ((*e).compHistR>0) (*e).compHistR--;
-  }
+    if (e->spR>0) e->spR--;
   else
-  {
-    for (i=0;i<(*e).compHistU;i++)
-      (*e).histU[i] = (*e).histU[i+1];
-    if ((*e).compHistU>0) (*e).compHistU--;
-  }
+    if (e->spU>0) e->spU--;
 }
 
 void fazUndo(ESTADO * e)
 {
-  if((*e).compHistU)
+  if(e->spU>0)
   {
-    JOGADA j;
+    int j,x,y;
     char pec,holder;
-    j = (*e).histU[0];
-    adicionaHistorico(e,j,1);
-    pec = (j.peca==4) ? 3 : 4;
-    holder = (*e).grelha[j.x][j.y];
-    (*e).grelha[j.x][j.y] = pec;
-    retiraHistorico(e,0);
+    j = e->undo[(e->spU%MAX_HISTU)-1];
+    push(e,j,1);
+    toPair(&x,&y,j);
+    holder =e->grelha[x][y];
+    pec = (holder==4) ? 3 : 4;
+    e->grelha[x][y] = pec;
+    pop(e,0);
     abrirLink(*e);
       IMAGEM_ABS(302,400,250,125,"undo.png");
     FECHAR_LINK;
-    (*e).grelha[j.x][j.y] = holder;
-     adicionaHistorico(e,j,0);
-     retiraHistorico(e,1);
+    e->grelha[x][y] = holder;
+    push(e,j,0);
+    pop(e,1);
   }
   else IMAGEM_ABS(302,400,250,125,"undo.png");
 }
@@ -73,20 +74,21 @@ void fazUndo(ESTADO * e)
 void fazRedo(ESTADO * e)
 {
   char holder;
-  if((*e).compHistR)
+  if(e->spR>0)
   {
-    JOGADA j;
-    j = (*e).histR[0];
-    holder = (*e).grelha[j.x][j.y];
-    (*e).grelha[j.x][j.y] = j.peca;
-    retiraHistorico(e,1);
-    adicionaHistorico(e,j,0);
+    int j,x,y;
+    j = e->redo[(e->spR%MAX_HISTR)-1];
+    toPair(&x,&y,j);
+    holder = e->grelha[x][y];
+    e->grelha[x][y] = (holder==VAZIA) ? SOL_O : (holder-1);
+    pop(e,1);
+    push(e,j,0);
     abrirLink(*e);
       IMAGEM_ABS(1352,400,250,125,"redo.png");
     FECHAR_LINK;
-    (*e).grelha[j.x][j.y] = holder;
-    adicionaHistorico(e,j,1);
-    retiraHistorico(e,0);
+    e->grelha[x][y] = holder;
+    push(e,j,1);
+    pop(e,0);
   }
   else IMAGEM_ABS(1352,400,250,125,"redo.png");
 }

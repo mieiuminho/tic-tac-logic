@@ -8,14 +8,9 @@ Definição do estado e das funções que convertem estados em strings e vice-ve
 
 /** \brief O tamanho máximo da grelha */
 #define MAX_GRID		20
-#define MAX_HIST    10
+#define MAX_HISTU    10
+#define MAX_HISTR    10
 typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O} VALOR;
-
-typedef struct jogada {
-  int x;
-  int y;
-  char peca;
-} JOGADA;
 
 /**
 \brief Estrutura que armazena o estado do jogo
@@ -24,10 +19,10 @@ typedef struct estado {
   char num_lins;
   char num_cols;
   char grelha[MAX_GRID][MAX_GRID];
-  JOGADA histU[MAX_HIST];
-  JOGADA histR[MAX_HIST];
-  int compHistU;
-  int compHistR;
+  short int undo[MAX_HISTU];
+  short int redo[MAX_HISTR];
+  short int spU;
+  short int spR;
 } ESTADO;
 
 /**

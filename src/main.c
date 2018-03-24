@@ -29,8 +29,7 @@ ESTADO inicializar(int nl, int nc) {
   int i,j;
   e.num_lins=nl;
   e.num_cols=nc;
-  e.compHistU=0;
-  e.compHistR=0;
+  e.spU=e.spR=0;
   for(i=0;i<nl;i++){
     for(j=0;j<nc;j++)
       e.grelha[i][j]=VAZIA;
@@ -55,8 +54,7 @@ ESTADO le_tabuleiro()
 
   e.num_lins = nl;
   e.num_cols = nc;
-  e.compHistU=0;
-  e.compHistR=0;
+  e.spU=e.spR=0;
 
   for(i=0;i<nl;i++){
     fscanf(fp, "%s", linha);
@@ -73,13 +71,6 @@ ESTADO le_tabuleiro()
   return e;
 }
 
-void igualaJog (JOGADA * jog,int i,int j,ESTADO e)
-{
-  (*jog).x = i;
-  (*jog).y = j;
-  (*jog).peca = ((e.grelha[i][j]==5) ? 3 : ((e.grelha[i][j])+1));
-}
-
 /**
 Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado um valor, chama a função inicializar
 @param args O valor da variável (o que é passado depois de ? no URL)
@@ -94,7 +85,7 @@ ESTADO ler_estado(char *args)
 
 void fazTab (ESTADO * e)
 {
-  JOGADA jog;
+  int jog;
   int i,j,sf;
   getScaleFactor(&sf,(*e));
   for(i=0;i<(*e).num_lins;i++)
@@ -103,10 +94,10 @@ void fazTab (ESTADO * e)
     {
       if ((*e).grelha[i][j]>FIXO_O)
       {
-        igualaJog (&jog,i,j,(*e));
-        adicionaHistorico(e,jog,0);
+        jog=fromPair(i,j);
+        push(e,jog,0);
         drawPeca(i,j,(*e),sf,validaPeca(e,i,j));
-        retiraHistorico(e,0);
+        pop(e,0);
       }
       else drawPeca(i,j,(*e),sf,validaPeca(e,i,j));
     }
