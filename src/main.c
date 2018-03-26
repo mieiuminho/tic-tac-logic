@@ -29,8 +29,7 @@ ESTADO inicializar(int nl, int nc) {
   int i,j;
   e.num_lins=nl;
   e.num_cols=nc;
-  e.spU=0;
-  e.spR=0;
+  e.spU=e.spR=e.epR=e.epU=0;
   for(i=0;i<nl;i++){
     for(j=0;j<nc;j++)
       e.grelha[i][j]=VAZIA;
@@ -55,9 +54,7 @@ ESTADO le_tabuleiro()
 
   e.num_lins = nl;
   e.num_cols = nc;
-  e.spU=0;
-  e.spR=0;
-
+  e.spU=e.spR=e.epR=e.epU=0;
   for(i=0;i<nl;i++){
     fscanf(fp, "%s", linha);
     for(j=0;j<nc;j++)

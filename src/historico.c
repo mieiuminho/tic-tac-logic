@@ -31,11 +31,13 @@ void push(ESTADO * e,int jog,int iH)
   if (iH)
   {
     e->redo[e->spR % MAX_HISTR]=jog;
+    if ((e->spR + 1)%MAX_HISTR == (e->epR)%MAX_HISTR) e->epR ++;
     e->spR++;
   }
   else
   {
     e->undo[e->spU % MAX_HISTU]=jog;
+    if ((e->spU + 1)%MAX_HISTU == (e->epU)%MAX_HISTU) e->epU ++;
     e->spU++;
   }
 }
@@ -44,21 +46,21 @@ void pop(ESTADO * e,int iH)
 {
   if (iH)
   {
-    if (e->spR>0) e->spR--;
+    if (e->spR>0&&(e->spR%MAX_HISTR != e->epR%MAX_HISTR)) e->spR--;
   }
   else
   {
-    if (e->spU>0) e->spU--;
+    if (e->spU>0&&(e->spU%MAX_HISTU != e->epU%MAX_HISTU)) e->spU--;
   }
 }
 
 void fazUndo(ESTADO * e)
 {
-  if(e->spU>0)
+  if(e->spU>0&&(e->spU%MAX_HISTU != e->epU%MAX_HISTU))
   {
     int j,x,y;
     char pec,holder;
-    j = e->undo[(e->spU%MAX_HISTU)-1];
+    j = e->undo[((e->spU-1)%MAX_HISTU)];
     push(e,j,1);
     toPair(&x,&y,j);
     holder = e->grelha[x][y];
@@ -78,10 +80,10 @@ void fazUndo(ESTADO * e)
 void fazRedo(ESTADO * e)
 {
   char holder;
-  if(e->spR>0)
+  if(e->spR>0&&(e->spR%MAX_HISTR != e->epR%MAX_HISTR))
   {
     int j,x,y;
-    j = e->redo[(e->spR%MAX_HISTR)-1];
+    j = e->redo[((e->spR-1)%MAX_HISTR)];
     toPair(&x,&y,j);
     holder = e->grelha[x][y];
     e->grelha[x][y] = (holder==VAZIA) ? SOL_X : (holder+1);
