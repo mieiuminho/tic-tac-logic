@@ -54,7 +54,7 @@ ESTADO le_tabuleiro()
 
   e.num_lins = nl;
   e.num_cols = nc;
-  e.spU=e.spR=e.epR=e.epU=0;
+  e.spU=e.spR=e.epR=e.epU=e.spA=e.epA=0;
   for(i=0;i<nl;i++){
     fscanf(fp, "%s", linha);
     for(j=0;j<nc;j++)
@@ -123,6 +123,7 @@ int main()
 
       fazUndo(&e);
       fazRedo(&e);
+      fazAncoras(&e);
     FECHAR_SVG;
   FECHAR_HTML;
 

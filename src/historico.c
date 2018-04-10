@@ -98,3 +98,69 @@ void fazRedo(ESTADO * e)
   }
   else IMAGEM_ABS(1352,400,250,125,"redo.png");
 }
+
+void saveAncora(ESTADO * e,short int x)
+{
+  e->ancoras[e->spA % MAX_HISTA]=x;
+  if ((e->spA + 1)%MAX_HISTA == (e->epA)%MAX_HISTA) e->epA ++;
+  e->spA++;
+}
+
+void deleteAncora(ESTADO * e)
+{
+  if (e->spA>0&&(e->spA%MAX_HISTA != e->epA%MAX_HISTA)) e->spA--;
+}
+
+void fUndoA(ESTADO * e,short int aux [],int n)
+{
+  int i,x,y,j;
+  char pec;
+  for (i=0;i<n;i++)
+    {
+    j = e->undo[((e->spU-1)%MAX_HISTU)];
+    toPair(&x,&y,j);
+    pec = (e->grelha[x][y]==4) ? 3 : 4;
+    e->grelha[x][y] = pec;
+    pop(e,0);
+    aux[i]=j;
+    }
+}
+
+void rUndoA(ESTADO * e,short int aux [],int n)
+{
+  int i,j,x,y;
+  for (i=n-1;i>=0;i--)
+    {
+    j=aux[i];
+    push(e,j,0);
+    toPair(&x,&y,j);
+    e->grelha[x][y] = (e->grelha[x][y]==5) ? 3 : e->grelha[x][y]+1;
+    }
+}
+
+void fazAncoras(ESTADO * e)
+{
+  int dif=0,holder;
+  if (e->spA>0&&(e->spA%MAX_HISTA != e->epA%MAX_HISTA)) dif = e->spU - e->ancoras[((e->spA-1)%MAX_HISTA)];
+  short int aux [dif];
+  if (e->spA>0&&(e->spA%MAX_HISTA != e->epA%MAX_HISTA))
+  {
+    holder=e->ancoras[(e->spA -1)%MAX_HISTA];
+    fUndoA(e,aux,dif);
+    deleteAncora(e);
+    e->spR=e->epR=0;
+    abrirLink(*e);
+     IMAGEM_ABS(0,0,250,125,"undo.png");
+    FECHAR_LINK;
+    saveAncora(e,holder);
+    rUndoA(e,aux,dif);
+  }
+  else IMAGEM_ABS(0,0,250,125,"undo.png");
+  saveAncora(e,e->spU);
+  abrirLink(*e);
+    IMAGEM_ABS(0,200,250,125,"redo.png");
+  FECHAR_LINK;
+  deleteAncora(e);
+}
+
+
