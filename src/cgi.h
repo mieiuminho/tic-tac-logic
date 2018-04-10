@@ -11,23 +11,30 @@ Macros úteis para gerar CGIs
 /**
 * Caminho para as imagens
 */
-#define IMAGE_PATH							"http://localhost/images/"
+#define IMAGE_PATH "http://localhost/images/"
+
+/**
+* Caminho para os tabuleiros
+*/
+#define TAB_PATH "/var/www/html/tabuleiros/"
 
 /**
 \brief Macro para começar o html
 */
-#define COMECAR_HTML						printf("Content-Type: text/html\n\n<html>\n")
+#define COMECAR_HTML printf("Content-Type: text/html\n\n<html>\n")
 
 /**
 \brief Macro para abrir um svg
 @param tamx O comprimento do svg
 @param tamy A altura do svg
+@param color A cor de fundo do svg
 */
-#define ABRIR_SVG(tamx, tamy, color)				printf("<svg width=%d height=%d style='background: %s'>\n", tamx, tamy, color)
+#define ABRIR_SVG(tamx, tamy, color) printf("<svg width=%d height=%d style='background: %s'>\n", tamx, tamy, color)
+
 /**
 \brief Macro para fechar um svg
 */
-#define FECHAR_SVG							printf("</svg>\n")
+#define FECHAR_SVG printf("</svg>\n")
 
 /**
 \brief Macro para criar uma imagem

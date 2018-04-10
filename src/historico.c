@@ -1,6 +1,8 @@
 #include "historico.h"
 #include "cgi.h"
 #include "graphics.h"
+#include "menu.h"
+#include "valida.h"
 
 int fromPair (int x,int y)
 {
