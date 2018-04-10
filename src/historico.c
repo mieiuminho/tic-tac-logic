@@ -67,9 +67,7 @@ void fazUndo(ESTADO * e)
     pec = (holder==4) ? 3 : 4;
     e->grelha[x][y] = pec;
     pop(e,0);
-    abrirLink(*e);
-      IMAGEM_ABS(302,400,250,125,"undo.png");
-    FECHAR_LINK;
+      drawButton(e,302,400,250,125,"undo.png");
     e->grelha[x][y] = holder;
     push(e,j,0);
     pop(e,1);
@@ -89,9 +87,7 @@ void fazRedo(ESTADO * e)
     e->grelha[x][y] = (holder==VAZIA) ? SOL_X : (holder+1);
     pop(e,1);
     push(e,j,0);
-    abrirLink(*e);
-      IMAGEM_ABS(1352,400,250,125,"redo.png");
-    FECHAR_LINK;
+      drawButton(e,1352,400,250,125,"redo.png");
     e->grelha[x][y] = holder;
     push(e,j,1);
     pop(e,0);
@@ -149,17 +145,16 @@ void fazAncoras(ESTADO * e)
     fUndoA(e,aux,dif);
     deleteAncora(e);
     e->spR=e->epR=0;
-    abrirLink(*e);
-     IMAGEM_ABS(0,0,250,125,"undo.png");
-    FECHAR_LINK;
+      drawButton(e,952,800,200,100,"undo.png");
     saveAncora(e,holder);
     rUndoA(e,aux,dif);
   }
-  else IMAGEM_ABS(0,0,250,125,"undo.png");
+  else IMAGEM_ABS(952,800,200,100,"undo.png");
+
+
+
   saveAncora(e,e->spU);
-  abrirLink(*e);
-    IMAGEM_ABS(0,200,250,125,"redo.png");
-  FECHAR_LINK;
+    drawButton(e,752,800,200,100,"redo.png");
   deleteAncora(e);
 }
 

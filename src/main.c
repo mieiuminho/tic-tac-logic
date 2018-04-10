@@ -17,29 +17,6 @@ Esqueleto do programa
 #define TAB_PATH "/var/www/html/tabuleiros/"
 #define MAX_PATH 100
 
-/**
-Função que inicializa o estado
-
-Esta função está vazia
-
-@returns Um novo estado
-*/
-ESTADO inicializar(int nl, int nc) {
-  ESTADO e;
-  int i,j;
-  e.num_lins=nl;
-  e.num_cols=nc;
-  e.spU=e.spR=e.epR=e.epU=0;
-  for(i=0;i<nl;i++){
-    for(j=0;j<nc;j++)
-      e.grelha[i][j]=VAZIA;
-  }
-  e.grelha [1][2] = BLOQUEADA;
-  e.grelha [3][4] = FIXO_O;
-  e.grelha [2][3] = FIXO_X;
-  return e;
-}
-
 ESTADO le_tabuleiro()
 {
   ESTADO e;
@@ -86,20 +63,20 @@ void fazTab (ESTADO * e)
 {
   int jog;
   int i,j,sf;
-  getScaleFactor(&sf,(*e));
-  for(i=0;i<(*e).num_lins;i++)
+  getScaleFactor(&sf,e);
+  for(i=0;i<e->num_lins;i++)
   {
-    for(j=0;j<(*e).num_cols;j++)
+    for(j=0;j<e->num_cols;j++)
     {
-      if ((*e).grelha[i][j]>FIXO_O)
+      if (e->grelha[i][j]>FIXO_O)
       {
         jog=fromPair(i,j);
         push(e,jog,0);
-        drawPeca(i,j,(*e),sf,validaPeca(e,i,j));
+        drawPeca(i,j,e,sf,validaPeca(e,i,j));
         pop(e,0);
         printf("%d\n",e->spU);
       }
-      else drawPeca(i,j,(*e),sf,validaPeca(e,i,j));
+      else drawPeca(i,j,e,sf,validaPeca(e,i,j));
     }
   }
 }
@@ -116,11 +93,6 @@ int main()
     ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
       IMAGEM_ABS(752, 0, 400, 200, "title.png");
       fazTab(&e);
-
-      abrirLink(inicializar(e.num_lins,e.num_cols));
-        IMAGEM_ABS(852, 800, 200, 100, "start.png");
-      FECHAR_LINK;
-
       fazUndo(&e);
       fazRedo(&e);
       fazAncoras(&e);
