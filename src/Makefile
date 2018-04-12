@@ -12,6 +12,7 @@ $(EXECUTAVEL): main.o boards.o estado.o graphics.o historico.o menu.o valida.o
 imagens:
 	sudo mkdir -p /var/www/html/images
 	sudo cp img/*.png /var/www/html/images
+	sudo cp img/dracula/*.png /var/www/html/images/dracula
 
 tabuleiros:
 	sudo mkdir -p /var/www/html/tabuleiros
