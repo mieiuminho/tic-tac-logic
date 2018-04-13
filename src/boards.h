@@ -15,7 +15,7 @@ void fazTab(ESTADO *e);
 Define um novo estado através de um ficheiro
 @returns O estado
 */
-ESTADO le_tabuleiro();
+ESTADO le_tabuleiro(char * s);
 
 
 #endif

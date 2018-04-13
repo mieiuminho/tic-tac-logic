@@ -9,6 +9,13 @@ void abrirLink (ESTADO * e)
   ABRIR_LINK(link);
 }
 
+void abrirLinkABS(char * l)
+{
+  char link[MAX_BUFFER];
+  sprintf(link, "http://localhost/cgi-bin/GandaGalo?%s\n", l);
+  ABRIR_LINK(link);
+}
+
 void getScaleFactor(int * sf, ESTADO * e)
 {
   *sf= (e->num_lins >= e->num_cols) ? (float) (DTAB/e->num_lins) : (float) (DTAB/e->num_cols);
@@ -46,6 +53,13 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s)
 void drawButton(ESTADO * e,int x,int y,int sx,int sy,char * s)
 {
   abrirLink(e);
+    IMAGEM_ABS(x,y,sx,sy,s);
+  FECHAR_LINK;
+}
+
+void drawButtonABS(char * link,int x,int y,int sx,int sy,char * s)
+{
+  abrirLinkABS(link);
     IMAGEM_ABS(x,y,sx,sy,s);
   FECHAR_LINK;
 }

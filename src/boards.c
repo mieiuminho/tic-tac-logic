@@ -28,7 +28,7 @@ void fazTab(ESTADO *e)
   }
 }
 
-ESTADO le_tabuleiro()
+ESTADO le_tabuleiro(char * s)
 {
   ESTADO e;
   int nl, nc;
@@ -36,7 +36,7 @@ ESTADO le_tabuleiro()
   char linha[20];
   char nomef[MAX_PATH];
 
-  sprintf(nomef, "%s%s", TAB_PATH, "tabuleiro3.txt");
+  sprintf(nomef, "%s%s", TAB_PATH, s);
   FILE *fp=fopen(nomef, "r");
   fscanf(fp, "%d %d", &nl, &nc); // possivel erro
 

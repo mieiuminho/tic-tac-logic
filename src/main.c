@@ -14,7 +14,7 @@ Esqueleto do programa
 #include "valida.h"
 
 #define GRELHA  4
-#define TAM 40
+#define TAM     40
 
 
 /**
@@ -24,9 +24,24 @@ Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado
 */
 ESTADO ler_estado(char *args)
 {
-  if(strlen(args) == 0)
-    return le_tabuleiro();
-  return str2estado(args);
+  ESTADO e;
+
+  if(strlen(args) == 0) e.id = INICIO;
+  else if (strcmp(args,"puzzles") == 0) e.id = SELECAO;
+  else if (strcmp(args,"puzzles/1") == 0){
+    e = le_tabuleiro("tabuleiro1.txt");
+    e.id = JOGO;
+  } else if (strcmp(args,"puzzles/2") == 0) {
+    e = le_tabuleiro("tabuleiro2.txt");
+    e.id = JOGO;
+  } else if (strcmp(args,"puzzles/3") == 0) {
+    e = le_tabuleiro("tabuleiro3.txt");
+    e.id = JOGO;
+  } else {
+      e = str2estado(args);
+      e.id = JOGO;
+  }
+  return e;
 }
 
 /**
@@ -37,14 +52,11 @@ int main()
 {
   ESTADO e = ler_estado(getenv("QUERY_STRING"));
 
-  if (strlen(getenv("QUERY_STRING"))==0) e.id = INICIO;
-  else e.id = JOGO;
-
   COMECAR_HTML;
 
   switch (e.id) {
-    case INICIO: drawMenu(&e); break;
-    case SELECAO:
+    case INICIO: drawMenu(); break;
+    case SELECAO: drawSelecao(&e); break;
     case JOGO: drawJogo(&e); break;
   }
 

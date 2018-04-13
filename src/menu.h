@@ -7,7 +7,9 @@
 Criação das funções que interpretam o meu atual
 */
 
-void drawMenu (ESTADO * e);
+void drawMenu ();
+
+void drawSelecao (ESTADO * e);
 
 void drawJogo (ESTADO * e);
 

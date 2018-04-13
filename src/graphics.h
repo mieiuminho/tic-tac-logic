@@ -9,6 +9,8 @@
 
 void abrirLink (ESTADO * e);
 
+void abrirLinkABS(char * l);
+
 void getScaleFactor(int * sf, ESTADO * e);
 
 void calculaCentroPeca (ESTADO * e,int sf,int * fx,int * fy);
@@ -20,5 +22,7 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s);
 void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca);
 
 void drawButton(ESTADO * e,int x,int y,int sx,int sy,char * s);
+
+void drawButtonABS(char * link,int x,int y,int sx,int sy,char * s);
 
 #endif
