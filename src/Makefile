@@ -10,9 +10,12 @@ $(EXECUTAVEL): main.o boards.o estado.o graphics.o historico.o menu.o valida.o
 	cc -o $(EXECUTAVEL) main.o boards.o estado.o graphics.o historico.o menu.o valida.o
 
 imagens:
-	sudo mkdir -p /var/www/html/images
-	sudo cp img/*.png /var/www/html/images
+	sudo mkdir -p /var/www/html/images/default
+	sudo mkdir -p /var/www/html/images/dracula
+	sudo mkdir -p /var/www/html/images/monokai
+	sudo cp img/default/*.png /var/www/html/images/default
 	sudo cp img/dracula/*.png /var/www/html/images/dracula
+	sudo cp img/monokai/*.png /var/www/html/images/monokai
 
 tabuleiros:
 	sudo mkdir -p /var/www/html/tabuleiros

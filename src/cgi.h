@@ -11,7 +11,7 @@ Macros úteis para gerar CGIs
 /**
 * Caminho para as imagens
 */
-#define IMAGE_PATH "http://localhost/images/"
+#define IMAGE_PATH "http://localhost/images/default/"
 
 /**
 * Caminho para os tabuleiros
