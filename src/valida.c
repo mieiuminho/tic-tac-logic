@@ -20,78 +20,42 @@ int isOnTab (ESTADO * e,int i,int j)
   return ret;
 }
 
-int validaPeca (ESTADO * e,int i, int j)
+int validaJogada (ESTADO * e,int i, int j)
 {
   int pl,pc;
   int r = 1;
-  for(pl=-1;pl<=1&&r;pl++)
-  {
-    for(pc=-1;pc<=1&&r;pc++)
+    for(pl=-1;pl<=1&&r;pl++)
     {
-      if((pc||pl) && isOnTab(e,i+pc,j+pl))
+      for(pc=-1;pc<=1&&r;pc++)
       {
-        if (isEqual(e,i,j,i+pc,j+pl))
+        if((pc||pl) && isOnTab(e,i+pc,j+pl))
         {
-          if (isOnTab(e,i-pc,j-pl) && isEqual(e,i,j,i-pc,j-pl)) r = 0;
-          else if(isOnTab(e,i+2*pc,j+2*pl) && isEqual(e,i,j,i+2*pc,j+2*pl)) r = 0;
+          if (isEqual(e,i,j,i+pc,j+pl))
+          {
+            if (isOnTab(e,i-pc,j-pl) && isEqual(e,i,j,i-pc,j-pl)) r = 0;
+            else if(isOnTab(e,i+2*pc,j+2*pl) && isEqual(e,i,j,i+2*pc,j+2*pl)) r = 0;
         }
       }
     }
   }
-
   return r;
 }
 
-int isPossible (ESTADO *e)
+int validaPeca (ESTADO * e,int i,int j)
 {
-  int i, j, r=1, counter=0;
-  char holder;
-  for(i=0;i<e->num_lins && r==1;i++)
+  int r=1,foundX=0,foundO=0;
+  if (e->grelha[i][j]!=VAZIA) r = validaJogada(e,i,j);
+  else
   {
-    for(j=0;j<e->num_cols && r==1;j++)
-    {
-      if(e->grelha[i][j]==VAZIA)
-      {
-        holder=e->grelha[i][j];
-        e->grelha[i][j]=SOL_X;
-        if(!(validaPeca(e,i,j))) counter+=1;
-        e->grelha[i][j]=SOL_O;
-        if(!(validaPeca(e,i,j))) counter+=1;
-        e->grelha[i][j]=holder;
-        if(counter==2)
-        {
-          r=0;
-          break;
-        }
-      }
-    }
+    e->grelha[i][j]=SOL_X;
+    if (!validaJogada(e,i,j)) foundO=1;
+    e->grelha[i][j]=SOL_O;
+    if (!validaJogada(e,i,j)) foundX=1;
+    e->grelha[i][j]=VAZIA;
+    if (foundO&&foundX) r=2;
   }
   return r;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
