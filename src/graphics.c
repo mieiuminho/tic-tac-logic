@@ -74,7 +74,7 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca)
 
   switch (e->grelha[i][j]) {
     case VAZIA:
-                  if (vPeca) strcpy(s,"arrow.png");
+                  if (vPeca==2) strcpy(s,"arrow.png");
                   else strcpy(s,"vazio.png");
                   break;
     case SOL_X:
