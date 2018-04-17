@@ -147,16 +147,16 @@ void fazAncoras(ESTADO * e)
     fUndoA(e,aux,dif);
     deleteAncora(e);
     e->spR=e->epR=0;
-      drawButton(e,952,800,200,100,"voltar.png");
+      drawButton(e,302,530,250,125,"voltar.png");
     saveAncora(e,holder);
     rUndoA(e,aux,dif);
   }
-  else IMAGEM_ABS(952,800,200,100,"voltar.png");
+  else IMAGEM_ABS(302,530,250,125,"voltar.png");
 
 
 
   saveAncora(e,e->spU);
-    drawButton(e,752,800,200,100,"carregar.png");
+    drawButton(e,1352,530,250,125,"carregar.png");
   deleteAncora(e);
 }
 
