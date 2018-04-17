@@ -25,4 +25,6 @@ void drawButton(ESTADO * e,int x,int y,int sx,int sy,char * s);
 
 void drawButtonABS(char * link,int x,int y,int sx,int sy,char * s);
 
+void drawSemaforo(ESTADO * e);
+
 #endif

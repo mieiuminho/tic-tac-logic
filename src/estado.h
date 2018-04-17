@@ -13,6 +13,7 @@ Definição do estado e das funções que convertem estados em strings e vice-ve
 #define MAX_HISTA    10
 typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O} VALOR;
 typedef enum {INICIO, SELECAO, JOGO} ID;
+typedef enum {INVALIDO,IMPOSSIVEL,VALIDO} VALIDADE;
 
 /**
 \brief Estrutura que armazena o estado do jogo
@@ -22,6 +23,7 @@ typedef struct estado {
   char num_lins;
   char num_cols;
   char grelha[MAX_GRID][MAX_GRID];
+  char validade;
   short int ancoras[MAX_HISTA];
   short int undo[MAX_HISTU];
   short int redo[MAX_HISTR];

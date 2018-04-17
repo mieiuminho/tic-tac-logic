@@ -57,5 +57,20 @@ int validaPeca (ESTADO * e,int i,int j)
   return r;
 }
 
+void setSemaforo (ESTADO * e)
+{
+  int i,j,r=1,foundInc=0;
+  for (i=0;i<e->num_cols&&r!=0;i++)
+  {
+    for (j=0;j<e->num_lins&&r!=0;j++)
+    {
+      r = validaPeca(e,i,j);
+      if (r==2) foundInc = 1;
+    }
+  }
+  if (r==0) e->validade = INVALIDO;
+  else e->validade = foundInc ? IMPOSSIVEL : VALIDO;
+}
+
 
 

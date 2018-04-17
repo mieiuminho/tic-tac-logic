@@ -74,7 +74,7 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca)
 
   switch (e->grelha[i][j]) {
     case VAZIA:
-                  if (vPeca==2) strcpy(s,"arrow.png");
+                  if (vPeca==2) strcpy(s,"wrong.png");
                   else strcpy(s,"vazio.png");
                   break;
     case SOL_X:
@@ -98,4 +98,16 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca)
 
   if (e->grelha[i][j]>FIXO_O) butaoProxEstadoJog(e,i,j,sf,s);
   else drawBloq(e,i,j,sf,s);
+}
+
+void drawSemaforo (ESTADO * e)
+{
+  char s [20];
+  switch (e->validade)
+  {
+    case VALIDO: strcpy(s,"valido.png");break;
+    case IMPOSSIVEL: strcpy(s,"impossivel.png");break;
+    case INVALIDO: strcpy(s,"invalido.png");break;
+  }
+  IMAGEM_ABS(752,1305,450,150,s);
 }
