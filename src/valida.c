@@ -41,3 +41,57 @@ int validaPeca (ESTADO * e,int i, int j)
 
   return r;
 }
+
+int isPossible (ESTADO *e)
+{
+  int i, j, r=1, counter=0;
+  char holder;
+  for(i=0;i<e->num_lins && r==1;i++)
+  {
+    for(j=0;j<e->num_cols && r==1;j++)
+    {
+      if(e->grelha[i][j]==VAZIA)
+      {
+        holder=e->grelha[i][j];
+        e->grelha[i][j]=SOL_X;
+        if(!(validaPeca(e,i,j))) counter+=1;
+        e->grelha[i][j]=SOL_O;
+        if(!(validaPeca(e,i,j))) counter+=1;
+        e->grelha[i][j]=holder;
+        if(counter==2)
+        {
+          r=0;
+          break;
+        }
+      }
+    }
+  }
+  return r;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

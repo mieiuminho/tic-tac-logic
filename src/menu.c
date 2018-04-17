@@ -4,6 +4,7 @@
 #include "estado.h"
 #include "graphics.h"
 #include "historico.h"
+#include "solver.h"
 
 void drawMenu ()
 {
@@ -29,6 +30,7 @@ void drawJogo (ESTADO * e)
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     drawButtonABS("puzzles", 10, 10, 75, 75, "arrow.png");
     IMAGEM_ABS(752, 0, 400, 200, "title.png");
+    fillIn(e);
     fazTab(e);
     fazUndo(e);
     fazRedo(e);

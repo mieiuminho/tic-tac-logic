@@ -1,13 +1,13 @@
 CFLAGS=-std=c11 -Wall -Wextra -pedantic -g
-FICHEIROS=cgi.h boards.c boards.h estado.c estado.h graphics.c graphics.h historico.c historico.h main.c menu.c menu.h valida.c valida.h Makefile
+FICHEIROS=cgi.h boards.c boards.h estado.c estado.h graphics.c graphics.h historico.c historico.h main.c menu.c menu.h solver.c solver.h valida.c valida.h Makefile
 EXECUTAVEL=GandaGalo
 
 install: $(EXECUTAVEL)
 	sudo cp $(EXECUTAVEL) /usr/lib/cgi-bin
 	touch install
 
-$(EXECUTAVEL): main.o boards.o estado.o graphics.o historico.o menu.o valida.o
-	cc -o $(EXECUTAVEL) main.o boards.o estado.o graphics.o historico.o menu.o valida.o
+$(EXECUTAVEL): main.o boards.o estado.o graphics.o historico.o menu.o solver.o valida.o
+	cc -o $(EXECUTAVEL) main.o boards.o estado.o graphics.o historico.o menu.o solver.o valida.o 
 
 imagens:
 	sudo mkdir -p /var/www/html/images/default
@@ -37,6 +37,7 @@ boards.o: boards.c boards.h cgi.h estado.h graphics.h historico.h valida.h
 estado.o: estado.c estado.h
 graphics.o: graphics.c graphics.h cgi.h estado.h
 historico.o: historico.c historico.h cgi.h estado.h graphics.h menu.h valida.h
-menu.o: menu.c menu.h boards.h cgi.h estado.h graphics.h historico.h valida.h
-valida.o: valida.c valida.h estado.h
-main.o: main.c boards.h cgi.h estado.h historico.h menu.h
+menu.o: menu.c menu.h boards.h cgi.h estado.h graphics.h historico.h solver.h valida.h
+solver.o: solver.c solver.h boards.h cgi.h estado.h graphics.h historico.h menu.h valida.h 
+valida.o: valida.c valida.h boards.h cgi.h estado.h graphics.h historico.h valida.h
+main.o: main.c boards.h cgi.h estado.h historico.h menu.h solver.h

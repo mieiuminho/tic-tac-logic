@@ -11,6 +11,7 @@ Esqueleto do programa
 #include "graphics.h"
 #include "historico.h"
 #include "menu.h"
+#include "solver.h"
 #include "valida.h"
 
 #define GRELHA  4
