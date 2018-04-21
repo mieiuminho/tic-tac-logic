@@ -29,6 +29,8 @@ void drawJogo (ESTADO * e)
 {
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     drawButtonABS("puzzles", 10, 10, 75, 75, "arrow.png");
+    setSemaforo (e);
+    drawSemaforo (e);
     IMAGEM_ABS(752, 0, 400, 200, "title.png");
 //    fillIn(e);
     fazTab(e);

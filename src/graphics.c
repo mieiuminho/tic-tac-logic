@@ -109,5 +109,5 @@ void drawSemaforo (ESTADO * e)
     case IMPOSSIVEL: strcpy(s,"impossivel.png");break;
     case INVALIDO: strcpy(s,"invalido.png");break;
   }
-  IMAGEM_ABS(752,1305,450,150,s);
+  IMAGEM_ABS(727,790,450,150,s);
 }
