@@ -2,13 +2,6 @@
 #include "cgi.h"
 #include <string.h>
 
-void abrirLink (ESTADO * e)
-{
-  char link [MAX_BUFFER];
-  sprintf(link,"http://localhost/cgi-bin/GandaGalo?%s\n",estado2str(*e));
-  ABRIR_LINK(link);
-}
-
 void abrirLinkABS(char * l)
 {
   char link[MAX_BUFFER];
@@ -30,17 +23,17 @@ void calculaCentroPeca (ESTADO * e,int sf,int * fx,int * fy)
   *fy = cy + fnsy;
 }
 
-void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s)
+void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s,char * user)
 {
-  char holder;
   int cx,cy;
+  char action[10];
+  char link [60];
   calculaCentroPeca(e,sf,&cx,&cy);
-  holder = e->grelha[i][j];
-  MUDA_SEGUINTE(i,j,e);
-  abrirLink(e);
-  IMAGEM(i+cx,j+cy,sf,s);
+  sprintf(action,"@x-%d-y-%d",i,j);
+  sprintf(link,"%s%s",user,action);
+  ABRIR_LINK_ABS(link);
+    IMAGEM(i+cx,j+cy,sf,s);
   FECHAR_LINK;
-  e->grelha[i][j] = holder;
 }
 
 void drawBloq (ESTADO * e,int i,int j,int sf,char * s)
@@ -50,25 +43,21 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s)
   IMAGEM(i+cx,j+cy,sf,s);
 }
 
-void drawButton(ESTADO * e,int x,int y,int sx,int sy,char * s)
+void drawButton(int x,int y,int sx,int sy,char * s,char * action,char * user)
 {
-  abrirLink(e);
+  char link [40];
+  sprintf(link,"%s%s",user,action);
+  ABRIR_LINK_ABS(link);
     IMAGEM_ABS(x,y,sx,sy,s);
   FECHAR_LINK;
 }
 
-void drawButtonABS(char * link,int x,int y,int sx,int sy,char * s)
-{
-  abrirLinkABS(link);
-    IMAGEM_ABS(x,y,sx,sy,s);
-  FECHAR_LINK;
-}
 
 /**
 Coloca a imagem correspondente no local indicado
 @param A posição x e y onde a imagem vai ser colocada assim como um char para identificar qual será essa imagem
 */
-void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca)
+void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user)
 {
   char s[50];
 
@@ -96,7 +85,7 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca)
     case BLOQUEADA: strcpy(s,"bloq.png");break;
   }
 
-  if (e->grelha[i][j]>FIXO_O) butaoProxEstadoJog(e,i,j,sf,s);
+  if (e->grelha[i][j]>FIXO_O) butaoProxEstadoJog(e,i,j,sf,s,user);
   else drawBloq(e,i,j,sf,s);
 }
 

@@ -9,6 +9,10 @@ install: $(EXECUTAVEL)
 $(EXECUTAVEL): main.o boards.o estado.o graphics.o historico.o menu.o solver.o valida.o
 	cc -o $(EXECUTAVEL) main.o boards.o estado.o graphics.o historico.o menu.o solver.o valida.o 
 
+utilizadores:
+	sudo mkdir -p /var/www/html/utilizadores
+	sudo chmod -R a+rwx  /var/www/html/utilizadores
+
 imagens:
 	sudo mkdir -p /var/www/html/images/default
 	sudo mkdir -p /var/www/html/images/dracula

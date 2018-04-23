@@ -4,5 +4,9 @@
 
 void fillIn (ESTADO *e);
 
+int testSuppose (ESTADO *e);
+
+void suppose (ESTADO *e);
+
 #endif
 

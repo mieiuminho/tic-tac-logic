@@ -15,15 +15,13 @@ void getScaleFactor(int * sf, ESTADO * e);
 
 void calculaCentroPeca (ESTADO * e,int sf,int * fx,int * fy);
 
-void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s);
+void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s,char * user);
 
 void drawBloq (ESTADO * e,int i,int j,int sf,char * s);
 
-void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca);
+void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user);
 
-void drawButton(ESTADO * e,int x,int y,int sx,int sy,char * s);
-
-void drawButtonABS(char * link,int x,int y,int sx,int sy,char * s);
+void drawButton(int,int,int,int,char *,char *,char *);
 
 void drawSemaforo(ESTADO * e);
 

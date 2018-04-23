@@ -17,12 +17,45 @@ Esqueleto do programa
 #define GRELHA  4
 #define TAM     40
 
+void processa(ESTADO * e,char * ordem)
+{
+    int x,y;
+    switch(ordem[0])
+    {
+        case 'x': sscanf(ordem,"x-%d-y-%d",&x,&y);
+                  if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
+                  push(x,y,&(e->undo));
+                  e->sizeU++;
+                  break;
+        case 'a':marcaAncora(e);break;
+        case 'v':voltaAncora(e);break;
+        case 'u':pop(&x,&y,&(e->undo));
+                 if (e->grelha[x][y]==VAZIA) e->grelha[x][y]=SOL_O; else e->grelha[x][y]--;
+                 push(x,y,&(e->redo));
+                 e->sizeR++;
+                 e->sizeU--;break;
+        case 'r':pop(&x,&y,&(e->redo));
+                 if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
+                 push(x,y,&(e->undo));
+                 e->sizeR--;
+                 e->sizeU++;break;
+        case 'i':sscanf(ordem,"id-%d",&x);
+                 e->id = x;
+                 break;
+        case 't': sscanf(ordem,"tab%d",&x);
+                  (*e)=le_tabuleiro(x);
+                  e->id=JOGO;
+                  break;//(*e) = le_tabuleiro(ordem);
+    }
+}
 
 /**
 Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado um valor, chama a função inicializar
 @param args O valor da variável (o que é passado depois de ? no URL)
 @returns O estado
 */
+
+/*
 ESTADO ler_estado(char *args)
 {
   ESTADO e;
@@ -44,6 +77,7 @@ ESTADO ler_estado(char *args)
   }
   return e;
 }
+*/
 
 /**
 Função principal do programa
@@ -51,17 +85,23 @@ Função principal do programa
 */
 int main()
 {
-  ESTADO e = ler_estado(getenv("QUERY_STRING"));
+  ESTADO e;
+  char user [20];
+  user[0]='#';
+  char action [20];
+  getUserAndAction(getenv("QUERY_STRING"),user,action);
+  readFile(user,&e);
+  processa(&e,action);
+  writeFile(user,e);
 
   COMECAR_HTML;
 
   switch (e.id) {
-    case INICIO: drawMenu(); break;
-    case SELECAO: drawSelecao(&e); break;
-    case JOGO: drawJogo(&e); break;
+    case INICIO: drawMenu(user); break;
+    case SELECAO: drawSelecao(user); break;
+    case JOGO: drawJogo(&e,user); break;
   }
 
   FECHAR_HTML;
-
   return 0;
 }

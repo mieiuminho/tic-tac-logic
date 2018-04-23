@@ -5,37 +5,39 @@
 #include "graphics.h"
 #include "historico.h"
 #include "solver.h"
+#include "valida.h"
 
-void drawMenu ()
+void drawMenu (char * user)
 {
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     IMAGEM_ABS(752, 200, 400, 200, "title.png");
-    drawButtonABS("puzzles", 852, 400, 200, 100, "play.png");
+    drawButton(852, 400, 200, 100, "play.png","@id-1",user);
   FECHAR_SVG;
 }
 
-void drawSelecao (ESTADO * e)
+void drawSelecao (char * user)
 {
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
-    drawButtonABS("", 10, 10, 75, 75, "arrow.png");
+    drawButton(10, 10, 75, 75, "arrow.png","@id-0",user);
     IMAGEM_ABS(752, 0, 400, 200, "title.png");
-    drawButtonABS("puzzles/1",  652, 400, 200, 100, "hard.png");
-    drawButtonABS("puzzles/2",  852, 400, 200, 100, "easy.png");
-    drawButtonABS("puzzles/3", 1052, 400, 200, 100, "medium.png");
+    drawButton(652, 400, 200, 100, "hard.png","@tab1",user);
+    drawButton(852, 400, 200, 100, "easy.png","@tab2",user);
+    drawButton(1052, 400, 200, 100, "medium.png","@tab3",user);
   FECHAR_SVG;
 }
 
-void drawJogo (ESTADO * e)
+void drawJogo (ESTADO * e, char * user)
 {
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
-    drawButtonABS("puzzles", 10, 10, 75, 75, "arrow.png");
+    drawButton(10, 10, 75, 75, "arrow.png","@id-1",user);
     setSemaforo (e);
     drawSemaforo (e);
     IMAGEM_ABS(752, 0, 400, 200, "title.png");
 //    fillIn(e);
-    fazTab(e);
-    fazUndo(e);
-    fazRedo(e);
-    fazAncoras(e);
+    fazTab(e,user);
+    drawButton(302,400,250,125,"undo.png","@undo",user);
+    drawButton(1352,400,250,125,"redo.png","@redo",user);
+    drawButton(302,530,250,125,"voltar.png","@voltar",user);
+    drawButton(1352,530,250,125,"carregar.png","@carregar",user);
   FECHAR_SVG;
 }

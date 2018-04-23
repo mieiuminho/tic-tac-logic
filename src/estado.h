@@ -15,19 +15,23 @@ typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O} VALOR;
 typedef enum {INICIO, SELECAO, JOGO} ID;
 typedef enum {INVALIDO,IMPOSSIVEL,VALIDO} VALIDADE;
 
+typedef struct lista
+{
+    int x,y;
+    struct lista * next;
+}* LISTA;
+
 /**
 \brief Estrutura que armazena o estado do jogo
 */
 typedef struct estado {
-  char id;
-  char num_lins;
-  char num_cols;
+  int id;
+  int num_lins;
+  int num_cols;
   char grelha[MAX_GRID][MAX_GRID];
-  char validade;
-  short int ancoras[MAX_HISTA];
-  short int undo[MAX_HISTU];
-  short int redo[MAX_HISTR];
-  short int spU,spR,epR,epU,spA,epA;
+  int validade;
+  LISTA undo,redo;
+  int sizeU,sizeR,numAncs;
 } ESTADO;
 
 /**
@@ -35,13 +39,28 @@ typedef struct estado {
 @param e O estado
 @returns A string correspondente ao estado e
 */
-char *estado2str(ESTADO e);
+char *estado2str(ESTADO);
 
 /**
 \brief Função que converte uma string num estado
 @param argumentos Uma string contendo os argumentos passados à CGI
 @returns O estado correspondente à string dos argumentos
 */
-ESTADO str2estado(char *argumentos);
+ESTADO str2estado(char *);
+
+void readFile (char *,ESTADO *);
+
+void writeFile (char *,ESTADO);
+
+void inicializar (ESTADO *);
+
+void pop (int *,int *,LISTA *);
+
+void push (int,int,LISTA *);
+
+void addEnd (int,int,LISTA *);
+
+void getUserAndAction(char *,char *,char *);
+
 
 #endif

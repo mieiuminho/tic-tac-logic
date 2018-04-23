@@ -5,30 +5,17 @@
 #include "historico.h"
 #include "valida.h"
 
-void fazTab(ESTADO *e)
+void fazTab(ESTADO *e,char * user)
 {
-  int jog;
   int i, j, sf;
   getScaleFactor(&sf, e);
   for (i = 0; i < e->num_lins; i++)
-  {
     for (j = 0; j < e->num_cols; j++)
-    {
-      if (e->grelha[i][j] > FIXO_O)
-      {
-        jog = fromPair(i, j);
-        push(e, jog, 0);
-        drawPeca(i, j, e, sf, validaPeca(e, i, j));
-        pop(e, 0);
-        printf("%d\n", e->spU);
-      }
-      else
-        drawPeca(i, j, e, sf, validaPeca(e, i, j));
-    }
-  }
+      if (e->grelha[i][j] > FIXO_O) drawPeca(i, j, e, sf, validaPeca(e, i, j),user);
+      else drawPeca(i, j, e, sf, validaPeca(e, i, j),user);
 }
 
-ESTADO le_tabuleiro(char * s)
+ESTADO le_tabuleiro(int x)
 {
   ESTADO e;
   int nl, nc;
@@ -36,13 +23,13 @@ ESTADO le_tabuleiro(char * s)
   char linha[20];
   char nomef[MAX_PATH];
 
-  sprintf(nomef, "%s%s", TAB_PATH, s);
+  sprintf(nomef, "%s%s%d%s", TAB_PATH, "tabuleiro",x,".txt");
   FILE *fp=fopen(nomef, "r");
   fscanf(fp, "%d %d", &nl, &nc); // possivel erro
 
   e.num_lins = nl;
   e.num_cols = nc;
-  e.spU=e.spR=e.epR=e.epU=e.spA=e.epA=0;
+  e.sizeU=e.sizeR=e.numAncs=0;
 
   for(i=0;i<nl;i++){
     fscanf(fp, "%s", linha);

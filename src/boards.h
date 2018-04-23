@@ -9,13 +9,13 @@ Criação das funções que desenham tabuleiros
 
 #define MAX_PATH 100
 
-void fazTab(ESTADO *e);
+void fazTab(ESTADO *e,char * user);
 
 /**
 Define um novo estado através de um ficheiro
 @returns O estado
 */
-ESTADO le_tabuleiro(char * s);
+ESTADO le_tabuleiro(int);
 
 
 #endif

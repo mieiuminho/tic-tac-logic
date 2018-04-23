@@ -73,6 +73,8 @@ Macros úteis para gerar CGIs
 */
 #define ABRIR_LINK(link)					printf("<a xlink:href=%s>\n", link)
 
+#define ABRIR_LINK_ABS(link)				printf("<a xlink:href=http://localhost/cgi-bin/GandaGalo?%s>\n", link)
+
 /**
 \brief Macro para fechar o link
 */
