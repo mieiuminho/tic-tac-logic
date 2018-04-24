@@ -48,6 +48,8 @@ void processa(ESTADO * e,char * ordem)
                   break;//(*e) = le_tabuleiro(ordem);
         case 'c': colorscheme(e);
                   break;
+        case 'h': fillIn(e);
+                  break;
     }
 }
 
