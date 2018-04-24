@@ -8,7 +8,7 @@
 #include "valida.h"
 
 // Função que percorre o tabuleiro e preenche com os casos imediatos
-void fillIn (ESTADO *e)
+void fillIn (ESTADO * e)
 {
     int i, j, found;
     i=j=found=0;
@@ -21,7 +21,7 @@ void fillIn (ESTADO *e)
             e->grelha[i][j]=SOL_X;
             if (!validaPeca(e,i,j))
             {
-              e->grelha[i][j]=SOL_O;
+              e->grelha[i][j]=HINT_O;
               found = 1;
             }
             else if (!found)
@@ -29,7 +29,7 @@ void fillIn (ESTADO *e)
               e->grelha[i][j]=SOL_O;
               if (!validaPeca(e,i,j))
               {
-                e->grelha[i][j]=SOL_X;
+                e->grelha[i][j]=HINT_X;
                 found = 1;
               }
             }
@@ -40,4 +40,22 @@ void fillIn (ESTADO *e)
     }
 }
 
+void remHints (ESTADO * e)
+{
+  int i, j;
+  for(i=0;i<e->num_lins;i++)
+  {
+    for(j=0;j<e->num_cols;j++)
+    {
+      switch(e->grelha[i][j])
+      {
+        case HINT_X: e->grelha[i][j]=SOL_X;
+                     break;
+        case HINT_O: e->grelha[i][j]=SOL_O;
+                     break;
+        
+      }
+    }
+  }
+}
 

@@ -40,7 +40,7 @@ void drawJogo (ESTADO * e, char * user)
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     drawButton(e, 10, 10, 75, 75, "arrow.png", "@id-1", user);
     drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
-    drawButton(e, 10, 160, 75, 75 , "hintX.gif", "@hint", user);//TODO: butao para pedir hint
+    drawButton(e, 10, 160, 75, 75 , "hint.png", "@hint", user);
     setSemaforo (e);
     drawSemaforo (e);
     IMAGEM_ABS(752, 0, 400, 200, "title.png", path);

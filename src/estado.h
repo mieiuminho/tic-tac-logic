@@ -11,7 +11,7 @@ Definição do estado e das funções que convertem estados em strings e vice-ve
 #define MAX_HISTU    1601
 #define MAX_HISTR    6
 #define MAX_HISTA    10
-typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O} VALOR;
+typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O, HINT_X, HINT_O} VALOR;
 typedef enum {INICIO, SELECAO, JOGO} ID;
 typedef enum {INVALIDO,IMPOSSIVEL,VALIDO} VALIDADE;
 typedef enum {DEFAULT, DRACULA, MONOKAI} TEMA;

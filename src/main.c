@@ -20,6 +20,7 @@ Esqueleto do programa
 void processa(ESTADO * e,char * ordem)
 {
     int x,y;
+    remHints(e);
     switch(ordem[0])
     {
         case 'x': sscanf(ordem,"x-%d-y-%d",&x,&y);

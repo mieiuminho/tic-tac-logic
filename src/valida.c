@@ -6,9 +6,11 @@ int isEqual (ESTADO * e,int i,int j,int x,int y)
   switch (e->grelha[i][j])
   {
     case FIXO_X:
-    case SOL_X : r = (e->grelha[x][y]==SOL_X || e->grelha[x][y]==FIXO_X) ? 1 : 0;break;
+    case HINT_X:
+    case SOL_X : r = (e->grelha[x][y]==SOL_X || e->grelha[x][y]==FIXO_X || e->grelha[x][y]==HINT_X) ? 1 : 0;break;
     case FIXO_O:
-    case SOL_O : r = (e->grelha[x][y]==SOL_O || e->grelha[x][y]==FIXO_O) ? 1 : 0;break;
+    case HINT_O:
+    case SOL_O : r = (e->grelha[x][y]==SOL_O || e->grelha[x][y]==FIXO_O || e->grelha[x][y]==HINT_O) ? 1 : 0;break;
   }
   return r;
 }
@@ -34,7 +36,7 @@ int validaJogada (ESTADO * e,int i, int j)
           {
             if (isOnTab(e,i-pc,j-pl) && isEqual(e,i,j,i-pc,j-pl)) r = 0;
             else if(isOnTab(e,i+2*pc,j+2*pl) && isEqual(e,i,j,i+2*pc,j+2*pl)) r = 0;
-        }
+          }
       }
     }
   }
