@@ -27,27 +27,30 @@ void processa(ESTADO * e,char * ordem)
                   push(x,y,&(e->undo));
                   e->sizeU++;
                   break;
-        case 'a':marcaAncora(e);break;
-        case 'v':voltaAncora(e);break;
-        case 'u':pop(&x,&y,&(e->undo));
-                 if (e->grelha[x][y]==VAZIA) e->grelha[x][y]=SOL_O; else e->grelha[x][y]--;
-                 push(x,y,&(e->redo));
-                 e->sizeR++;
-                 e->sizeU--;break;
-        case 'r':pop(&x,&y,&(e->redo));
-                 if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
-                 push(x,y,&(e->undo));
-                 e->sizeR--;
-                 e->sizeU++;break;
-        case 'i':sscanf(ordem,"id-%d",&x);
-                 e->id = x;
-                 break;
+        case 'a': marcaAncora(e);break;
+        case 'v': voltaAncora(e);break;
+        case 'u': pop(&x,&y,&(e->undo));
+                  if (e->grelha[x][y]==VAZIA) e->grelha[x][y]=SOL_O; else e->grelha[x][y]--;
+                  push(x,y,&(e->redo));
+                  e->sizeR++;
+                  e->sizeU--;break;
+        case 'r': pop(&x,&y,&(e->redo));
+                  if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
+                  push(x,y,&(e->undo));
+                  e->sizeR--;
+                  e->sizeU++;break;
+        case 'i': sscanf(ordem,"id-%d",&x);
+                  e->id = x;
+                  break;
         case 't': sscanf(ordem,"tab%d",&x);
-                  (*e)=le_tabuleiro(x);
+                  (*e)=le_tabuleiro(e,x);
                   e->id=JOGO;
                   break;//(*e) = le_tabuleiro(ordem);
+        case 'c': colorscheme(e);
+                  break;
     }
 }
+
 
 /**
 Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado um valor, chama a função inicializar
@@ -97,8 +100,8 @@ int main()
   COMECAR_HTML;
 
   switch (e.id) {
-    case INICIO: drawMenu(user); break;
-    case SELECAO: drawSelecao(user); break;
+    case INICIO: drawMenu(&e,user); break;
+    case SELECAO: drawSelecao(&e,user); break;
     case JOGO: drawJogo(&e,user); break;
   }
 

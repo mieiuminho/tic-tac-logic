@@ -14,6 +14,7 @@ Definição do estado e das funções que convertem estados em strings e vice-ve
 typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O} VALOR;
 typedef enum {INICIO, SELECAO, JOGO} ID;
 typedef enum {INVALIDO,IMPOSSIVEL,VALIDO} VALIDADE;
+typedef enum {DEFAULT, DRACULA, MONOKAI} TEMA;
 
 typedef struct lista
 {
@@ -21,11 +22,13 @@ typedef struct lista
     struct lista * next;
 }* LISTA;
 
+
 /**
 \brief Estrutura que armazena o estado do jogo
 */
 typedef struct estado {
   int id;
+  int tema;
   int num_lins;
   int num_cols;
   char grelha[MAX_GRID][MAX_GRID];

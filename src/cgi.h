@@ -11,7 +11,7 @@ Macros úteis para gerar CGIs
 /**
 * Caminho para as imagens
 */
-#define IMAGE_PATH "http://localhost/images/default/"
+#define IMAGE_PATH "http://localhost/images/"
 
 /**
 * Caminho para os tabuleiros
@@ -43,8 +43,8 @@ Macros úteis para gerar CGIs
 @param ESCALA A escala da imagem
 @param FICHEIRO O caminho para o link do ficheiro
 */
-#define IMAGEM(X, Y, ESCALA, FICHEIRO)		printf("<image x=%d y=%d width=%d height=%d xlink:href=%s%s />\n", \
-												ESCALA * X, ESCALA* Y, ESCALA, ESCALA, IMAGE_PATH, FICHEIRO)
+#define IMAGEM(X, Y, ESCALA, FICHEIRO, PATH)		printf("<image x=%d y=%d width=%d height=%d xlink:href=%s%s />\n", \
+												ESCALA * X, ESCALA* Y, ESCALA, ESCALA, PATH, FICHEIRO)
 
 /**
 \brief Macro para criar uma imagem usando valores absolutos
@@ -54,8 +54,8 @@ Macros úteis para gerar CGIs
 @param ESCALA_Y A escala da imagem segundo o Y
 @param FICHEIRO O caminho para o link do ficheiro
 */
-#define IMAGEM_ABS(X, Y, ESCALA_X, ESCALA_Y, FICHEIRO)		printf("<image x=%d y=%d width=%d height=%d xlink:href=%s%s />\n", \
-												X, Y, ESCALA_X, ESCALA_Y, IMAGE_PATH, FICHEIRO)
+#define IMAGEM_ABS(X, Y, ESCALA_X, ESCALA_Y, FICHEIRO, PATH)		printf("<image x=%d y=%d width=%d height=%d xlink:href=%s%s />\n", \
+												X, Y, ESCALA_X, ESCALA_Y, PATH, FICHEIRO)
 
 /**
 \brief Macro para criar um quadrado

@@ -7,9 +7,11 @@
 #define MUDA_SEGUINTE(I,J,E) E->grelha[I][J] = (E->grelha[I][J]==5) ? 3 : ((E->grelha[I][J])+1)
 #define MAX_BUFFER  10240
 
-void abrirLink (ESTADO * e);
-
 void abrirLinkABS(char * l);
+
+void colorscheme (ESTADO * e);
+
+void colorSchemePath (ESTADO *, char * );
 
 void getScaleFactor(int * sf, ESTADO * e);
 
@@ -21,7 +23,7 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s);
 
 void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user);
 
-void drawButton(int,int,int,int,char *,char *,char *);
+void drawButton(ESTADO *,int,int,int,int,char *,char *,char *);
 
 void drawSemaforo(ESTADO * e);
 

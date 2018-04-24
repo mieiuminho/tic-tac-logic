@@ -15,9 +15,10 @@ void fazTab(ESTADO *e,char * user)
       else drawPeca(i, j, e, sf, validaPeca(e, i, j),user);
 }
 
-ESTADO le_tabuleiro(int x)
+ESTADO le_tabuleiro(ESTADO * a,int x)
 {
   ESTADO e;
+  e.tema=a->tema;
   int nl, nc;
   int i,j;
   char linha[20];

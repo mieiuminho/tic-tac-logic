@@ -84,6 +84,7 @@ void inicializar (ESTADO * e)
     e->undo=NULL;
     e->redo=NULL;
     e->validade=1;
+    e->tema=DEFAULT;
 }
 
 
@@ -115,6 +116,7 @@ void writeFile (char * user,ESTADO e)
     }
     fprintf(fp,"\n%d",e.id);
     fprintf(fp,"\n%d",e.validade);
+    fprintf(fp,"\n%d",e.tema);
     fclose(fp);
 }
 
@@ -145,12 +147,13 @@ void readFile (char * user,ESTADO * e)
         }
         fscanf(fp,"%d",&(e->id));
         fscanf(fp,"%d",&(e->validade));
+        fscanf(fp,"%d",&(e->tema));
     }
     else
     {
         fp = fopen(link,"w+");
         inicializar(e);
-        
     }
+
     fclose(fp);
 }
