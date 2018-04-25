@@ -2,22 +2,25 @@
 
 void marcaAncora(ESTADO * e)
 {
-    push(99,99,&(e->undo));
-    e->sizeU++;
     e->numAncs++;
 }
 
 void voltaAncora(ESTADO * e)
 {
-    int x,y;
-    if (e->numAncs>0)
+    int x,y,a;
+    if (e->numAncs>0&&e->sizeU>0)
     {
         do
         {
-            pop(&x,&y,&(e->undo));
-            if (x!=99) {if (e->grelha[x][y]==VAZIA) e->grelha[x][y]=SOL_O; else e->grelha[x][y]--;}
+            pop(&x,&y,&a,&(e->undo));
+            if (a==e->numAncs) {if (e->grelha[x][y]==VAZIA) e->grelha[x][y]=SOL_O; else e->grelha[x][y]--;}
             e->sizeU--;
-        } while (x!=99);
+        } while (e->sizeU&&a==e->numAncs);
+        if (e->sizeU > 0) 
+        {
+            push(x,y,a,&(e->undo));
+            e->sizeU++;
+        }
         e->numAncs--;
     }
 }

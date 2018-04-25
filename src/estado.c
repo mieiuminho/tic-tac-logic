@@ -41,20 +41,20 @@ void getUserAndAction(char * link,char * user,char * action)
     action[j]='\0';
 }
 
-void push (int x,int y,LISTA * l)
+void push (int x,int y,int a,LISTA * l)
 {
     LISTA new;
     new = malloc(sizeof(struct lista));
-    new->x=x;new->y=y;new->next=(*l);
+    new->x=x;new->y=y;new->a=a;new->next=(*l);
     (*l)=new;
 }
 
-void addEnd (int x,int y,LISTA * l)
+void addEnd (int x,int y,int a,LISTA * l)
 {
     LISTA new,pt,ant=NULL;
     new = malloc(sizeof(struct lista));
     pt = (*l);
-    new->x=x;new->y=y;new->next=NULL;
+    new->x=x;new->y=y;new->a=a;new->next=NULL;
     while (pt)
     {
         ant = pt;
@@ -63,12 +63,13 @@ void addEnd (int x,int y,LISTA * l)
     if (ant) ant->next = new; else (*l) = new;
 }
 
-void pop (int * x,int * y,LISTA * l)
+void pop (int * x,int * y,int * a,LISTA * l)
 {
     LISTA temp;
     temp = (*l);
     *x = temp->x;
     *y = temp->y;
+    *a = temp->a;
     (*l)=(*l)->next;
     free(temp);
 }
@@ -92,7 +93,7 @@ void inicializar (ESTADO * e)
 void writeFile (char * user,ESTADO e)
 {
     FILE * fp;
-    int i,j,x,y;
+    int i,j,x,y,a;
     char link [60];
     sprintf(link,"/var/www/html/utilizadores/%s.txt",user);
     fp = fopen(link,"w+");
@@ -105,14 +106,14 @@ void writeFile (char * user,ESTADO e)
     }
     for(i=0;i<e.sizeU;i++)
     {
-        pop(&x,&y,&(e.undo));
-        fprintf(fp,"%d %d ",x,y);
+        pop(&x,&y,&a,&(e.undo));
+        fprintf(fp,"%d %d %d ",x,y,a);
     }
     fputc('\n',fp);
     for(i=0;i<e.sizeR;i++)
     {
-        pop(&x,&y,&(e.redo));
-        fprintf(fp,"%d %d ",x,y);
+        pop(&x,&y,&a,&(e.redo));
+        fprintf(fp,"%d %d %d ",x,y,a);
     }
     fprintf(fp,"\n%d",e.id);
     fprintf(fp,"\n%d",e.validade);
@@ -123,9 +124,10 @@ void writeFile (char * user,ESTADO e)
 
 void readFile (char * user,ESTADO * e)
 {
-    int i,j,a,b;
+    int i,j,x,y,a;
     FILE * fp;
     e->undo=NULL;
+    e->redo=NULL;
     char link [60];
     sprintf(link,"/var/www/html/utilizadores/%s.txt",user);
     fp = fopen(link,"r+");
@@ -137,13 +139,13 @@ void readFile (char * user,ESTADO * e)
                 fscanf(fp,"%d",&(e->grelha[j][i]));
         for(i=0;i<e->sizeU;i++)
         {
-            fscanf(fp,"%d %d",&a,&b);
-            addEnd(a,b,&(e->undo));
+            fscanf(fp,"%d %d %d ",&x,&y,&a);
+            addEnd(x,y,a,&(e->undo));
         }
         for(i=0;i<e->sizeR;i++)
         {
-            fscanf(fp,"%d %d",&a,&b);
-            addEnd(a,b,&(e->redo));
+            fscanf(fp,"%d %d %d",&x,&y,&a);
+            addEnd(x,y,a,&(e->redo));
         }
         fscanf(fp,"%d",&(e->id));
         fscanf(fp,"%d",&(e->validade));

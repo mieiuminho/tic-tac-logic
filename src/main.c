@@ -19,25 +19,27 @@ Esqueleto do programa
 
 void processa(ESTADO * e,char * ordem)
 {
-    int x,y;
+    int x,y,a;
     remHints(e);
     switch(ordem[0])
     {
         case 'x': sscanf(ordem,"x-%d-y-%d",&x,&y);
                   if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
-                  push(x,y,&(e->undo));
+                  push(x,y,e->numAncs,&(e->undo));
                   e->sizeU++;
                   break;
         case 'a': marcaAncora(e);break;
         case 'v': voltaAncora(e);break;
-        case 'u': pop(&x,&y,&(e->undo));
+        case 'u': pop(&x,&y,&a,&(e->undo));
                   if (e->grelha[x][y]==VAZIA) e->grelha[x][y]=SOL_O; else e->grelha[x][y]--;
-                  push(x,y,&(e->redo));
+                  if (a<e->numAncs) e->numAncs--;
+                  push(x,y,a,&(e->redo));
                   e->sizeR++;
                   e->sizeU--;break;
-        case 'r': pop(&x,&y,&(e->redo));
+        case 'r': pop(&x,&y,&a,&(e->redo));
                   if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
-                  push(x,y,&(e->undo));
+                  if (a>e->numAncs) e->numAncs++;
+                  push(x,y,a,&(e->undo));
                   e->sizeR--;
                   e->sizeU++;break;
         case 'i': sscanf(ordem,"id-%d",&x);
@@ -95,12 +97,16 @@ int main()
   char user [20];
   user[0]='#';
   char action [20];
-  getUserAndAction(getenv("QUERY_STRING"),user,action);
+  
+  
   readFile(user,&e);
   processa(&e,action);
-  writeFile(user,e);
 
   COMECAR_HTML;
+
+  ASK_NAME;
+  
+
 
   switch (e.id) {
     case INICIO: drawMenu(&e,user); break;
@@ -109,5 +115,7 @@ int main()
   }
 
   FECHAR_HTML;
+
+  writeFile(user,e);
   return 0;
 }

@@ -45,9 +45,17 @@ void drawJogo (ESTADO * e, char * user)
     drawSemaforo (e);
     IMAGEM_ABS(752, 0, 400, 200, "title.png", path);
     fazTab(e,user);
-    drawButton(e, 302, 400, 250, 125, "undo.png", "@undo", user);
-    drawButton(e, 1352, 400, 250, 125, "redo.png", "@redo", user);
-    drawButton(e, 302, 530, 250, 125, "voltar.png", "@voltar", user);
-    drawButton(e, 1352, 530, 250, 125, "carregar.png", "@carregar", user);
+    if (e->sizeU>0)
+      drawButton(e, 302, 400, 250, 125, "undo.png", "@undo", user);
+    else
+      IMAGEM_ABS(302,400,250,125,"undo.png",path);
+    if (e->sizeR>0)
+      drawButton(e, 1352, 400, 250, 125, "redo.png", "@redo", user);
+    else
+      IMAGEM_ABS(1352,400,250,125,"redo.png",path);
+    if (e->sizeU>0&&e->undo->a>0)
+      drawButton(e, 302, 530, 250, 125, "voltar.png", "@voltar", user);
+    else IMAGEM_ABS(302,530,250,125,"voltar.png",path);
+    drawButton(e, 1352, 530, 250, 125, "carregar.png", "@ancorar", user);
   FECHAR_SVG;
 }

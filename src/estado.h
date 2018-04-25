@@ -18,7 +18,7 @@ typedef enum {DEFAULT, DRACULA, MONOKAI} TEMA;
 
 typedef struct lista
 {
-    int x,y;
+    int x,y,a;
     struct lista * next;
 }* LISTA;
 
@@ -57,11 +57,11 @@ void writeFile (char *,ESTADO);
 
 void inicializar (ESTADO *);
 
-void pop (int *,int *,LISTA *);
+void pop (int *,int *,int *,LISTA *);
 
-void push (int,int,LISTA *);
+void push (int,int,int,LISTA *);
 
-void addEnd (int,int,LISTA *);
+void addEnd (int,int,int,LISTA *);
 
 void getUserAndAction(char *,char *,char *);
 

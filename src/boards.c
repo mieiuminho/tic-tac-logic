@@ -31,6 +31,9 @@ ESTADO le_tabuleiro(ESTADO * a,int x)
   e.num_lins = nl;
   e.num_cols = nc;
   e.sizeU=e.sizeR=e.numAncs=0;
+  e.validade=1;
+  e.undo=NULL;
+  e.redo=NULL;
 
   for(i=0;i<nl;i++){
     fscanf(fp, "%s", linha);
