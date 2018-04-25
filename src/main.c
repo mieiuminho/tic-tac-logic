@@ -95,18 +95,13 @@ int main()
 {
   ESTADO e;
   char user [20];
-  user[0]='#';
   char action [20];
-  
-  
+  getUserAndAction(getenv("QUERY_STRING"),user,action);
   readFile(user,&e);
   processa(&e,action);
+  writeFile(user,e);
 
   COMECAR_HTML;
-
-  ASK_NAME;
-  
-
 
   switch (e.id) {
     case INICIO: drawMenu(&e,user); break;
@@ -116,6 +111,5 @@ int main()
 
   FECHAR_HTML;
 
-  writeFile(user,e);
   return 0;
 }

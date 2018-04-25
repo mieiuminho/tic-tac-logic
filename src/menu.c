@@ -12,6 +12,7 @@ void drawMenu (ESTADO * e, char * user)
 {
   char path[60];
   colorSchemePath(e,path);
+  if(strlen(user)==0) ASK_USER;
   ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     IMAGEM_ABS(752, 200, 400, 200, "title.png", path);
     drawButton(e,852, 400, 200, 100, "play.png","@id-1",user);

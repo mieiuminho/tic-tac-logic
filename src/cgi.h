@@ -18,16 +18,14 @@ Macros úteis para gerar CGIs
 */
 #define TAB_PATH "/var/www/html/tabuleiros/"
 
+#define ASK_USER printf("<input type=\"text\" id=\"text\" placeholder=\"Escreva o seu nome...\"/> <input type=\"button\" id=\"btn\" value=\"Submit\" onClick=\"javascript: window.open('http://localhost/cgi-bin/GandaGalo?' + document.getElementById('text').value,'_self');\" />\n")
+
 /**
 \brief Macro para começar o html
 */
-#define COMECAR_HTML printf("Content-Type: text/html\n\n<html>\n")
+#define COMECAR_HTML printf("Content-Type: text/html\n\n<html>\n<title>GandaGalo</title>\n")
 
-#define ASK_NAME printf("<p>Escreva o seu nome:</p>\n<input> type='text' id='text'/>\n<input> type='button' id='btn' value='Submit' onClick='javascript: window.open('http:localhost/cgi-bin/GandaGalo?' + documento.getElementById('text').value,'_self');' />");	
- 
-
-
-/** 
+/**
 \brief Macro para abrir um svg
 @param tamx O comprimento do svg
 @param tamy A altura do svg
