@@ -23,7 +23,7 @@ void colorscheme (ESTADO * e)
 
 void colorSchemePath (ESTADO * e, char * path)
 {
-  switch(e->tema) 
+  switch(e->tema)
   {
     case DEFAULT: sprintf(path,"%s%s/",IMAGE_PATH,"default");
                   break;
@@ -108,18 +108,18 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user)
     case FIXO_X:
                   if (vPeca) strcpy(s,"bloqX.png");
                   else strcpy(s,"wrongbloqX.png");
-                  break;              
+                  break;
     case FIXO_O:
                   if (vPeca) strcpy(s,"bloqO.png");
                   else strcpy(s,"wrongbloqO.png");
                   break;
-    
+
     case HINT_X:  strcpy(s,"hintX.gif");
                   break;
     case HINT_O:  strcpy(s,"hintO.gif");
                   break;
     case BLOQUEADA: strcpy(s,"bloq.png");break;
-    
+
   }
 
   if (e->grelha[i][j]>FIXO_O) butaoProxEstadoJog(e,i,j,sf,s,user);

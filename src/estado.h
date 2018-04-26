@@ -51,19 +51,72 @@ char *estado2str(ESTADO);
 */
 ESTADO str2estado(char *);
 
-void readFile (char *,ESTADO *);
+/**
+\brief Função que lê de um ficheiro as informações relativas ao ESTADO de
+um determinado usuário.
+@param *e Apontador para o ESTADO.
+@param *user Nome de usuário.
+*/
+void readFile (char *user ,ESTADO *e);
 
-void writeFile (char *,ESTADO);
+/**
+\brief Função que escreve num ficheiro as informações relativas ao ESTADO 
+de um determinado usuário.
+@param *user Nome de usuário.
+@param e Estado.
+*/
+void writeFile (char *user ,ESTADO e);
 
-void inicializar (ESTADO *);
+/**
+\brief Função que inicializa os parâmetros do estado.
+@param *e Apontador para o ESTADO.
+*/
+void inicializar (ESTADO *e);
 
-void pop (int *,int *,int *,LISTA *);
+/**
+\brief Função que retira um nodo, à cabeça, sendo que também guarda as 
+coordenadas da jogada do primeiro nodo da lista
+e número de ancora correspondente, a uma determinada lista, neste caso
+ou à lista do redo ou à lista do undo.
+@param *x coordenada no eixo dos xx do nodo retirado.
+@param *y coordenada no eixo dos yy do nodo retirado.
+@param *a número de ancora correspondente do nodo retirado.
+@param *l lista à qual retirar o nodo.
+*/
+void pop (int *x, int *y, int *a, LISTA *l);
 
-void push (int,int,int,LISTA *);
+/**
+\brief Função que adiciona um nodo, à cabeça, com as coordenadas de uma determinada jogada
+e com o número de ancora correspondente, a uma determinada lista, neste caso
+ou à lista do redo ou à lista do undo.
+@param x coordenada no eixo dos xx.
+@param y coordenada no eixo dos yy.
+@param a número de ancora correspondente.
+@param *l lista à qual adicionar o nodo.
+*/
+void push (int x, int y, int a , LISTA *l);
 
-void addEnd (int,int,int,LISTA *);
+/**
+\brief Função que adiciona um nodo, no final, com as coordenadas de uma determinada jogada
+e com o número de ancora correspondente, a uma determinada lista, neste caso
+ou à lista do redo ou à lista do undo.
+@param x coordenada no eixo dos xx.
+@param y coordenada no eixo dos yy.
+@param a número de ancora correspondente.
+@param *l lista à qual adicionar o nodo.
+*/
+void addEnd (int x, int y, int a, LISTA *l);
 
-void getUserAndAction(char *,char *,char *);
+
+/**
+\brief Função que através da string que corresponde ao link a separa em
+duas sub-strings sendo elas o utilizador e a ação a ser realizada para
+"montar" o estado seguinte.
+@param *link String onde está guardado todo o link por exemplo "tomás@undo".
+@param *user String ode será guardado o nome do utilizador, usando o caso anterior "tomás".
+@param *action String onde será guardada a ação a realizar, usando o exemplo anterior "undo".
+*/
+void getUserAndAction(char *link, char *user, char *action);
 
 
 #endif

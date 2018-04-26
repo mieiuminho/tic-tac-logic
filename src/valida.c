@@ -1,5 +1,14 @@
 #include "valida.h"
 
+/**
+\brief Função que verifica se duas peças são iguais.
+@param *e Apontador para o estado.
+@param i Coordenada correspondente ao eixo dos xx da primeira peça.
+@param j Coordenada correspondente ao eixo dos yy da primeira peça.
+@param x Coordenada correspondente ao eixo dos xx da segunda peça.
+@param y Coordenada correspondente ao eixo dos yy da segunda peça.
+@returns "1" caso afirmativo ou "0" caso contrário.
+*/
 int isEqual (ESTADO * e,int i,int j,int x,int y)
 {
   int r=0;

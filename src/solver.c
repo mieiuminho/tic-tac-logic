@@ -79,6 +79,7 @@ int fillIn (ESTADO * e,int * x,int * y)
     return found;
 }
 
+
 void remHints (ESTADO * e)
 {
   int i, j;

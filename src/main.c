@@ -17,6 +17,11 @@ Esqueleto do programa
 #define GRELHA  4
 #define TAM     40
 
+/**
+\brief Função que processa as ordens recebidas pelo jogo.
+@param *e Apontador para o ESTADO.
+@param *ordem String corresponde à ordem recebida.
+*/
 void processa(ESTADO * e,char * ordem)
 {
     int x,y,a;

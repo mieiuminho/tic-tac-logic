@@ -8,10 +8,25 @@
 Criação das funções que interpretam o meu atual
 */
 
-void drawMenu (ESTADO *, char *);
+/**
+\brief Função que desenha o menu.
+@param *e Apontador para o ESTADO.
+@param *user Nome de usuário.
+*/
+void drawMenu (ESTADO *e, char *user);
 
-void drawSelecao (ESTADO *, char *);
+/**
+\brief Função que desenha o menu de seleção de puzzles.
+@param *e Apontador para o ESTADO.
+@param *user Nome de usuário.
+*/
+void drawSelecao (ESTADO *e, char *user);
 
-void drawJogo (ESTADO *, char *);
+/**
+\brief Função que desenha o jogo propriamente dito.
+@param *e Apontador para o ESTADO.
+@param *user Nome de usuário.
+*/
+void drawJogo (ESTADO *e, char *user);
 
 #endif

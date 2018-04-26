@@ -18,6 +18,9 @@ Macros úteis para gerar CGIs
 */
 #define TAB_PATH "/var/www/html/tabuleiros/"
 
+/**
+* Pergunta ao usuário o seu nome e coloca-o no link
+*/
 #define ASK_USER printf("<input type=\"text\" id=\"text\" placeholder=\"Escreva o seu nome...\"/> <input type=\"button\" id=\"btn\" value=\"Submit\" onClick=\"javascript: window.open('http://localhost/cgi-bin/GandaGalo?' + document.getElementById('text').value,'_self');\" />\n")
 
 /**
