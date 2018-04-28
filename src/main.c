@@ -31,7 +31,14 @@ void processa(ESTADO * e,char * ordem)
         case 'a': marcaAncora(e);break;
         case 'v': voltaAncora(e);break;
         case 'u': pop(&x,&y,&a,&(e->undo));
-                  if (e->grelha[x][y]==VAZIA) e->grelha[x][y]=SOL_O; else e->grelha[x][y]--;
+                  switch(e->grelha[x][y])
+                  {
+                    case HINT_X:
+                    case HINT_O:
+                    case SOL_X:e->grelha[x][y]=VAZIA;break;
+                    case SOL_O:e->grelha[x][y]=SOL_X;break;
+                    case VAZIA:e->grelha[x][y]=SOL_O;break;
+                 } 
                   if (a<e->numAncs) e->numAncs--;
                   push(x,y,a,&(e->redo));
                   e->sizeR++;
@@ -48,10 +55,10 @@ void processa(ESTADO * e,char * ordem)
         case 't': sscanf(ordem,"tab%d",&x);
                   (*e)=le_tabuleiro(e,x);
                   e->id=JOGO;
-                  break;//(*e) = le_tabuleiro(ordem);
+                  break;
         case 'c': colorscheme(e);
                   break;
-        case 'h': fillIn(e);
+        case 'h': if (fillIn(e,&x,&y)==0) findImpossible(e);
                   break;
     }
 }

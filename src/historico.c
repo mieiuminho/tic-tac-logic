@@ -13,10 +13,20 @@ void voltaAncora(ESTADO * e)
         do
         {
             pop(&x,&y,&a,&(e->undo));
-            if (a==e->numAncs) {if (e->grelha[x][y]==VAZIA) e->grelha[x][y]=SOL_O; else e->grelha[x][y]--;}
+            if (a==e->numAncs)
+            {
+                switch(e->grelha[x][y])
+                {
+                    case HINT_X:
+                    case HINT_O:
+                    case SOL_X:e->grelha[x][y]=VAZIA;break;
+                    case SOL_O:e->grelha[x][y]=SOL_X;break;
+                    case VAZIA:e->grelha[x][y]=SOL_O;break;
+                }
+            }
             e->sizeU--;
         } while (e->sizeU&&a==e->numAncs);
-        if (e->sizeU > 0) 
+        if (e->sizeU > 0)
         {
             push(x,y,a,&(e->undo));
             e->sizeU++;

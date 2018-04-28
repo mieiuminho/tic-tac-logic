@@ -2,9 +2,11 @@
 #define ___SOLVER_H___
 #include "estado.h"
 
-void fillIn (ESTADO *e);
+int fillIn (ESTADO *e,int * x,int * y);
 
 void remHints (ESTADO *e);
+
+void findImpossible (ESTADO * e);
 
 #endif
 

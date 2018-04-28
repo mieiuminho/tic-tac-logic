@@ -7,11 +7,55 @@
 #include "menu.h"
 #include "valida.h"
 
-// Função que percorre o tabuleiro e preenche com os casos imediatos
-void fillIn (ESTADO * e)
+void findImpossible(ESTADO * e)
 {
-    int i, j, found;
-    i=j=found=0;
+  int i,j,notfound,x,y;
+  notfound=1;
+  for (i=0;(i<e->num_lins)&&(notfound!=2);i++)
+  {
+    for (j=0;(j<e->num_cols)&&(notfound!=2);j++)
+    {
+      if (e->grelha[i][j]==VAZIA)
+      {
+        e->grelha[i][j]=HINT_O;
+        marcaAncora(e);
+        while(notfound==1)
+        {
+          notfound=fillIn(e,&x,&y);
+          if (notfound==1) {push(x,y,e->numAncs,&(e->undo));e->sizeU++;}
+        }
+        if (notfound==2)
+          e->grelha[i][j]=HINT_X;
+        else
+        {
+          voltaAncora(e);
+          notfound=1;
+          e->grelha[i][j]=HINT_X;
+          marcaAncora(e);
+          while(notfound==1)
+          {
+            notfound=fillIn(e,&x,&y);
+            if (notfound==1) {push(x,y,e->numAncs,&(e->undo));e->sizeU++;}
+          }
+          if (notfound==2)
+            e->grelha[i][j]=HINT_O;
+          else
+          {
+            e->grelha[i][j]=VAZIA;
+            notfound=1;
+          }
+        }
+        voltaAncora(e);
+      }
+    }
+  }
+}
+
+// Função que percorre o tabuleiro e preenche com os casos imediatos
+int fillIn (ESTADO * e,int * x,int * y)
+{
+    int i, j, found,foundX,foundO;
+    i=j=found=foundX=foundO=0;
     for(i=0;(i<e->num_lins)&&(!found);i++)
     {
         for(j=0;(j<e->num_cols)&&(!found);j++)
@@ -20,24 +64,19 @@ void fillIn (ESTADO * e)
           {
             e->grelha[i][j]=SOL_X;
             if (!validaPeca(e,i,j))
-            {
-              e->grelha[i][j]=HINT_O;
-              found = 1;
-            }
-            else if (!found)
-            {
-              e->grelha[i][j]=SOL_O;
-              if (!validaPeca(e,i,j))
-              {
-                e->grelha[i][j]=HINT_X;
-                found = 1;
-              }
-            }
-            if (!found) e->grelha[i][j]=VAZIA;
+              foundO=1;
+            e->grelha[i][j]=SOL_O;
+            if (!validaPeca(e,i,j))
+              foundX=1;
+            if (foundX&&foundO) {found=2;e->grelha[i][j]=VAZIA;}
+            else if (foundX) {e->grelha[i][j]=HINT_X;found=1;*x=i;*y=j;}
+                 else if (foundO) {e->grelha[i][j]=HINT_O;found=1;*x=i;*y=j;}
+                      else e->grelha[i][j]=VAZIA;
           }
 
         }
     }
+    return found;
 }
 
 void remHints (ESTADO * e)
@@ -53,7 +92,6 @@ void remHints (ESTADO * e)
                      break;
         case HINT_O: e->grelha[i][j]=SOL_O;
                      break;
-        
       }
     }
   }
