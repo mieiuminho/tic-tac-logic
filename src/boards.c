@@ -35,9 +35,9 @@ ESTADO le_tabuleiro(ESTADO * a,int x)
   e.undo=NULL;
   e.redo=NULL;
 
-  for(i=0;i<nl;i++){
+  for(i=0;i<nc;i++){
     fscanf(fp, "%s", linha);
-    for(j=0;j<nc;j++)
+    for(j=0;j<nl;j++)
       switch (linha[j]) {
         case 'X':
         case 'x': e.grelha[j][i] = FIXO_X;break;
