@@ -21,7 +21,7 @@ Macros úteis para gerar CGIs
 /**
 * Pergunta ao usuário o seu nome e coloca-o no link
 */
-#define ASK_USER printf("<input type=\"text\" id=\"text\" placeholder=\"Escreva o seu nome...\"/> <input type=\"button\" id=\"btn\" value=\"Submit\" onClick=\"javascript: window.open('http://localhost/cgi-bin/GandaGalo?' + document.getElementById('text').value,'_self');\" />\n")
+#define ASK_USER printf("<script>user_name = prompt(\"Escreva o seu nome ou jogue como convidado.\"); if(user_name!=null && user_name !=\"\"){ window.open('http://localhost/cgi-bin/GandaGalo?' + user_name)};</script>\n")
 
 /**
 \brief Macro para começar o html
