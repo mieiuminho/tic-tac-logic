@@ -47,7 +47,7 @@ tratar dos deslocamentos de cada uma das peças.
 void calculaCentroPeca (ESTADO * e,int sf,int * fx,int * fy);
 
 /**
-\brief Função que desenha uma peça jogável no tabuleiro, ou seja, ou peça com 
+\brief Função que desenha uma peça jogável no tabuleiro, ou seja, ou peça com
 a instrução para mudar para o estado "seguinte".
 @param *e Apontador para o estado.
 @param i Inteiro com o valor do deslocamento relativo em x.
@@ -65,7 +65,7 @@ void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s,char * user);
 @param j Inteiro com o valor do deslocamento relativo em y.
 @param sf Inteiro onde está o fator de escala.
 @param *s string com o nome da imagem da respetiva peça a desenhar.
-*/ 
+*/
 void drawBloq (ESTADO * e,int i,int j,int sf,char * s);
 
 /**
@@ -93,10 +93,20 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user);
 void drawButton(ESTADO * e, int x, int y, int sx, int sy , char * s,char * action, char * user);
 
 /**
-\brief Função que verifica se um tabuleiro a determinada altura está "VALIDO", ou seja, 
+\brief Função que um butão de texto para os tabuleiros.
+@param x Coordenada da imagem segundo o eixo dos xx.
+@param y Coordenada da imagem segundo o eixo dos yy.
+@param n Número do tabuleiro.
+@param *action Ação realizada pelo butão.
+@param *user Nome do usuário.
+*/
+void drawTextButton(int x,int y,int n,char * action,char * user);
+
+/**
+\brief Função que verifica se um tabuleiro a determinada altura está "VALIDO", ou seja,
 suscetível de ser completado, "INVALIDO", ou seja, com algum erro, ou ainda, "IMPOSSIVEL",
-que é quando ainda não existe nenhuma violação explícita das regras do jogo, mas existe 
-uma situação imcompatível (significa que o tabuleiro não pode ser completado respeitando 
+que é quando ainda não existe nenhuma violação explícita das regras do jogo, mas existe
+uma situação imcompatível (significa que o tabuleiro não pode ser completado respeitando
 as regras do jogo.)
 @param *e Apontador para o estado.
 */

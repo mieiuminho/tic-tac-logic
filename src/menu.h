@@ -9,24 +9,31 @@ Criação das funções que interpretam o meu atual
 */
 
 /**
-\brief Função que desenha o menu.
+\brief Função que desenha o menu inicial.
 @param *e Apontador para o ESTADO.
 @param *user Nome de usuário.
 */
-void drawMenu (ESTADO *e, char *user);
+void drawStart (ESTADO * e, char * user);
 
 /**
-\brief Função que desenha o menu de seleção de puzzles.
+\brief Função que desenha o menu para a escolha do nível de dificuldade.
 @param *e Apontador para o ESTADO.
 @param *user Nome de usuário.
 */
-void drawSelecao (ESTADO *e, char *user);
+void drawLobby (ESTADO * e, char * user);
+
+/**
+\brief Função que desenha o menu de seleção de puzzles de um determinado nível.
+@param *e Apontador para o ESTADO.
+@param *user Nome de usuário.
+*/
+void drawLevel (ESTADO * e, char * user);
 
 /**
 \brief Função que desenha o jogo propriamente dito.
 @param *e Apontador para o ESTADO.
 @param *user Nome de usuário.
 */
-void drawJogo (ESTADO *e, char *user);
+void drawGame (ESTADO * e, char * user);
 
 #endif

@@ -12,9 +12,9 @@ Definição do estado e das funções que convertem estados em strings e vice-ve
 #define MAX_HISTR    6
 #define MAX_HISTA    10
 typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O, HINT_X, HINT_O} VALOR;
-typedef enum {INICIO, SELECAO, JOGO} ID;
-typedef enum {INVALIDO,IMPOSSIVEL,VALIDO} VALIDADE;
-typedef enum {DEFAULT, DRACULA, MONOKAI} TEMA;
+typedef enum {START, LOBBY, EASY, MEDIUM, HARD, GAME} ID;
+typedef enum {INVALIDO, IMPOSSIVEL, VALIDO} VALIDADE;
+typedef enum {DEFAULT, DRACULA, MONOKAI} THEME;
 
 typedef struct lista
 {
@@ -60,7 +60,7 @@ um determinado usuário.
 void readFile (char *user ,ESTADO *e);
 
 /**
-\brief Função que escreve num ficheiro as informações relativas ao ESTADO 
+\brief Função que escreve num ficheiro as informações relativas ao ESTADO
 de um determinado usuário.
 @param *user Nome de usuário.
 @param e Estado.
@@ -74,7 +74,7 @@ void writeFile (char *user ,ESTADO e);
 void inicializar (ESTADO *e);
 
 /**
-\brief Função que retira um nodo, à cabeça, sendo que também guarda as 
+\brief Função que retira um nodo, à cabeça, sendo que também guarda as
 coordenadas da jogada do primeiro nodo da lista
 e número de ancora correspondente, a uma determinada lista, neste caso
 ou à lista do redo ou à lista do undo.

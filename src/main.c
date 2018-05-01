@@ -33,8 +33,10 @@ void processa(ESTADO * e,char * ordem)
                   push(x,y,e->numAncs,&(e->undo));
                   e->sizeU++;
                   break;
-        case 'a': marcaAncora(e);break;
-        case 'v': voltaAncora(e);break;
+        case 'a': marcaAncora(e);
+                  break;
+        case 'v': voltaAncora(e);
+                  break;
         case 'u': pop(&x,&y,&a,&(e->undo));
                   switch(e->grelha[x][y])
                   {
@@ -43,23 +45,25 @@ void processa(ESTADO * e,char * ordem)
                     case SOL_X:e->grelha[x][y]=VAZIA;break;
                     case SOL_O:e->grelha[x][y]=SOL_X;break;
                     case VAZIA:e->grelha[x][y]=SOL_O;break;
-                 } 
+                 }
                   if (a<e->numAncs) e->numAncs--;
                   push(x,y,a,&(e->redo));
                   e->sizeR++;
-                  e->sizeU--;break;
+                  e->sizeU--;
+                  break;
         case 'r': pop(&x,&y,&a,&(e->redo));
                   if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
                   if (a>e->numAncs) e->numAncs++;
                   push(x,y,a,&(e->undo));
                   e->sizeR--;
-                  e->sizeU++;break;
+                  e->sizeU++;
+                  break;
         case 'i': sscanf(ordem,"id-%d",&x);
                   e->id = x;
                   break;
         case 't': sscanf(ordem,"tab%d",&x);
                   (*e)=le_tabuleiro(e,x);
-                  e->id=JOGO;
+                  e->id=GAME;
                   break;
         case 'c': colorscheme(e);
                   break;
@@ -67,37 +71,6 @@ void processa(ESTADO * e,char * ordem)
                   break;
     }
 }
-
-
-/**
-Lê o estado a partir da variável de ambiente QUERY_STR. Caso não seja passado um valor, chama a função inicializar
-@param args O valor da variável (o que é passado depois de ? no URL)
-@returns O estado
-*/
-
-/*
-ESTADO ler_estado(char *args)
-{
-  ESTADO e;
-
-  if(strlen(args) == 0) e.id = INICIO;
-  else if (strcmp(args,"puzzles") == 0) e.id = SELECAO;
-  else if (strcmp(args,"puzzles/1") == 0){
-    e = le_tabuleiro("tabuleiro1.txt");
-    e.id = JOGO;
-  } else if (strcmp(args,"puzzles/2") == 0) {
-    e = le_tabuleiro("tabuleiro2.txt");
-    e.id = JOGO;
-  } else if (strcmp(args,"puzzles/3") == 0) {
-    e = le_tabuleiro("tabuleiro3.txt");
-    e.id = JOGO;
-  } else {
-      e = str2estado(args);
-      e.id = JOGO;
-  }
-  return e;
-}
-*/
 
 /**
 Função principal do programa
@@ -116,9 +89,16 @@ int main()
   COMECAR_HTML;
 
   switch (e.id) {
-    case INICIO: drawMenu(&e,user); break;
-    case SELECAO: drawSelecao(&e,user); break;
-    case JOGO: drawJogo(&e,user); break;
+    case START: drawStart(&e,user);
+                break;
+    case LOBBY: drawLobby(&e,user);
+                break;
+    case EASY:
+    case MEDIUM:
+    case HARD: drawLevel(&e,user);
+               break;
+    case GAME: drawGame(&e,user);
+               break;
   }
 
   FECHAR_HTML;

@@ -49,7 +49,7 @@ Macros úteis para gerar CGIs
 @param FICHEIRO O caminho para o link do ficheiro
 */
 #define IMAGEM(X, Y, ESCALA, FICHEIRO, PATH)		printf("<image x=%d y=%d width=%d height=%d xlink:href=%s%s />\n", \
-												ESCALA * X, ESCALA* Y, ESCALA, ESCALA, PATH, FICHEIRO)
+												ESCALA * X, ESCALA * Y, ESCALA, ESCALA, PATH, FICHEIRO)
 
 /**
 \brief Macro para criar uma imagem usando valores absolutos
@@ -61,6 +61,14 @@ Macros úteis para gerar CGIs
 */
 #define IMAGEM_ABS(X, Y, ESCALA_X, ESCALA_Y, FICHEIRO, PATH)		printf("<image x=%d y=%d width=%d height=%d xlink:href=%s%s />\n", \
 												X, Y, ESCALA_X, ESCALA_Y, PATH, FICHEIRO)
+
+/**
+\brief Macro para escrever Tabuleiro N
+@param X A coordenada X do canto superior esquerdo
+@param Y A coordenada Y do canto superior esquerdo
+@param N O número do tabuleiro correspondente
+*/
+#define TEXTO(X, Y, COR, N) printf("<text x=%d y=%d fill=%s>Tabuleiro %d</text>\n", X, Y, COR, N)
 
 /**
 \brief Macro para criar um quadrado
@@ -78,6 +86,10 @@ Macros úteis para gerar CGIs
 */
 #define ABRIR_LINK(link)					printf("<a xlink:href=%s>\n", link)
 
+/**
+\brief Macro para abrir uma acção
+@param link O caminho para o acção
+*/
 #define ABRIR_LINK_ABS(link)				printf("<a xlink:href=http://localhost/cgi-bin/GandaGalo?%s>\n", link)
 
 /**

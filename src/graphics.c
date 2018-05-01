@@ -74,7 +74,7 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s)
 
 void drawButton(ESTADO * e,int x,int y,int sx,int sy,char * s,char * action,char * user)
 {
-  char link [40];
+  char link[40];
   char path[60];
   colorSchemePath(e,path);
   sprintf(link,"%s%s",user,action);
@@ -83,11 +83,15 @@ void drawButton(ESTADO * e,int x,int y,int sx,int sy,char * s,char * action,char
   FECHAR_LINK;
 }
 
+void drawTextButton(int x,int y,int n,char * action,char * user)
+{
+  char link[40];
+  sprintf(link,"%s%s",user,action);
+  ABRIR_LINK_ABS(link);
+    TEXTO(x,y,"#FFF",n);
+  FECHAR_LINK;
+}
 
-/**
-Coloca a imagem correspondente no local indicado
-@param A posição x e y onde a imagem vai ser colocada assim como um char para identificar qual será essa imagem
-*/
 void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user)
 {
   char s[50];

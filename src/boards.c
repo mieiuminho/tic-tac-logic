@@ -15,6 +15,19 @@ void fazTab(ESTADO *e,char * user)
       else drawPeca(i, j, e, sf, validaPeca(e, i, j),user);
 }
 
+void boardLevelPath (ESTADO * e, char * level)
+{
+  switch(e->id)
+  {
+    case EASY:   sprintf(level,"%s%s/",TAB_PATH,"easy");
+                 break;
+    case MEDIUM: sprintf(level,"%s%s/",TAB_PATH,"medium");
+                 break;
+    case HARD:   sprintf(level,"%s%s/",TAB_PATH,"hard");
+                 break;
+  }
+}
+
 ESTADO le_tabuleiro(ESTADO * a,int x)
 {
   ESTADO e;
@@ -23,10 +36,12 @@ ESTADO le_tabuleiro(ESTADO * a,int x)
   int i,j;
   char linha[20];
   char nomef[MAX_PATH];
+  char level[60];
 
-  sprintf(nomef, "%s%s%d%s", TAB_PATH, "tabuleiro",x,".txt");
+  boardLevelPath(a,level);
+  sprintf(nomef, "%stabuleiro%d.txt", level, x);
   FILE *fp=fopen(nomef, "r");
-  fscanf(fp, "%d %d", &nl, &nc); // possivel erro
+  fscanf(fp, "%d %d", &nl, &nc); //TODO: possivel erro
 
   e.num_lins = nl;
   e.num_cols = nc;

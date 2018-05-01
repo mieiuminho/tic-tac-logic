@@ -17,11 +17,11 @@ de "suposição" para resolver um determinado tabuleiro.
 @param *e Apontador para o estado
 @param *x Apontador para a coordenada x da posição preenchida por fillIn.
 @param *y Apontador para a coordenada y da posição preenchida por fillIn.
-@returns "0" caso só seja possível fornecer uma ajuda com recurso à "suposição", "1" caso 
+@returns "0" caso só seja possível fornecer uma ajuda com recurso à "suposição", "1" caso
 seja possível colocar uma dar uma ajuda e, por último, "2" caso não seja possível fornecer
-uma ajuda. 
+uma ajuda.
 */
-int fillIn (ESTADO *e,int * x,int * y); 
+int fillIn (ESTADO *e,int * x,int * y);
 
 /**
 \brief Função que percorre o tabuleiro à procura de peças que necessitem de estar numa

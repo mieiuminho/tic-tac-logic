@@ -22,8 +22,13 @@ imagens:
 	sudo cp img/monokai/*.* /var/www/html/images/monokai
 
 tabuleiros:
-	sudo mkdir -p /var/www/html/tabuleiros
-	sudo cp tab/*.txt /var/www/html/tabuleiros
+	sudo mkdir -p /var/www/html/tabuleiros/easy
+	sudo mkdir -p /var/www/html/tabuleiros/medium
+	sudo mkdir -p /var/www/html/tabuleiros/hard
+	sudo chmod -R a+rwx  /var/www/html/tabuleiros
+	sudo cp tab/easy/*.txt /var/www/html/tabuleiros/easy
+	sudo cp tab/medium/*.txt /var/www/html/tabuleiros/medium
+	sudo cp tab/hard/*.txt /var/www/html/tabuleiros/hard
 
 
 GandaGalo.zip: $(FICHEIROS)

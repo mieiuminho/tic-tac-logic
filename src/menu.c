@@ -8,7 +8,7 @@
 #include "valida.h"
 #include <string.h>
 
-void drawMenu (ESTADO * e, char * user)
+void drawStart (ESTADO * e, char * user)
 {
   char path[60];
   colorSchemePath(e,path);
@@ -20,7 +20,7 @@ void drawMenu (ESTADO * e, char * user)
   FECHAR_SVG;
 }
 
-void drawSelecao (ESTADO * e, char * user)
+void drawLobby (ESTADO * e, char * user)
 {
   char path[60];
   colorSchemePath(e,path);
@@ -28,13 +28,40 @@ void drawSelecao (ESTADO * e, char * user)
     drawButton(e, 10, 10, 75, 75, "arrow.png", "@id-0", user);
     drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
     IMAGEM_ABS(752, 0, 400, 200, "title.png",path);
-    drawButton(e, 652, 400, 200, 100, "hard.png","@tab1",user);
-    drawButton(e, 852, 400, 200, 100, "easy.png","@tab2",user);
-    drawButton(e, 1052, 400, 200, 100, "medium.png","@tab3",user);
+    drawButton(e, 652, 400, 200, 100, "easy.png","@id-2",user);
+    drawButton(e, 852, 400, 200, 100, "medium.png","@id-3",user);
+    drawButton(e, 1052, 400, 200, 100, "hard.png","@id-4",user);
   FECHAR_SVG;
 }
 
-void drawJogo (ESTADO * e, char * user)
+void drawLevel (ESTADO * e, char * user)
+{
+  int i=1;
+  FILE * fp;
+  char path[60];
+  char level[60];
+  char link[60];
+  char action[40];
+  colorSchemePath(e,path);
+  boardLevelPath(e,level);
+  ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
+    drawButton(e, 10, 10, 75, 75, "arrow.png", "@id-1", user);
+    drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
+    IMAGEM_ABS(752, 0, 400, 200, "title.png",path);
+    do {
+      sprintf(link,"%stabuleiro%d.txt",level,i);
+      fp = fopen(link,"r");
+      if (fp!=NULL) {
+        sprintf(action,"%s%d","@tab",i);
+        drawTextButton(20+100*i,400,i,action,user);
+        fclose(fp);
+      }
+      i++;
+    } while (fp!=NULL);
+  FECHAR_SVG;
+}
+
+void drawGame (ESTADO * e, char * user)
 {
   char path[60];
   colorSchemePath(e,path);
