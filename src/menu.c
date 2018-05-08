@@ -32,7 +32,7 @@ void drawLobby (ESTADO * e, char * user)
 
 void drawLevel (ESTADO * e, char * user)
 {
-  int i=1;
+  int tab=1;
   FILE * fp;
   char path[60];
   char level[60];
@@ -44,14 +44,14 @@ void drawLevel (ESTADO * e, char * user)
     drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
     IMAGEM_ABS(752, 0, 400, 200, "title.png",path);
     do {
-      sprintf(link,"%stabuleiro%d.txt",level,i);
+      sprintf(link,"%stabuleiro%d.txt",level,tab);
       fp = fopen(link,"r");
       if (fp!=NULL) {
-        sprintf(action,"%s%d","@tab",i);
-        drawTextButton(20+100*i,400,i,action,user);
+        sprintf(action,"%s%d","@tab",tab);
+          drawPreview(e,e->id,action,user,tab);
         fclose(fp);
       }
-      i++;
+      tab++;
     } while (fp!=NULL);
 }
 

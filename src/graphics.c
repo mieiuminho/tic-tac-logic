@@ -72,6 +72,35 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s)
   IMAGEM(i+cx,j+cy,sf,s,path);
 }
 
+void drawBloqPreview (ESTADO * e,int i,int j,int sf,char * s, int tab)
+{
+  int cx,cy;
+  char path[60];
+  colorSchemePath(e,path);
+  switch(tab%6)
+  {
+    case 1: cx=215;
+            cy=225;
+            break;
+    case 2: cx=850;
+            cy=225;
+            break;
+    case 3: cx=1515;
+            cy=225;
+            break;
+    case 4: cx=215;
+            cy=600;
+            break;
+    case 5: cx=850;
+            cy=600;
+            break;
+    case 0: cx=1515;
+            cy=600;
+            break;
+  }
+  IMAGEM(i+cx,j+cy,sf,s,path);
+}
+
 void drawButton(ESTADO * e,int x,int y,int sx,int sy,char * s,char * action,char * user)
 {
   char link[40];
@@ -92,7 +121,28 @@ void drawTextButton(int x,int y,int n,char * action,char * user)
   FECHAR_LINK;
 }
 
-void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user)
+void drawPreview (ESTADO * e, int id,  char * action, char * user, int tab)
+{
+  int i, j, sf;
+  ESTADO d;
+  char link[40];
+  d.id=id;
+  d.tema=DEFAULT;
+  sprintf(link,"%s%s",user,action);
+  ABRIR_LINK_ABS(link);
+   d = le_tabuleiro(&d,tab);
+   getScaleFactor(&sf,&d);
+   for(i=0;i<d.num_lins;i++)
+    for(j=0;j<d.num_cols;j++)
+    {
+      if(e->tema!=d.tema) d.tema=e->tema;
+      drawPeca(i,j,&d,(sf*0.3),1,user,1,tab);
+    }
+      
+  FECHAR_LINK;
+}
+
+void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user,int preview, int tab)
 {
   char s[50];
 
@@ -126,8 +176,9 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user)
 
   }
 
-  if (e->grelha[i][j]>FIXO_O) butaoProxEstadoJog(e,i,j,sf,s,user);
-  else drawBloq(e,i,j,sf,s);
+  if (e->grelha[i][j]>FIXO_O && (!preview)) butaoProxEstadoJog(e,i,j,sf,s,user);
+  else if (!preview) drawBloq(e,i,j,sf,s);
+       else drawBloqPreview(e,i,j,sf,s,tab);
 }
 
 void drawSemaforo (ESTADO * e)

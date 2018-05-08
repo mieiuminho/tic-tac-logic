@@ -97,4 +97,3 @@ void remHints (ESTADO * e)
     }
   }
 }
-

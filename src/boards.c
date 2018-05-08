@@ -11,7 +11,7 @@ void fazTab(ESTADO *e,char * user)
   getScaleFactor(&sf, e);
   for (i = 0; i < e->num_lins; i++)
     for (j = 0; j < e->num_cols; j++)
-      drawPeca(i, j, e, sf, validaPeca(e, i, j),user);
+      drawPeca(i, j, e, sf, validaPeca(e, i, j),user,0,0);
 }
 
 void boardLevelPath (ESTADO * e, char * level)

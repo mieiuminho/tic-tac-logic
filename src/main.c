@@ -85,7 +85,6 @@ int main()
       case GAME: drawGame(&e,user);
                  break;
     }
-
     FECHAR_SVG;
   FECHAR_HTML;
 

@@ -1,6 +1,7 @@
 #ifndef ___GRAPHICS_H___
 #define ___GRAPHICS_H___
 #include "estado.h"
+#include "boards.h"
 #define ECRA_X 1904
 #define ECRA_Y 938
 #define DTAB 600
@@ -77,7 +78,7 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s);
 @param vPeca Resultado de "validaPeca".
 @param *user Nome do usuário.
 */
-void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user);
+void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user, int preview, int tab);
 
 /**
 \brief Função que desenha cada butão.
@@ -111,5 +112,11 @@ as regras do jogo.)
 @param *e Apontador para o estado.
 */
 void drawSemaforo(ESTADO * e);
+
+void drawPreview (ESTADO *e, int id,  char * action, char * user, int tab);
+
+void drawBloqPreview (ESTADO * e,int i,int j,int sf,char * s, int tab);
+
+
 
 #endif

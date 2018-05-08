@@ -82,6 +82,3 @@ void setSemaforo (ESTADO * e)
   if (r==0) e->validade = INVALIDO;
   else e->validade = foundInc ? IMPOSSIVEL : VALIDO;
 }
-
-
-
