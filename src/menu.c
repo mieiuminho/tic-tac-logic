@@ -13,25 +13,21 @@ void drawStart (ESTADO * e, char * user)
   char path[60];
   colorSchemePath(e,path);
   if(strlen(user)==0) ASK_USER;
-  ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     IMAGEM_ABS(752, 200, 400, 200, "title.png", path);
     drawButton(e,852, 400, 200, 100, "play.png","@id-1",user);
     drawButton(e,10,10,75,75,"palette.png","@colorscheme",user);
-  FECHAR_SVG;
 }
 
 void drawLobby (ESTADO * e, char * user)
 {
   char path[60];
   colorSchemePath(e,path);
-  ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     drawButton(e, 10, 10, 75, 75, "arrow.png", "@id-0", user);
     drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
     IMAGEM_ABS(752, 0, 400, 200, "title.png",path);
     drawButton(e, 652, 400, 200, 100, "easy.png","@id-2",user);
     drawButton(e, 852, 400, 200, 100, "medium.png","@id-3",user);
     drawButton(e, 1052, 400, 200, 100, "hard.png","@id-4",user);
-  FECHAR_SVG;
 }
 
 void drawLevel (ESTADO * e, char * user)
@@ -44,7 +40,6 @@ void drawLevel (ESTADO * e, char * user)
   char action[40];
   colorSchemePath(e,path);
   boardLevelPath(e,level);
-  ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     drawButton(e, 10, 10, 75, 75, "arrow.png", "@id-1", user);
     drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
     IMAGEM_ABS(752, 0, 400, 200, "title.png",path);
@@ -58,14 +53,12 @@ void drawLevel (ESTADO * e, char * user)
       }
       i++;
     } while (fp!=NULL);
-  FECHAR_SVG;
 }
 
 void drawGame (ESTADO * e, char * user)
 {
   char path[60];
   colorSchemePath(e,path);
-  ABRIR_SVG(ECRA_X, ECRA_Y, "#000");
     drawButton(e, 10, 10, 75, 75, "arrow.png", "@id-1", user);
     drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
     drawButton(e, 10, 160, 75, 75 , "hint.png", "@hint", user);
@@ -85,5 +78,4 @@ void drawGame (ESTADO * e, char * user)
       drawButton(e, 302, 530, 250, 125, "voltar.png", "@voltar", user);
     else IMAGEM_ABS(302,530,250,125,"voltar.png",path);
     drawButton(e, 1352, 530, 250, 125, "carregar.png", "@ancorar", user);
-  FECHAR_SVG;
 }

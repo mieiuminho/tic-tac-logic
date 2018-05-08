@@ -79,28 +79,31 @@ Função principal do programa
 int main()
 {
   ESTADO e;
-  char user [20];
-  char action [20];
+  char user[20];
+  char action[20];
+  char background[3][8] = {"#000000", "#44475a", "#272822"};
   getUserAndAction(getenv("QUERY_STRING"),user,action);
   readFile(user,&e);
   processa(&e,action);
   writeFile(user,e);
 
   COMECAR_HTML;
+    ABRIR_SVG(ECRA_X, ECRA_Y, &background[e.tema]);
 
-  switch (e.id) {
-    case START: drawStart(&e,user);
-                break;
-    case LOBBY: drawLobby(&e,user);
-                break;
-    case EASY:
-    case MEDIUM:
-    case HARD: drawLevel(&e,user);
-               break;
-    case GAME: drawGame(&e,user);
-               break;
-  }
+    switch (e.id) {
+      case START: drawStart(&e,user);
+                  break;
+      case LOBBY: drawLobby(&e,user);
+                  break;
+      case EASY:
+      case MEDIUM:
+      case HARD: drawLevel(&e,user);
+                 break;
+      case GAME: drawGame(&e,user);
+                 break;
+    }
 
+    FECHAR_SVG;
   FECHAR_HTML;
 
   return 0;
