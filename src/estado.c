@@ -94,16 +94,30 @@ void writeFile (char * user,ESTADO e)
 {
     FILE * fp;
     int i,j,x,y,a;
+    char c;
     char link [60];
     sprintf(link,"/var/www/html/utilizadores/%s.txt",user);
     fp = fopen(link,"w+");
     fprintf(fp,"%d %d %d %d %d\n",e.num_lins,e.num_cols,e.sizeU,e.sizeR,e.numAncs);
-    for (j=0;j<e.num_lins;j++)
-    {
-        for(i=0;i<e.num_cols;i++)
-            fprintf(fp,"%d ",(e.grelha[j][i]));
-        fputc('\n',fp);
-    }
+    for(i=0;i<e.num_cols;i++)
+        {
+            for(j=0;j<e.num_lins;j++)
+            {
+                switch (e.grelha[j][i]) 
+                {
+                case FIXO_X: c = 'X';break;
+                case HINT_X:
+                case SOL_X: c = 'x';break;
+                case FIXO_O: c='O';break;
+                case HINT_O:
+                case SOL_O: c='o';break;
+                case BLOQUEADA: c='#';break;
+                default : c='.';
+                }
+                fputc(c,fp);
+            }
+            fputc('\n',fp);
+        }
     for(i=0;i<e.sizeU;i++)
     {
         pop(&x,&y,&a,&(e.undo));
@@ -129,14 +143,26 @@ void readFile (char * user,ESTADO * e)
     e->undo=NULL;
     e->redo=NULL;
     char link [60];
+    char linha [20];
     sprintf(link,"/var/www/html/utilizadores/%s.txt",user);
     fp = fopen(link,"r+");
     if (fp)
     {
         fscanf(fp,"%d %d %d %d %d",&(e->num_lins),&(e->num_cols),&(e->sizeU),&(e->sizeR),&(e->numAncs));
-        for (j=0;j<e->num_lins;j++)
-            for(i=0;i<e->num_cols;i++)
-                fscanf(fp,"%d",&(e->grelha[j][i]));
+        for(i=0;i<e->num_cols;i++)
+        {
+            fscanf(fp, "%s", linha);
+            for(j=0;j<e->num_lins;j++)
+                switch (linha[j]) 
+                {
+                case 'X': e->grelha[j][i] = FIXO_X;break;
+                case 'x': e->grelha[j][i] = SOL_X;break;
+                case 'O': e->grelha[j][i] = FIXO_O;break;
+                case 'o': e->grelha[j][i] = SOL_O;break;
+                case '#': e->grelha[j][i] = BLOQUEADA;break;
+                default : e->grelha[j][i] = VAZIA;
+                }
+        }
         for(i=0;i<e->sizeU;i++)
         {
             fscanf(fp,"%d %d %d ",&x,&y,&a);
