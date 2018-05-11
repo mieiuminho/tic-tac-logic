@@ -37,26 +37,9 @@ void processa(ESTADO * e,char * ordem)
                   break;
         case 'v': voltaAncora(e);
                   break;
-        case 'u': pop(&x,&y,&a,&(e->undo));
-                  switch(e->grelha[x][y])
-                  {
-                    case HINT_X:
-                    case HINT_O:
-                    case SOL_X:e->grelha[x][y]=VAZIA;break;
-                    case SOL_O:e->grelha[x][y]=SOL_X;break;
-                    case VAZIA:e->grelha[x][y]=SOL_O;break;
-                 }
-                  if (a<e->numAncs) e->numAncs--;
-                  push(x,y,a,&(e->redo));
-                  e->sizeR++;
-                  e->sizeU--;
+        case 'u': fazUndo(e,&x,&y,&a);
                   break;
-        case 'r': pop(&x,&y,&a,&(e->redo));
-                  if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
-                  if (a>e->numAncs) e->numAncs++;
-                  push(x,y,a,&(e->undo));
-                  e->sizeR--;
-                  e->sizeU++;
+        case 'r': fazRedo(e,&x,&y,&a);
                   break;
         case 'i': sscanf(ordem,"id-%d",&x);
                   e->id = x;
@@ -88,7 +71,7 @@ int main()
   writeFile(user,e);
 
   COMECAR_HTML;
-    ABRIR_SVG(ECRA_X, ECRA_Y, &background[e.tema]);
+    ABRIR_SVG(ECRA_X, ECRA_Y, &(background[e.tema][0]));
 
     switch (e.id) {
       case START: drawStart(&e,user);

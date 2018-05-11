@@ -19,4 +19,27 @@ se encontra num determinado momento.
 */
 void marcaAncora(ESTADO *);
 
+
+/**
+\brief Função que realiza o processo de Undo do Jogo,
+adicionando uma certa jogada a uma lista ligada para o Redo
+e retirando da lista ligada do Undo.
+@param *e Apontador para o estado.
+@param *x Apontador para a coordenada do eixo xx da jogada.
+@param *y Apontador para a coordenada do eixo yy da jogada.
+@param *anc Apontador para o número de ancora da jogada.
+*/
+void fazUndo(ESTADO *,int *,int *,int *);
+
+/**
+\brief Função que realiza o processo de Redo do Jogo,
+adicionando uma certa jogada a uma lista ligada para o Undo
+e retirando da lista ligada do Redo.
+@param *e Apontador para o estado.
+@param *x Apontador para a coordenada do eixo xx da jogada.
+@param *y Apontador para a coordenada do eixo yy da jogada.
+@param *anc Apontador para o número de ancora da jogada.
+*/
+void fazRedo(ESTADO *,int *,int *,int *);
+
 #endif
