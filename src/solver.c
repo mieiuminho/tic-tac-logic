@@ -11,9 +11,9 @@ void findImpossible(ESTADO * e)
 {
   int i,j,notfound,x,y;
   notfound=1;
-  for (i=0;(i<e->num_lins)&&(notfound!=2);i++)
+  for (i=0;(i<e->num_cols)&&(notfound!=2);i++)
   {
-    for (j=0;(j<e->num_cols)&&(notfound!=2);j++)
+    for (j=0;(j<e->num_lins)&&(notfound!=2);j++)
     {
       if (e->grelha[i][j]==VAZIA)
       {
@@ -56,9 +56,9 @@ int fillIn (ESTADO * e,int * x,int * y)
 {
     int i, j, found,foundX,foundO;
     i=j=found=foundX=foundO=0;
-    for(i=0;(i<e->num_lins)&&(!found);i++)
+    for(i=0;(i<e->num_cols)&&(!found);i++)
     {
-        for(j=0;(j<e->num_cols)&&(!found);j++)
+        for(j=0;(j<e->num_lins)&&(!found);j++)
         {
           if(e->grelha[i][j]==VAZIA)
           {

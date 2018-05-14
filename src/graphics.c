@@ -42,8 +42,8 @@ void getScaleFactor(int * sf, ESTADO * e)
 void calculaCentroPeca (ESTADO * e,int sf,int * fx,int * fy)
 {
   int cx = ((ECRA_X-DTAB)/2)-1,cy = ((ECRA_Y-DTAB)/2)-1,fnsx,fnsy; //fns = fix non square
-  fnsx = (DTAB - (e->num_lins*sf))/2;
-  fnsy = (DTAB -(e->num_cols*sf))/2;
+  fnsx = (DTAB - (e->num_cols*sf))/2;
+  fnsy = (DTAB -(e->num_lins*sf))/2;
   *fx = cx + fnsx;
   *fy = cy + fnsy;
 }

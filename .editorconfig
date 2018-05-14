@@ -9,7 +9,11 @@ end_of_line = lf
 insert_final_line = true
 
 [*.md]
+max_line_length = 80
 trim_trailing_whitespace = false
+
+[*.c]
+max_line_length = 60
 
 [Makefile]
 indent_style = tab

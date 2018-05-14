@@ -22,7 +22,7 @@ tabuleiros:
 	sudo cp -r tab/* /var/www/html/tabuleiros/
 	sudo chmod -R a+rwx  /var/www/html/tabuleiros
 
-doc:
+docs:
 	doxygen -g
 	doxygen
 

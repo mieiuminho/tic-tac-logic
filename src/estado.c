@@ -99,9 +99,9 @@ void writeFile (char * user,ESTADO e)
     sprintf(link,"/var/www/html/utilizadores/%s.txt",user);
     fp = fopen(link,"w+");
     fprintf(fp,"%d %d %d %d %d\n",e.num_lins,e.num_cols,e.sizeU,e.sizeR,e.numAncs);
-    for(i=0;i<e.num_cols;i++)
+    for(i=0;i<e.num_lins;i++)
         {
-            for(j=0;j<e.num_lins;j++)
+            for(j=0;j<e.num_cols;j++)
             {
                 switch (e.grelha[j][i]) 
                 {
@@ -148,11 +148,13 @@ void readFile (char * user,ESTADO * e)
     fp = fopen(link,"r+");
     if (fp)
     {
-        fscanf(fp,"%d %d %d %d %d",&(e->num_lins),&(e->num_cols),&(e->sizeU),&(e->sizeR),&(e->numAncs));
-        for(i=0;i<e->num_cols;i++)
+        if (fscanf(fp,"%d %d %d %d %d",&(e->num_lins),&(e->num_cols),&(e->sizeU),&(e->sizeR),&(e->numAncs))==5)
         {
-            fscanf(fp, "%s", linha);
-            for(j=0;j<e->num_lins;j++)
+        for(i=0;i<e->num_lins;i++)
+        {
+            if (fscanf(fp, "%s", linha)==1)
+            {
+            for(j=0;j<e->num_cols;j++)
                 switch (linha[j]) 
                 {
                 case 'X': e->grelha[j][i] = FIXO_X;break;
@@ -162,20 +164,22 @@ void readFile (char * user,ESTADO * e)
                 case '#': e->grelha[j][i] = BLOQUEADA;break;
                 default : e->grelha[j][i] = VAZIA;
                 }
+            }
         }
         for(i=0;i<e->sizeU;i++)
         {
-            fscanf(fp,"%d %d %d ",&x,&y,&a);
-            addEnd(x,y,a,&(e->undo));
+            if (fscanf(fp,"%d %d %d ",&x,&y,&a)==3)
+                addEnd(x,y,a,&(e->undo));
         }
         for(i=0;i<e->sizeR;i++)
         {
-            fscanf(fp,"%d %d %d",&x,&y,&a);
-            addEnd(x,y,a,&(e->redo));
+            if (fscanf(fp,"%d %d %d",&x,&y,&a)==3)
+                addEnd(x,y,a,&(e->redo));
         }
-        fscanf(fp,"%d",&(e->id));
-        fscanf(fp,"%d",&(e->validade));
-        fscanf(fp,"%d",&(e->tema));
+        if (fscanf(fp,"%d",&(e->id))==1)
+            if (fscanf(fp,"%d",&(e->validade))==1)
+                if (fscanf(fp,"%d",&(e->tema))==1) {};
+        }
     }
     else
     {

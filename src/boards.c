@@ -9,8 +9,8 @@ void fazTab(ESTADO *e,char * user)
 {
   int i, j, sf;
   getScaleFactor(&sf, e);
-  for (i = 0; i < e->num_lins; i++)
-    for (j = 0; j < e->num_cols; j++)
+  for (i = 0; i < e->num_cols; i++)
+    for (j = 0; j < e->num_lins; j++)
       drawPeca(i, j, e, sf, validaPeca(e, i, j),user,0,0);
 }
 
@@ -40,8 +40,8 @@ ESTADO le_tabuleiro(ESTADO * a,int x)
   boardLevelPath(a,level);
   sprintf(nomef, "%stabuleiro%d.txt", level, x);
   FILE *fp=fopen(nomef, "r");
-  fscanf(fp, "%d %d", &nl, &nc); //TODO: possivel erro
-
+  if (fscanf(fp, "%d %d", &nl, &nc)==2)
+  {
   e.num_lins = nl;
   e.num_cols = nc;
   e.sizeU=e.sizeR=e.numAncs=0;
@@ -49,9 +49,10 @@ ESTADO le_tabuleiro(ESTADO * a,int x)
   e.undo=NULL;
   e.redo=NULL;
 
-  for(i=0;i<nc;i++){
-    fscanf(fp, "%s", linha);
-    for(j=0;j<nl;j++)
+  for(i=0;i<nl;i++){
+    if (fscanf(fp, "%s", linha)==1)
+    {
+    for(j=0;j<nc;j++)
       switch (linha[j]) {
         case 'X':
         case 'x': e.grelha[j][i] = FIXO_X;break;
@@ -59,7 +60,9 @@ ESTADO le_tabuleiro(ESTADO * a,int x)
         case 'o': e.grelha[j][i] = FIXO_O;break;
         case '#': e.grelha[j][i] = BLOQUEADA;break;
         default : e.grelha[j][i] = VAZIA;
-      }
+        }
+    }
+  }
   }
   return e;
 }

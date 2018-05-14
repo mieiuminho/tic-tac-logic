@@ -29,7 +29,9 @@ void processa(ESTADO * e,char * ordem)
     switch(ordem[0])
     {
         case 'x': sscanf(ordem,"x-%d-y-%d",&x,&y);
-                  if (e->grelha[x][y]==SOL_O) e->grelha[x][y]=VAZIA; else e->grelha[x][y]++;
+                  if (e->grelha[x][y] == SOL_O)
+                      e->grelha[x][y]=VAZIA;
+                  else e->grelha[x][y]++;
                   push(x,y,e->numAncs,&(e->undo));
                   e->sizeU++;
                   break;
@@ -50,7 +52,7 @@ void processa(ESTADO * e,char * ordem)
                   break;
         case 'c': colorscheme(e);
                   break;
-        case 'h': if (fillIn(e,&x,&y)==0) findImpossible(e);
+        case 'h': fillIn(e,&x,&y);//if (fillIn(e,&x,&y)==0) findImpossible(e);
                   break;
     }
 }
