@@ -5,7 +5,6 @@ EXECUTAVEL = GandaGalo
 
 install: $(EXECUTAVEL)
 	sudo cp $(EXECUTAVEL) /usr/lib/cgi-bin
-	touch install
 
 $(EXECUTAVEL): $(OBJS)
 	$(CC) -o $(EXECUTAVEL) $(OBJS)
@@ -28,4 +27,9 @@ doc:
 	doxygen
 
 clean:
-	rm -rf *.o $(EXECUTAVEL) Doxyfile latex html install
+	@echo "Cleaning..."
+	@echo ""
+	@curl https://raw.githubusercontent.com/nelsonmestevao/spells/master/art/maid.ascii
+	@rm -rf *.o $(EXECUTAVEL) Doxyfile latex html
+	@echo ""
+	@echo "...✓ done!"
