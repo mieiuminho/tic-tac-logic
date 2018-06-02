@@ -132,8 +132,8 @@ void drawPreview (ESTADO * e, int id,  char * action, char * user, int tab)
   ABRIR_LINK_ABS(link);
    d = le_tabuleiro(&d,tab);
    getScaleFactor(&sf,&d);
-   for(i=0;i<d.num_lins;i++)
-    for(j=0;j<d.num_cols;j++)
+   for(i=0;i<d.num_cols;i++)
+    for(j=0;j<d.num_lins;j++)
     {
       if(e->tema!=d.tema) d.tema=e->tema;
       drawPeca(i,j,&d,(sf*0.3),1,user,1,tab);

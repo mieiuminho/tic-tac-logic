@@ -52,7 +52,7 @@ void processa(ESTADO * e,char * ordem)
                   break;
         case 'c': colorscheme(e);
                   break;
-        case 'h': fillIn(e,&x,&y);//if (fillIn(e,&x,&y)==0) findImpossible(e);
+        case 'h': if (fillIn(e,&x,&y)==0) findImpossible(e);
                   break;
     }
 }
