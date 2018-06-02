@@ -138,7 +138,7 @@ void drawPreview (ESTADO * e, int id,  char * action, char * user, int tab)
       if(e->tema!=d.tema) d.tema=e->tema;
       drawPeca(i,j,&d,(sf*0.3),1,user,1,tab);
     }
-      
+
   FECHAR_LINK;
 }
 
@@ -183,7 +183,7 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user,int preview, 
 
 void drawSemaforo (ESTADO * e)
 {
-  char s [20];
+  char s[20];
   char path[60];
   colorSchemePath(e,path);;
   switch (e->validade)

@@ -63,7 +63,9 @@ void drawGame (ESTADO * e, char * user)
     drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
     drawButton(e, 10, 160, 75, 75 , "hint.png", "@hint", user);
     setSemaforo (e);
-    drawSemaforo (e);
+    if (e->validade == VALIDO && isFull(e) == 1)
+      drawButton(e, 727, 790, 450, 150, "parabens.png", "@id-1", user);
+    else drawSemaforo (e);
     IMAGEM_ABS(752, 0, 400, 200, "title.png", path);
     fazTab(e,user);
     if (e->sizeU>0)

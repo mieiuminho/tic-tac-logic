@@ -42,6 +42,6 @@ tabuleiro o parâmetro toma o valor de VALIDO.
 */
 void setSemaforo (ESTADO * e);
 
-int isFinished (ESTADO *e);
+int isFull (ESTADO *e);
 
 #endif

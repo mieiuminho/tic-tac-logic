@@ -82,3 +82,13 @@ void setSemaforo (ESTADO * e)
   if (r==0) e->validade = INVALIDO;
   else e->validade = foundInc ? IMPOSSIVEL : VALIDO;
 }
+
+int isFull(ESTADO *e)
+{
+  int i, j, r = 1;
+  for (i = 0; i < e->num_cols && r; i++)
+    for (j = 0; j < e->num_lins && r; j++)
+      if (e->grelha[i][j] == VAZIA)
+        r = 0;
+  return r;
+}
