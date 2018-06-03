@@ -1,5 +1,5 @@
 CC         = gcc
-CFLAGS     = -std=c11 -Wall -Wextra -pedantic -g
+CFLAGS     = -std=c11 -O2 -Wall -Wextra -pedantic -g
 OBJS       = main.o boards.o estado.o graphics.o historico.o menu.o solver.o valida.o
 EXECUTAVEL = GandaGalo
 

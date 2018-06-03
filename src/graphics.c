@@ -52,7 +52,7 @@ void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s,char * user)
 {
   int cx,cy;
   char path[60];
-  char action[10];
+  char action[20];
   char link [60];
   calculaCentroPeca(e,sf,&cx,&cy);
   sprintf(action,"@x-%d-y-%d",i,j);
