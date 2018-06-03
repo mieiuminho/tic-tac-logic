@@ -2,7 +2,8 @@ CC         = gcc
 CFLAGS     = -std=c11 -O2 -Wall -Wextra -pedantic -g
 OBJS       = main.o puzzle.o solver.o historico.o valida.o generator.o
 BIB        = --filter pandoc-citeproc --bibliography=relatorio/references.bib
-OPTIONS    = --latex-engine pdflatex --template relatorio/styles/template.tex
+OPTIONS    = --latex-engine pdflatex --template relatorio/styles/template.tex \
+			 --highlight-style tango
 EXECUTAVEL = gerar
 
 $(EXECUTAVEL): $(OBJS)
@@ -19,6 +20,6 @@ clean:
 	@echo "Cleaning..."
 	@echo ""
 	@curl https://raw.githubusercontent.com/nelsonmestevao/spells/master/art/maid.ascii
-	@rm -rf *.o $(EXECUTAVEL) Doxyfile latex html
+	@rm -rf *.o $(EXECUTAVEL) Doxyfile latex html easy/*.txt hard/*.txt
 	@echo ""
 	@echo "...✓ done!"

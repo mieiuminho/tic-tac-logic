@@ -35,15 +35,13 @@ void geraHard (PUZZLE * board)
             if (!isFull(board)&&!f) randomPlay(board);
         }
         if (contaBloqs(board)<3*a) bloqs=0;
-        else 
+        else
         {
             for (i = 0; i < board->num_cols; i++)
                 for (j = 0; j < board->num_lins; j++)
                     board->grelha[i][j] = VAZIA;
-        } 
+        }
     }
-    
-
 }
 
 void geraEasy (PUZZLE * board)

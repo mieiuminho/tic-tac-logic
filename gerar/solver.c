@@ -5,7 +5,7 @@
 #include "solver.h"
 #include "valida.h"
 
-void supor (PUZZLE * board,int * found)
+void supor (PUZZLE *board,int *found)
 {
   int x,y,tmp;
   marcaAncora(board);
