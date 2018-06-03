@@ -42,4 +42,11 @@ se encontra no tabuleiro através do uso de um "HINT" pela peça correspondente.
 */
 void remHints (ESTADO *e);
 
+/**
+\brief Função que preenche o tabuleiro completamente utilizando as funções fillIn e
+findImpossible.
+@param *e Apontador para o estado
+*/
+void completaTabuleiro (ESTADO * e);
+
 #endif

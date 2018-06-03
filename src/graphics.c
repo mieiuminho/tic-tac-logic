@@ -65,7 +65,7 @@ void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s,char * user)
 
 void drawBloq (ESTADO * e,int i,int j,int sf,char * s)
 {
-  int cx,cy;
+  int cx=0,cy=0;
   char path[60];
   colorSchemePath(e,path);
   calculaCentroPeca(e,sf,&cx,&cy);
@@ -74,7 +74,7 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s)
 
 void drawBloqPreview (ESTADO * e,int i,int j,int sf,char * s, int tab)
 {
-  int cx,cy;
+  int cx=0,cy=0;
   char path[60];
   colorSchemePath(e,path);
   switch(tab%6)

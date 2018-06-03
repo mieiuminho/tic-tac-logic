@@ -62,6 +62,7 @@ void drawGame (ESTADO * e, char * user)
     drawButton(e, 10, 10, 75, 75, "arrow.png", "@id-1", user);
     drawButton(e, 10, 85, 75, 75, "palette.png", "@colorscheme", user);
     drawButton(e, 10, 160, 75, 75 , "hint.png", "@hint", user);
+    drawButton(e, 10, 235, 75, 75, "solver.png", "@solve", user);
     setSemaforo (e);
     if (e->validade == VALIDO && isFull(e) == 1)
       drawButton(e, 727, 790, 450, 150, "parabens.png", "@id-1", user);

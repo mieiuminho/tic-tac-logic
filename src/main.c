@@ -54,6 +54,8 @@ void processa(ESTADO * e,char * ordem)
                   break;
         case 'h': if (fillIn(e,&x,&y)==0) findImpossible(e);
                   break;
+        case 's': completaTabuleiro(e);
+                  break;
     }
 }
 

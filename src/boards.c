@@ -27,6 +27,7 @@ void boardLevelPath (ESTADO * e, char * level)
   }
 }
 
+
 ESTADO le_tabuleiro(ESTADO * a,int x)
 {
   ESTADO e;
@@ -40,12 +41,11 @@ ESTADO le_tabuleiro(ESTADO * a,int x)
   boardLevelPath(a,level);
   sprintf(nomef, "%stabuleiro%d.txt", level, x);
   FILE *fp=fopen(nomef, "r");
-  if (fscanf(fp, "%d %d", &nl, &nc)==2)
-  {
+  if (fscanf(fp,"%d %d", &nl, &nc)==1) {};
   e.num_lins = nl;
   e.num_cols = nc;
   e.sizeU=e.sizeR=e.numAncs=0;
-  e.validade=1;
+  e.validade=VALIDO;
   e.undo=NULL;
   e.redo=NULL;
 
@@ -62,7 +62,6 @@ ESTADO le_tabuleiro(ESTADO * a,int x)
         default : e.grelha[j][i] = VAZIA;
         }
     }
-  }
   }
   return e;
 }
