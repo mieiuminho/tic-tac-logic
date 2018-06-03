@@ -10,14 +10,14 @@ do número de ancora atual do estado.
 @param *e Apontador para o estado.
 */
 
-void voltaAncora(ESTADO *);
+void voltaAncora(ESTADO *e);
 
 /**
 \brief Função que aumenta o número da ancora onde o jogo
 se encontra num determinado momento.
 @param *e Apontador para o estado.
 */
-void marcaAncora(ESTADO *);
+void marcaAncora(ESTADO *e);
 
 
 /**
@@ -29,7 +29,7 @@ e retirando da lista ligada do Undo.
 @param *y Apontador para a coordenada do eixo yy da jogada.
 @param *anc Apontador para o número de ancora da jogada.
 */
-void fazUndo(ESTADO *,int *,int *,int *);
+void fazUndo(ESTADO *e , int *x, int *y, int *a);
 
 /**
 \brief Função que realiza o processo de Redo do Jogo,
@@ -40,6 +40,6 @@ e retirando da lista ligada do Redo.
 @param *y Apontador para a coordenada do eixo yy da jogada.
 @param *anc Apontador para o número de ancora da jogada.
 */
-void fazRedo(ESTADO *,int *,int *,int *);
+void fazRedo(ESTADO *e, int *x, int *y, int *a);
 
 #endif

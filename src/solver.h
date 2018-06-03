@@ -21,7 +21,7 @@ de "suposição" para resolver um determinado tabuleiro.
 seja possível colocar uma dar uma ajuda e, por último, "2" caso não seja possível fornecer
 uma ajuda.
 */
-int fillIn (ESTADO *e,int * x,int * y);
+int fillIn (ESTADO *e, int *x, int *y);
 
 /**
 \brief Função que percorre o tabuleiro à procura de peças que necessitem de estar numa
@@ -33,7 +33,7 @@ feita e coloca a peça na posição correspondente, caso não encontre nenhum pr
 a ancora e faz o mesmo para a peça seguinte.
 @param *e Apontador para o estado
 */
-void findImpossible (ESTADO * e);
+void findImpossible (ESTADO *e);
 
 /**
 \brief Função que percorre o tabuleiro e troca o GIF que indica que uma determinada peça
@@ -43,4 +43,3 @@ se encontra no tabuleiro através do uso de um "HINT" pela peça correspondente.
 void remHints (ESTADO *e);
 
 #endif
-

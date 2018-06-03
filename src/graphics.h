@@ -12,20 +12,20 @@
 \brief Função que abre o link
 @param *l Link
 */
-void abrirLinkABS(char * l);
+void abrirLinkABS(char *l);
 
 /**
 \brief Função que indica o próximo estado.
 @param *e Apontador para o estado.
 */
-void colorscheme (ESTADO * e);
+void colorscheme (ESTADO *e);
 
 /**
 \brief Função que coloca em path a diretória das imagens correspondentes ao tema.
 @param *e Apontador para o estado.
 @param *path String onde será escrita a diretoria.
 */
-void colorSchemePath (ESTADO * e, char * path);
+void colorSchemePath (ESTADO *e, char *path);
 
 /**
 \brief Função que coloca em *sf o fator de escala necessário para desenhar todos os
@@ -33,7 +33,7 @@ elementos.
 @param *sf Apontador para o inteiro onde vai ser guardado o fator de escala.
 @param *e Apontador para o estado.
 */
-void getScaleFactor(int * sf, ESTADO * e);
+void getScaleFactor(int *sf, ESTADO *e);
 
 /**
 \brief Função que calcula o deslocamento necessário para que as peças fiquem
@@ -45,7 +45,7 @@ tratar dos deslocamentos de cada uma das peças.
 @param *fx Apontador para o inteiro onde ficará guardada a posição x (em valor absoluto) da peça do canto superior esquerdo.
 @param *fy Apontador para o inteiro onde ficará guardada a posição y (em valor absoluto) da peça do canto superior esquerdo.
 */
-void calculaCentroPeca (ESTADO * e,int sf,int * fx,int * fy);
+void calculaCentroPeca (ESTADO *e, int sf, int *fx, int *fy);
 
 /**
 \brief Função que desenha uma peça jogável no tabuleiro, ou seja, ou peça com
@@ -57,7 +57,7 @@ a instrução para mudar para o estado "seguinte".
 @param *s string com o nome da imagem da respetiva peça a desenhar.
 @param *user string com o nome do utilizador que está a jogar.
 */
-void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s,char * user);
+void butaoProxEstadoJog (ESTADO *e, int i, int j, int sf, char *s, char *user);
 
 /**
 \brief Função que desenha uma peça bloqueada do tabuleiro.
@@ -67,7 +67,7 @@ void butaoProxEstadoJog (ESTADO * e,int i,int j,int sf,char * s,char * user);
 @param sf Inteiro onde está o fator de escala.
 @param *s string com o nome da imagem da respetiva peça a desenhar.
 */
-void drawBloq (ESTADO * e,int i,int j,int sf,char * s);
+void drawBloq (ESTADO *e, int i, int j, int sf, char *s);
 
 /**
 \brief Função que desenha cada peça.
@@ -78,7 +78,7 @@ void drawBloq (ESTADO * e,int i,int j,int sf,char * s);
 @param vPeca Resultado de "validaPeca".
 @param *user Nome do usuário.
 */
-void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user, int preview, int tab);
+void drawPeca (int i, int j, ESTADO *e, int sf, int vPeca, char *user, int preview, int tab);
 
 /**
 \brief Função que desenha cada butão.
@@ -91,7 +91,7 @@ void drawPeca (int i,int j,ESTADO * e,int sf,int vPeca,char * user, int preview,
 @param *action Ação realizada pelo butão.
 @param *user Nome do usuário.
 */
-void drawButton(ESTADO * e, int x, int y, int sx, int sy , char * s,char * action, char * user);
+void drawButton(ESTADO *e, int x, int y, int sx, int sy , char *s, char *action, char *user);
 
 /**
 \brief Função que um butão de texto para os tabuleiros.
@@ -101,7 +101,7 @@ void drawButton(ESTADO * e, int x, int y, int sx, int sy , char * s,char * actio
 @param *action Ação realizada pelo butão.
 @param *user Nome do usuário.
 */
-void drawTextButton(int x,int y,int n,char * action,char * user);
+void drawTextButton(int x, int y, int n, char *action, char *user);
 
 /**
 \brief Função que verifica se um tabuleiro a determinada altura está "VALIDO", ou seja,
@@ -111,11 +111,29 @@ uma situação imcompatível (significa que o tabuleiro não pode ser completado
 as regras do jogo.)
 @param *e Apontador para o estado.
 */
-void drawSemaforo(ESTADO * e);
+void drawSemaforo(ESTADO *e);
 
-void drawPreview (ESTADO *e, int id,  char * action, char * user, int tab);
+/**
+\brief Função responsável pelo desenho das "previews" no menu de selação de
+tabuleiros.
+@param *e Apontador para o estado.
+@param id Identificador da fase do jogo em que se encontra.
+@param *action Ação realizada pelo butão.
+@param *user Nome de usuário.
+@param tab Número do tabuleiro a desenhar.
+*/
+void drawPreview (ESTADO *e, int id, char *action, char *user, int tab);
 
-void drawBloqPreview (ESTADO * e,int i,int j,int sf,char * s, int tab);
+/**
+\brief Função auxiliar de @drawPreview@.
+@param *e Apontador para o estado.
+@param i Coordenada da imagem segundo o eixo dos xx.
+@param j Coordenada da imagem segundo o eixo dos yy.
+@param sf Fator de escala.
+@param *s Nome do ficheiro da imagem.
+@param tab Número do tabuleiro a desenhar.
+*/
+void drawBloqPreview (ESTADO *e, int i, int j, int sf, char *s, int tab);
 
 
 

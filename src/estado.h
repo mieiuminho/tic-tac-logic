@@ -16,6 +16,12 @@ typedef enum {START, LOBBY, EASY, MEDIUM, HARD, GAME} ID;
 typedef enum {INVALIDO, IMPOSSIVEL, VALIDO} VALIDADE;
 typedef enum {DEFAULT, DRACULA, MONOKAI} THEME;
 
+/**
+\brief Lista ligada que armazena o histórico.
+@param x Coordenada correspondente ao eixo dos xx da última posição jogada.
+@param y Coordenada correspondente ao eixo dos yy da última posição jogada.
+@param a Número da âncora atual.
+*/
 typedef struct lista
 {
     int x,y,a;
