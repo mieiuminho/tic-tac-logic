@@ -148,12 +148,15 @@ semelhante.
 ```
 
 No caso do `if statement` der negativo, voltamos a tentar encontrar outra casa
-aleatoriamente usando os mesmos processos. Graficamente, começamos com um
-tabuleiro vazio e fazemos uma jogada aleatória nesse tabuleiro. Isto não
-compromete a validade do tabuleiro porque para qualquer dimensão entre 1 e 20,
-com nenhuma peça, existem várias soluções possíveis. Supondo que o tabuleiro
-pretendido tem dimensão 3 por 3, a Figura 5 representa o como o puzzle está e
-como fica após aplicada a estratégia descrita anteriormente.
+aleatoriamente usando os mesmos processos, sendo que nunca é colocada uma peça
+num local onde o tabuleiro ficaria invalido, ou seja, se encontrar uma peça
+vazia onde não poderá ser colocado um `FIXO_X` então é colocada um `FIXO_O`
+nessa posição e vice-versa.  Graficamente, começamos com um tabuleiro vazio e
+fazemos uma jogada aleatória nesse tabuleiro.  Isto não compromete a validade do
+tabuleiro porque para qualquer dimensão entre 1 e 20, com nenhuma peça, existem
+várias soluções possíveis. Supondo que o tabuleiro pretendido tem dimensão 3 por
+3, a Figura 5 representa o como o puzzle está e como fica após aplicada a
+estratégia descrita anteriormente.
 
 ![Jogada aleatória na posição (1,2) seguida de jogada aleatória na posição (2,1)](relatorio/figures/randomPlay.pdf){ height=4.5cm }
 
@@ -185,12 +188,12 @@ Nesta fase, o procedimento é repetido levando à situação em que na posição
 
 ![Tabuleiro fácil completo](relatorio/figures/etapasFacil2.pdf){ height=4.5cm }
 
-Posto isto, é colocada uma peça bloqueada. Este processo é executado através da
-função `solver_easy`. Esta função tentará para as casas vazias colocar quer uma
-cruz quer uma bola e verificar se torna o tabuleiro inválido. Caso assim seja, é
-porque poderá ter encontrado que naquela casa que só a peça contrária é valida.
-Se encontrar tal para os dois, é porque terá que ser bloqueada. A sua
-implementação pode ser lida no próximo bloco de código.
+Este processo é executado através da função `solver_easy`.  Esta função tentará
+para as casas vazias colocar quer uma cruz quer uma bola e verificar se torna o
+tabuleiro inválido. Caso assim seja, é porque poderá ter encontrado que naquela
+casa que só a peça contrária é valida.  Se encontrar tal para os dois, é porque
+terá que ser bloqueada. A sua implementação pode ser lida no próximo bloco de
+código.
 
 ```C
   int solver_easy (PUZZLE *board, int *x, int *y)
@@ -227,9 +230,14 @@ removidas do resultado final. O tabuleiro resultante está representado na Figur
 
 ![Tabuleiro fácil de dimensão 3 por 3](relatorio/figures/tabuleiroFacil.pdf){ height=4cm }
 
-A diferença entre a construção de tabuleiros fáceis e difíceis é que casos que
-eram considerados como não tendo uma jogada óbvia e por isso repetíamos o
-procedimento, agora passamos a supor possibilidades.
+A diferença entre a construção de tabuleiros fáceis e difíceis é que, não só são
+acrescentadas peças bloqueadas e fixas aleatórias ao tabuleiro fácil sendo a
+quantidade dessas mesmas peças dependente da "área" do tabuleiro, como também
+casos que eram considerados como não tendo uma jogada óbvia no tabuleiro fácil
+apenas é gerado uma nova peça fixa até voltar a haver jogadas óbvias, enquanto
+que no difícil são procuradas peças que não são de jogada imediata mas são peças
+que tem se der um determinado tipo para que o mapa seja válido, acrescentando
+assim a necessidade de suposição aos tabuleiros mais difíceis.
 
 Seguindo o raciocínio da Figura 10, vamos supor que na casa (3,2) colocamos um
 `SOL_O` e vamos verificar se isso nos leva a um caso impossível.
@@ -309,6 +317,18 @@ muito em termos de dificuldade. No entanto, com maiores dimensões fica mais
 clara a distinção.
 
 # Conclusão
+
+Para concluir, o algoritmo base do nosso trabalho para tabuleiros fáceis é:
+gerar algumas peças fixas e bloqueadas no tabuleiro, jogar o máximo número de
+jogadas óbvias possível, se o tabuleiro ainda não estiver completo gerar uma
+nova peça fixa e repetir o processo depois do 1º passo.
+
+Já nos tabuleiros difíceis é: jogar o máximo número de jogadas óbvias possível,
+se o tabuleiro não estiver cheio jogar uma peça a partir de uma suposição, se
+nenhuma peça for jogada na suposição e o tabuleiro não estiver completo gerar
+uma nova peça fixa e voltar ao primeiro passo, senão voltar ao primeiro passo.
+No final de ambos os algoritmos as peças que não são fixas ou bloqueadas são
+retiradas.
 
 Fazendo uma pequena análise relativa às competências adquiridas durante a
 realização deste trabalho conseguimos concluir que o mesmo foi bastante
