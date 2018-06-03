@@ -11,7 +11,6 @@ ortogonais. Estão também já aqui definidos os casos em que é preciso recorer
 de "suposição" para resolver um determinado tabuleiro.
 */
 
-
 /**
 \brief Função que preenche os casos imediatos descritos acima.
 @param *e Apontador para o estado

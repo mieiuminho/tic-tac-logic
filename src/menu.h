@@ -2,10 +2,9 @@
 #define ___MENU_H___
 #include "estado.h"
 
-
 /**
 @file menu.h
-Criação das funções que interpretam o meu atual
+Criação das funções que interpretam como desenhar o menu atual
 */
 
 /**

@@ -35,12 +35,29 @@ a ancora e faz o mesmo para a peça seguinte.
 */
 int solver_hard (PUZZLE *board);
 
+/**
+\brief Função responsável pela realização de suposições.
+@param *board Apontador para o tabuleiro.
+*/
 void supor (PUZZLE *board,int * found);
 
+/**
+\brief Função que joga uma peça aleatória numa casa aleatória.
+@param *board Apontador para o tabuleiro.
+*/
 void randomPlay (PUZZLE *board);
 
+/** 
+\brief Função que joga uma peça "BLOQUEADA" numa posição 
+aleatória.
+@param *board Apontador para o estado.
+*/ 
 void randomBloqPlay (PUZZLE *board);
 
+/**
+\brief Função que devolve o número de soluções de um tabuleiro.
+@param board Tabuleiro.
+*/
 int solutions (PUZZLE board);
 
 #endif

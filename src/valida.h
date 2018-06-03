@@ -3,6 +3,11 @@
 #include "estado.h"
 
 /**
+@file valida.h
+Funções de verificação de validade do ESTADO
+*/
+
+/**
 \brief Função que verifica se uma determinada posição se encontra no tabuleiro,
 devolvendo "1" caso afirmativo e "0" caso contrário.
 @param *e Apontador para o estado
@@ -38,7 +43,7 @@ em que o jogo se encontra. Noutras palavras, caso seja possível completar o
 tabuleiro o parâmetro referido toma o valor de IMPOSSIVEL, caso o tabuleiro possua
 algum erro o parametro toma o valor de INVALIDO, caso seja possível completar o
 tabuleiro o parâmetro toma o valor de VALIDO.
-@param Apontador para o estado
+@param e Apontador para o estado
 */
 void setSemaforo (ESTADO *e);
 

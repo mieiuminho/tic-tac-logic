@@ -14,9 +14,6 @@ Esqueleto do programa
 #include "solver.h"
 #include "valida.h"
 
-#define GRELHA  4
-#define TAM     40
-
 /**
 \brief Função que processa as ordens recebidas pelo jogo.
 @param *e Apontador para o ESTADO.

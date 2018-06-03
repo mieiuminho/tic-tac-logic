@@ -6,37 +6,60 @@
 Definição do estado e das funções que convertem estados em strings e vice-versa
 */
 
-/** \brief O tamanho máximo da grelha */
+/**
+\brief O tamanho máximo da grelha
+*/
 #define MAX_GRID     20
-#define MAX_HISTU    1601
-#define MAX_HISTR    6
-#define MAX_HISTA    10
+
+/**
+\brief Possibilidades para a grelha
+*/
 typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O, HINT_X, HINT_O} VALOR;
+
+/**
+\brief Fases do jogo possiveis
+*/
 typedef enum {START, LOBBY, EASY, MEDIUM, HARD, GAME} ID;
+
+/**
+\brief Fases de para a validade de um Estado
+*/
 typedef enum {INVALIDO, IMPOSSIVEL, VALIDO} VALIDADE;
+
+/**
+\brief Temas possiveis para o jogo
+*/
 typedef enum {DEFAULT, DRACULA, MONOKAI} THEME;
 
 /**
 \brief Lista ligada que armazena o histórico.
-@param x Coordenada correspondente ao eixo dos xx da última posição jogada.
-@param y Coordenada correspondente ao eixo dos yy da última posição jogada.
-@param a Número da âncora atual.
+@var x Coordenada correspondente ao eixo dos xx da última posição jogada.
+@var y Coordenada correspondente ao eixo dos yy da última posição jogada.
+@var a Número da âncora atual.
 */
-typedef struct lista
-{
-    int x,y,a;
-    struct lista * next;
-}* LISTA;
-
+typedef struct lista {
+    int x, y, a;
+    struct lista *next;
+} *LISTA;
 
 /**
 \brief Estrutura que armazena o estado do jogo
+@var id Fase do jogo
+@var tema Tema atual
+@var num_lins Número de linhas
+@var num_cols Número de colunas
+@var grelha Matriz do jogo
+@var validade Inteiro que mostra a validade
+@var undo Lista do undo
+@var redo Lista do redo
+@var sizeU Tamanho da lista undo
+@var sizeR Tamanho da lista redo
+@var numAncs Número de ancoras
 */
 typedef struct estado {
   int id;
   int tema;
-  int num_lins;
-  int num_cols;
+  int num_lins, num_cols;
   char grelha[MAX_GRID][MAX_GRID];
   int validade;
   LISTA undo,redo;
@@ -44,26 +67,12 @@ typedef struct estado {
 } ESTADO;
 
 /**
-\brief Função que converte um estado numa string
-@param e O estado
-@returns A string correspondente ao estado e
-*/
-char *estado2str(ESTADO);
-
-/**
-\brief Função que converte uma string num estado
-@param argumentos Uma string contendo os argumentos passados à CGI
-@returns O estado correspondente à string dos argumentos
-*/
-ESTADO str2estado(char *);
-
-/**
 \brief Função que lê de um ficheiro as informações relativas ao ESTADO de
 um determinado usuário.
 @param *e Apontador para o ESTADO.
 @param *user Nome de usuário.
 */
-void readFile (char *user ,ESTADO *e);
+void readFile (char *user, ESTADO *e);
 
 /**
 \brief Função que escreve num ficheiro as informações relativas ao ESTADO
@@ -71,7 +80,7 @@ de um determinado usuário.
 @param *user Nome de usuário.
 @param e Estado.
 */
-void writeFile (char *user ,ESTADO e);
+void writeFile (char *user, ESTADO e);
 
 /**
 \brief Função que inicializa os parâmetros do estado.
@@ -123,6 +132,5 @@ duas sub-strings sendo elas o utilizador e a ação a ser realizada para
 @param *action String onde será guardada a ação a realizar, usando o exemplo anterior "undo".
 */
 void getUserAndAction(char *link, char *user, char *action);
-
 
 #endif

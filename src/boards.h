@@ -7,6 +7,10 @@
 Criação das funções que desenham tabuleiros
 */
 
+
+/**
+\brief Valor máximo para o caminho de uma diretória
+*/
 #define MAX_PATH 100
 
 /**
@@ -30,6 +34,5 @@ void boardLevelPath (ESTADO *e, char *level);
 @returns O estado
 */
 ESTADO le_tabuleiro(ESTADO *e, int x);
-
 
 #endif

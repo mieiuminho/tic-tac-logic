@@ -32,8 +32,17 @@ int validaPeca (PUZZLE *board, int i, int j);
 */
 int isEqual (PUZZLE *board, int i, int j, int x, int y);
 
+/**
+\brief Função que verifica se um tabuleiro está completo, ou seja, se nao 
+existem peças "VAZIA", devolvendo 1 caso afirmativo ou 0 caso contrário.
+*/
 int isFull (PUZZLE *board);
 
+/**
+\brief Função que verifica se um tabuleiro é valido, utilizando a função 
+@validaPeca@, devolvendo 1 caso afirmativo ou 0 caso contrário.
+@param *board Apontador para o tabuleiro.
+*/
 int validade (PUZZLE *board);
 
 #endif

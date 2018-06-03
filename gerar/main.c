@@ -11,7 +11,11 @@ Esqueleto do programa
 #include "puzzle.h"
 #include "solver.h"
 
-
+/**
+\brief Função que converte os números recebidos na chamada do programa,
+sob a forma de "char", em inteiros.
+@param *num String recebida.
+*/
 int string2int (char const *num)
 {
   int r = 0;
@@ -24,6 +28,10 @@ int string2int (char const *num)
   return r;
 }
 
+/**
+\brief Função que desenha o tabuleiro no terminal.
+@param *board Apontador para o tabuleiro.
+*/
 void showBoard (PUZZLE *board)
 {
   int i, j;
@@ -45,6 +53,11 @@ void showBoard (PUZZLE *board)
   }
 }
 
+/**
+\brief Função que cria um tabuleiro com o tamanho recebido nos argumentos
+sendo todas as peças "VAZIA".
+@param *board Apontador para o tabuleiro.
+*/
 void tudoVazia (PUZZLE *board)
 {
   int i, j;
@@ -53,6 +66,10 @@ void tudoVazia (PUZZLE *board)
       board->grelha[i][j] = VAZIA;
 }
 
+/**
+\brief Função que substitui peças jogadas por peças vazias.
+@param *board Apontador para o tabuleiro.
+*/
 void retiraSols (PUZZLE *board)
 {
   int i,j;
@@ -66,6 +83,11 @@ void retiraSols (PUZZLE *board)
               }
 }
 
+/**
+\brief Função que escreve o tabuleiro num ficheiro.
+@param *fp Apontador para o ficheiro.
+@param *board Apontador para o tabuleiro.
+*/
 void writeBoard (FILE *fp, PUZZLE *board)
 {
   int i,j;
@@ -88,6 +110,12 @@ void writeBoard (FILE *fp, PUZZLE *board)
   }
 }
 
+/**
+\brief Função que guarda o tabuleiro na diretoria certa de acordo
+com a dificuldade.
+@param *board Apontador para o tabuleiro.
+@param dif Identificador da dificuldade.
+*/
 void saveBoard (PUZZLE *board, int dif)
 {
   char diretoria[6];
@@ -109,9 +137,10 @@ void saveBoard (PUZZLE *board, int dif)
     }
   }
 }
-//TODO: função que escreve num ficheiro o tabuleiro
-//void saveBoard (PUZZLE *board)
 
+/**
+\brief Função motora do processo de gerar tabuleiros.
+*/
 int main (int argc, char const *argv[])
 {
     PUZZLE board;
