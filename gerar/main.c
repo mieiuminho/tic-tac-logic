@@ -45,15 +45,15 @@ void showBoard (PUZZLE *board)
   }
 }
 
-void tudoVazia (PUZZLE * board)
+void tudoVazia (PUZZLE *board)
 {
-  int i,j;
+  int i, j;
   for (i = 0; i < board->num_cols; i++)
-            for (j = 0; j < board->num_lins; j++)
-              board->grelha[i][j] = VAZIA;
-} 
+    for (j = 0; j < board->num_lins; j++)
+      board->grelha[i][j] = VAZIA;
+}
 
-void retiraSols (PUZZLE * board)
+void retiraSols (PUZZLE *board)
 {
   int i,j;
   for (i = 0; i < board->num_cols; i++)
@@ -66,36 +66,36 @@ void retiraSols (PUZZLE * board)
               }
 }
 
-void writeBoard (FILE * fp,PUZZLE * board)
+void writeBoard (FILE *fp, PUZZLE *board)
 {
   int i,j;
   char c;
-  fprintf(fp,"%d %d\n",board->num_lins,board->num_cols);
-  for (i=0;i<board->num_lins;i++)
+  fprintf(fp, "%d %d\n", board->num_lins, board->num_cols);
+  for (i = 0 ; i < board->num_lins; i++)
   {
-      for (j=0;j<board->num_cols;j++)
+    for (j = 0; j < board->num_cols; j++)
+    {
+      switch (board->grelha[j][i])
       {
-        switch (board->grelha[j][i])
-        {
-          case FIXO_X:    c = 'X'; break;
-          case FIXO_O:    c = 'O'; break;
-          case BLOQUEADA: c = '#'; break;
-          default: c = '.';
-        }
-        fputc(c,fp);
+        case FIXO_X:    c = 'X'; break;
+        case FIXO_O:    c = 'O'; break;
+        case BLOQUEADA: c = '#'; break;
+        default: c = '.';
       }
-      fputc('\n',fp);
+      fputc(c,fp);
+    }
+    fputc('\n',fp);
   }
 }
 
-void saveBoard(PUZZLE * board,int dif)
+void saveBoard (PUZZLE *board, int dif)
 {
-  char diretoria [6];
-  char nomeTab [30];
-  if (dif==1) sprintf(diretoria,"easy/");
+  char diretoria[6];
+  char nomeTab[30];
+  if (dif == 1) sprintf(diretoria,"easy/");
   else sprintf(diretoria,"hard/");
-  int i=1,notFoundTab=1;
-  FILE * fp;
+  int i = 1, notFoundTab = 1;
+  FILE *fp;
   while (notFoundTab)
   {
     sprintf(nomeTab,"%stabuleiro%d.txt",diretoria,i);
@@ -104,7 +104,7 @@ void saveBoard(PUZZLE * board,int dif)
     else
     {
       fp=fopen(nomeTab,"w+");
-      notFoundTab=0;
+      notFoundTab = 0;
       writeBoard(fp,board);
     }
   }
@@ -112,7 +112,7 @@ void saveBoard(PUZZLE * board,int dif)
 //TODO: função que escreve num ficheiro o tabuleiro
 //void saveBoard (PUZZLE *board)
 
-int main(int argc, char const *argv[])
+int main (int argc, char const *argv[])
 {
     PUZZLE board;
     int nl, nc, dif;
@@ -127,6 +127,7 @@ int main(int argc, char const *argv[])
         board.num_lins = string2int (argv[2]);
         board.num_cols = string2int (argv[3]);
         board.sizeR = board.sizeU = board.numAncs = 0;
+        board.undo = board.redo = NULL;
         tudoVazia(&board);
         geraTabuleiro(&board,dif);
         retiraSols(&board);

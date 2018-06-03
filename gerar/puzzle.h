@@ -7,15 +7,14 @@ typedef enum {BLOQUEADA, FIXO_X, FIXO_O, VAZIA, SOL_X, SOL_O} VALOR;
 typedef enum {INVALIDO, IMPOSSIVEL, VALIDO} VALIDADE;
 
 typedef struct lista {
-    int x,y,a;
-    struct lista * next;
-}* LISTA;
+    int x, y, a;
+    struct lista *next;
+} *LISTA;
 
 typedef struct puzzle {
-  int num_lins;
-  int num_cols;
+  int num_lins, num_cols;
   int validade;
-  int sizeU,sizeR,numAncs;
+  int sizeU, sizeR, numAncs;
   LISTA undo,redo;
   char grelha[MAX_GRID][MAX_GRID];
 } PUZZLE;

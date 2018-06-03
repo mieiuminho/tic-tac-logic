@@ -24,8 +24,8 @@ void supor (PUZZLE *board,int *found)
 
 int solver_hard (PUZZLE *board)
 {
-  int i, j, found,foundX,foundO;
-  found=foundX=foundO=0;
+  int i, j, found, foundX, foundO;
+  found = foundX = foundO = 0;
 
   for (i = 0; (i < board->num_cols) && !found; i++)
     for (j = 0; (j < board->num_lins) && !found; j++)
@@ -86,16 +86,17 @@ int solver_easy (PUZZLE *board, int *x, int *y)
 
 void randomPlay (PUZZLE *board)
 {
-  int x, y, k,flag=1;
+  int x, y, k, flag = 1;
   k = rand() % 2;
 
-  while (flag)
+  while (flag == 1)
   {
     x = rand() % board->num_cols;
     y = rand() % board->num_lins;
     if (board->grelha[x][y] == VAZIA)
     {
-      board->grelha[x][y] = k ? FIXO_X : FIXO_O;flag=0;
+      board->grelha[x][y] = k ? FIXO_X : FIXO_O;
+      flag = 0;
     if (!validaPeca(board,x,y))
     {
       if (k) board->grelha[x][y]=FIXO_O;
