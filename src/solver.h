@@ -33,7 +33,7 @@ feita e coloca a peça na posição correspondente, caso não encontre nenhum pr
 a ancora e faz o mesmo para a peça seguinte.
 @param *e Apontador para o estado
 */
-void findImpossible (ESTADO *e);
+int findImpossible (ESTADO *e);
 
 /**
 \brief Função que percorre o tabuleiro e troca o GIF que indica que uma determinada peça
