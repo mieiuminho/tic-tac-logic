@@ -28,38 +28,36 @@ void boardLevelPath (ESTADO * e, char * level)
 }
 
 
-ESTADO le_tabuleiro(ESTADO * a,int x)
+ESTADO le_tabuleiro(ESTADO *a, int x)
 {
   ESTADO e;
-  e.tema=a->tema;
+  e.tema = a->tema;
   int nl, nc;
-  int i,j;
+  int i, j;
   char linha[20];
   char nomef[MAX_PATH];
   char level[60];
-
   boardLevelPath(a,level);
   sprintf(nomef, "%stabuleiro%d.txt", level, x);
   FILE *fp=fopen(nomef, "r");
-  if (fscanf(fp,"%d %d", &nl, &nc)==1) {};
-  e.num_lins = nl;
-  e.num_cols = nc;
-  e.sizeU=e.sizeR=e.numAncs=0;
-  e.validade=VALIDO;
-  e.undo=NULL;
-  e.redo=NULL;
-
-  for(i=0;i<nl;i++){
-    if (fscanf(fp, "%s", linha)==1)
-    {
-    for(j=0;j<nc;j++)
-      switch (linha[j]) {
-        case 'X':
-        case 'x': e.grelha[j][i] = FIXO_X;break;
-        case 'O':
-        case 'o': e.grelha[j][i] = FIXO_O;break;
-        case '#': e.grelha[j][i] = BLOQUEADA;break;
-        default : e.grelha[j][i] = VAZIA;
+  if (fscanf(fp,"%d %d", &nl, &nc) == 2){
+    e.num_lins = nl;
+    e.num_cols = nc;
+    e.sizeU = e.sizeR = e.numAncs = 0;
+    e.validade = VALIDO;
+    e.undo = NULL;
+    e.redo = NULL;
+  }
+  for(i = 0; i < nl; i++) {
+    if (fscanf(fp, "%s", linha)==1) {
+      for(j = 0; j < nc; j++)
+        switch (linha[j]) {
+          case 'X':
+          case 'x': e.grelha[j][i] = FIXO_X;break;
+          case 'O':
+          case 'o': e.grelha[j][i] = FIXO_O;break;
+          case '#': e.grelha[j][i] = BLOQUEADA;break;
+          default : e.grelha[j][i] = VAZIA;
         }
     }
   }
