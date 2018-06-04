@@ -7,50 +7,50 @@
 #include "menu.h"
 #include "valida.h"
 
-void supor (ESTADO *e,int *found)
+void supor (ESTADO * e,int * notfound)
 {
-  int x,y,tmp;
+  int x,y;
   marcaAncora(e);
-  while ((*found )==0)
+  while(*notfound==1)
   {
-    tmp = fillIn (e, &x, &y);
-    if (tmp == 1)
-    {
-      push(x, y, e->numAncs, &(e->undo));
-      e->sizeU++;
-    }
-    else if (tmp == 2) {e->grelha[x][y]=VAZIA;*found=2;}
-         else if (tmp==0) *found=1;
+    *notfound=fillIn(e,&x,&y);
+    if (*notfound==1) {push(x,y,e->numAncs,&(e->undo));e->sizeU++;}
   }
 }
 
-int findImpossible (ESTADO *e)
+int findImpossible(ESTADO * e)
 {
-  int i, j, found,foundX,foundO;
-  found=foundX=foundO=0;
-
-  for (i = 0; (i < e->num_cols) && !found; i++)
-    for (j = 0; (j < e->num_lins) && !found; j++)
-      if (e->grelha[i][j] == VAZIA)
+  int i,j,notfound;
+  notfound=1;
+  for (i=0;(i<e->num_cols)&&(notfound!=2);i++)
+  {
+    for (j=0;(j<e->num_lins)&&(notfound!=2);j++)
+    {
+      if (e->grelha[i][j]==VAZIA)
       {
-        e->grelha[i][j] = SOL_O;
-        found=0;
-        supor(e,&found);
-        if (found == 2)
-          foundX=1;
-        voltaAncora (e);
-        found = 0;
-        e->grelha[i][j] = SOL_X;
-        supor(e,&found);
-        if (found == 2)
-            foundO=1;
-        if (foundX && foundO) {e->grelha[i][j]=BLOQUEADA;found=0;}
-        else if (foundX) {e->grelha[i][j]=SOL_X;found=1;}
-             else if (foundO)  {e->grelha[i][j]=SOL_O;found=1;}
-                  else {e->grelha[i][j]=VAZIA;found=0;}
-        voltaAncora(e);
+        e->grelha[i][j]=HINT_O;
+        supor(e,&notfound);
+        if (notfound==2)
+          e->grelha[i][j]=HINT_X;
+        else
+        {
+          voltaAncora(e);
+          notfound=1;
+          e->grelha[i][j]=HINT_X;
+          supor(e,&notfound);
+          if (notfound==2)
+            e->grelha[i][j]=HINT_O;
+          else
+          {
+            e->grelha[i][j]=VAZIA;
+            notfound=1;
+          }
         }
-    return found;
+        voltaAncora(e);
+      }
+    }
+  }
+  return notfound;
 }
 
 // Função que percorre o tabuleiro e preenche com os casos imediatos
@@ -103,9 +103,12 @@ void remHints (ESTADO * e)
 void completaTabuleiro (ESTADO * e)
 {
   int x,y;
+  setSemaforo(e);
   while ((!isFull(e)) && e->validade==VALIDO)
   {
     while (fillIn(e,&x,&y));
+    setSemaforo(e);
     findImpossible(e);
+    setSemaforo(e);
   }
 }
