@@ -1,6 +1,7 @@
 CC         = gcc
 CFLAGS     = -std=c11 -O2 -Wall -Wextra -pedantic -g
-OBJS       = main.o boards.o estado.o graphics.o historico.o menu.o solver.o valida.o
+OBJS       = src/main.o src/boards.o src/estado.o src/graphics.o src/historico.o src/menu.o src/solver.o src/valida.o
+SRCDIR     = src
 EXECUTAVEL = GandaGalo
 
 install: $(EXECUTAVEL)
