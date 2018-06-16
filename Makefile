@@ -1,7 +1,7 @@
 CC         = gcc
 CFLAGS     = -std=c11 -O2 -Wall -Wextra -pedantic -g
-OBJS       = src/main.o src/boards.o src/estado.o src/graphics.o src/historico.o src/menu.o src/solver.o src/valida.o
-SRCDIR     = src
+OBJS       = $(patsubst %.c,%.o,$(wildcard $(SRCDIR)*.c))
+SRCDIR     = src/
 EXECUTAVEL = GandaGalo
 
 install: $(EXECUTAVEL)
@@ -31,6 +31,6 @@ clean:
 	@echo "Cleaning..."
 	@echo ""
 	@curl https://raw.githubusercontent.com/nelsonmestevao/spells/master/art/maid.ascii
-	@rm -rf *.o $(EXECUTAVEL) Doxyfile latex html
+	@rm -rf $(SRCDIR)*.o $(EXECUTAVEL) Doxyfile latex html
 	@echo ""
 	@echo "...✓ done!"
