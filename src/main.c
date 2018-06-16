@@ -19,41 +19,40 @@ Esqueleto do programa
 @param *e Apontador para o ESTADO.
 @param *ordem String corresponde à ordem recebida.
 */
-void processa(ESTADO * e,char * ordem)
+void processa(ESTADO *e, char *ordem)
 {
-    int x,y,a;
-    remHints(e);
-    switch(ordem[0])
-    {
-        case 'x': sscanf(ordem,"x-%d-y-%d",&x,&y);
-                  if (e->grelha[x][y] == SOL_O)
-                      e->grelha[x][y]=VAZIA;
-                  else e->grelha[x][y]++;
-                  push(x,y,e->numAncs,&(e->undo));
-                  e->sizeU++;
-                  break;
-        case 'a': marcaAncora(e);
-                  break;
-        case 'v': voltaAncora(e);
-                  break;
-        case 'u': fazUndo(e,&x,&y,&a);
-                  break;
-        case 'r': fazRedo(e,&x,&y,&a);
-                  break;
-        case 'i': sscanf(ordem,"id-%d",&x);
-                  e->id = x;
-                  break;
-        case 't': sscanf(ordem,"tab%d",&x);
-                  (*e)=le_tabuleiro(e,x);
-                  e->id=GAME;
-                  break;
-        case 'c': colorscheme(e);
-                  break;
-        case 'h': if (fillIn(e,&x,&y)==0) findImpossible(e);
-                  break;
-        case 's': completaTabuleiro(e);
-                  break;
-    }
+  int x, y, a;
+  remHints(e);
+  switch(ordem[0]) {
+    case 'x': sscanf(ordem, "x-%d-y-%d", &x, &y);
+              if (e->grelha[x][y] == SOL_O)
+                  e->grelha[x][y] = VAZIA;
+              else e->grelha[x][y]++;
+              push(x, y, e->numAncs, &(e->undo));
+              e->sizeU++;
+              break;
+    case 'a': marcaAncora(e);
+              break;
+    case 'v': voltaAncora(e);
+              break;
+    case 'u': fazUndo(e, &x, &y, &a);
+              break;
+    case 'r': fazRedo(e, &x, &y, &a);
+              break;
+    case 'i': sscanf(ordem, "id-%d", &x);
+              e->id = x;
+              break;
+    case 't': sscanf(ordem, "tab%d", &x);
+              *e = le_tabuleiro(e, x);
+              e->id = GAME;
+              break;
+    case 'c': colorscheme(e);
+              break;
+    case 'h': if (fillIn(e, &x, &y) == 0) findImpossible(e);
+              break;
+    case 's': completaTabuleiro(e);
+              break;
+  }
 }
 
 /**
@@ -66,24 +65,24 @@ int main()
   char user[20];
   char action[20];
   char background[3][8] = {"#000000", "#44475a", "#272822"};
-  getUserAndAction(getenv("QUERY_STRING"),user,action);
-  readFile(user,&e);
-  processa(&e,action);
-  writeFile(user,e);
+  getUserAndAction(getenv("QUERY_STRING"), user, action);
+  readFile(user, &e);
+  processa(&e, action);
+  writeFile(user, e);
 
   COMECAR_HTML;
     ABRIR_SVG(ECRA_X, ECRA_Y, &(background[e.tema][0]));
 
     switch (e.id) {
-      case START: drawStart(&e,user);
+      case START: drawStart(&e, user);
                   break;
-      case LOBBY: drawLobby(&e,user);
+      case LOBBY: drawLobby(&e, user);
                   break;
       case EASY:
       case MEDIUM:
-      case HARD: drawLevel(&e,user);
+      case HARD: drawLevel(&e, user);
                  break;
-      case GAME: drawGame(&e,user);
+      case GAME: drawGame(&e, user);
                  break;
     }
     FECHAR_SVG;

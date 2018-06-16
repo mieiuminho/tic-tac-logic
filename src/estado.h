@@ -72,7 +72,7 @@ um determinado usuário.
 @param *e Apontador para o ESTADO.
 @param *user Nome de usuário.
 */
-void readFile (char *user, ESTADO *e);
+void readFile(char *user, ESTADO *e);
 
 /**
 \brief Função que escreve num ficheiro as informações relativas ao ESTADO
@@ -80,13 +80,13 @@ de um determinado usuário.
 @param *user Nome de usuário.
 @param e Estado.
 */
-void writeFile (char *user, ESTADO e);
+void writeFile(char *user, ESTADO e);
 
 /**
 \brief Função que inicializa os parâmetros do estado.
 @param *e Apontador para o ESTADO.
 */
-void inicializar (ESTADO *e);
+void inicializar(ESTADO *e);
 
 /**
 \brief Função que retira um nodo, à cabeça, sendo que também guarda as
@@ -98,7 +98,7 @@ ou à lista do redo ou à lista do undo.
 @param *a número de ancora correspondente do nodo retirado.
 @param *l lista à qual retirar o nodo.
 */
-void pop (int *x, int *y, int *a, LISTA *l);
+void pop(int *x, int *y, int *a, LISTA *l);
 
 /**
 \brief Função que adiciona um nodo, à cabeça, com as coordenadas de uma determinada jogada
@@ -109,7 +109,7 @@ ou à lista do redo ou à lista do undo.
 @param a número de ancora correspondente.
 @param *l lista à qual adicionar o nodo.
 */
-void push (int x, int y, int a , LISTA *l);
+void push(int x, int y, int a , LISTA *l);
 
 /**
 \brief Função que adiciona um nodo, no final, com as coordenadas de uma determinada jogada
@@ -120,7 +120,7 @@ ou à lista do redo ou à lista do undo.
 @param a número de ancora correspondente.
 @param *l lista à qual adicionar o nodo.
 */
-void addEnd (int x, int y, int a, LISTA *l);
+void addEnd(int x, int y, int a, LISTA *l);
 
 
 /**

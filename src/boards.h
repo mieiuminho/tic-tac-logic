@@ -7,7 +7,6 @@
 Criação das funções que desenham tabuleiros
 */
 
-
 /**
 \brief Valor máximo para o caminho de uma diretória
 */

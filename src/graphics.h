@@ -29,7 +29,7 @@ Criação das funções responsaveis pela aparência do jogo
 @param J Linha da grelha
 @param E Apontador para o estado
 */
-#define MUDA_SEGUINTE(I,J,E) E->grelha[I][J] = (E->grelha[I][J]==5) ? 3 : ((E->grelha[I][J])+1)
+#define MUDA_SEGUINTE(I,J,E) E->grelha[I][J] = (E->grelha[I][J] == 5) ? 3 : ((E->grelha[I][J]) + 1)
 
 
 /**
@@ -47,14 +47,14 @@ void abrirLinkABS(char *l);
 \brief Função que indica o próximo estado.
 @param *e Apontador para o estado.
 */
-void colorscheme (ESTADO *e);
+void colorscheme(ESTADO *e);
 
 /**
 \brief Função que coloca em path a diretória das imagens correspondentes ao tema.
 @param *e Apontador para o estado.
 @param *path String onde será escrita a diretoria.
 */
-void colorSchemePath (ESTADO *e, char *path);
+void colorSchemePath(ESTADO *e, char *path);
 
 /**
 \brief Função que coloca em *sf o fator de escala necessário para desenhar todos os
@@ -74,7 +74,7 @@ tratar dos deslocamentos de cada uma das peças.
 @param *fx Apontador para o inteiro onde ficará guardada a posição x (em valor absoluto) da peça do canto superior esquerdo.
 @param *fy Apontador para o inteiro onde ficará guardada a posição y (em valor absoluto) da peça do canto superior esquerdo.
 */
-void calculaCentroPeca (ESTADO *e, int sf, int *fx, int *fy);
+void calculaCentroPeca(ESTADO *e, int sf, int *fx, int *fy);
 
 /**
 \brief Função que desenha uma peça jogável no tabuleiro, ou seja, ou peça com
@@ -86,7 +86,7 @@ a instrução para mudar para o estado "seguinte".
 @param s String com o nome da imagem da respetiva peça a desenhar.
 @param user String com o nome do utilizador que está a jogar.
 */
-void butaoProxEstadoJog (ESTADO *e, int i, int j, int sf, char *s, char *user);
+void butaoProxEstadoJog(ESTADO *e, int i, int j, int sf, char *s, char *user);
 
 /**
 \brief Função que desenha uma peça bloqueada do tabuleiro.

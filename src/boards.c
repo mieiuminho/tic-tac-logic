@@ -5,28 +5,27 @@
 #include "historico.h"
 #include "valida.h"
 
-void fazTab(ESTADO *e,char * user)
+void fazTab(ESTADO *e, char *user)
 {
   int i, j, sf;
   getScaleFactor(&sf, e);
   for (i = 0; i < e->num_cols; i++)
     for (j = 0; j < e->num_lins; j++)
-      drawPeca(i, j, e, sf, validaPeca(e, i, j),user,0,0);
+      drawPeca(i, j, e, sf, validaPeca(e, i, j), user, 0, 0);
 }
 
-void boardLevelPath (ESTADO * e, char * level)
+void boardLevelPath (ESTADO *e, char *level)
 {
   switch(e->id)
   {
-    case EASY:   sprintf(level,"%s%s/",TAB_PATH,"easy");
+    case EASY:   sprintf(level, "%s%s/", TAB_PATH, "easy");
                  break;
-    case MEDIUM: sprintf(level,"%s%s/",TAB_PATH,"medium");
+    case MEDIUM: sprintf(level, "%s%s/", TAB_PATH, "medium");
                  break;
-    case HARD:   sprintf(level,"%s%s/",TAB_PATH,"hard");
+    case HARD:   sprintf(level, "%s%s/", TAB_PATH, "hard");
                  break;
   }
 }
-
 
 ESTADO le_tabuleiro(ESTADO *a, int x)
 {
@@ -37,7 +36,7 @@ ESTADO le_tabuleiro(ESTADO *a, int x)
   char linha[20];
   char nomef[MAX_PATH];
   char level[60];
-  boardLevelPath(a,level);
+  boardLevelPath(a, level);
   sprintf(nomef, "%stabuleiro%d.txt", level, x);
   FILE *fp=fopen(nomef, "r");
   if (fscanf(fp,"%d %d", &nl, &nc) == 2){
@@ -49,7 +48,7 @@ ESTADO le_tabuleiro(ESTADO *a, int x)
     e.redo = NULL;
   }
   for(i = 0; i < nl; i++) {
-    if (fscanf(fp, "%s", linha)==1) {
+    if (fscanf(fp, "%s", linha) == 1) {
       for(j = 0; j < nc; j++)
         switch (linha[j]) {
           case 'X':

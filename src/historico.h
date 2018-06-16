@@ -32,7 +32,7 @@ e retirando da lista ligada do Undo.
 @param y Apontador para a coordenada do eixo yy da jogada.
 @param a Apontador para o numero da ancora
 */
-void fazUndo(ESTADO *e , int *x, int *y, int *a);
+void fazUndo(ESTADO *e, int *x, int *y, int *a);
 
 /**
 \brief Função que realiza o processo de Redo do Jogo,
