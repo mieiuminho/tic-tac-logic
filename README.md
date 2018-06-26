@@ -8,9 +8,9 @@
 
 ## Team
 
-![Nelson Estevão][nelson-pic] | ![Pedro Ribeiro][pedro-pic] | ![Rui Mendes][rui-pic]
-:---: | :---: | :---:
-[Nelson Estevão][nelson] | [Pedro Ribeiro][pedro] | [Rui Mendes][rui]
+| ![Nelson Estevão][nelson-pic] | ![Pedro Ribeiro][pedro-pic] | ![Rui Mendes][rui-pic] |
+| :---------------------------: | :-------------------------: | :--------------------: |
+|   [Nelson Estevão][nelson]    |   [Pedro Ribeiro][pedro]    |   [Rui Mendes][rui]    |
 
 [nelson]: https://github.com/nelsonmestevao
 [nelson-pic]: https://github.com/nelsonmestevao.png?size=120
